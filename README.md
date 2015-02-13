@@ -1,2 +1,2 @@
 # CSAssess
-# NCSSM CS Miniterm Group '15
+ NCSSM CS Miniterm Group '15
