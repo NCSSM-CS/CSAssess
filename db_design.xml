@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="401" y="665" name="answer">
+</datatypes><table x="247" y="616" name="answer">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -63,7 +63,7 @@
 </key>
 <comment>a specific answer to a specific question. Also includes 'solutions' which are teacher submitted answers to the question.</comment>
 </table>
-<table x="157" y="606" name="question">
+<table x="30" y="536" name="question">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -104,7 +104,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="462" y="331" name="user">
+<table x="576" y="261" name="user">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -126,6 +126,46 @@
 <datatype>VARCHAR(32)</datatype>
 <comment>username+password MD5</comment>
 </row>
+<row name="role" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<comment>ADMIN, TEACHER, STUDENT</comment>
+</row>
+<row name="edit_user" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="edit_question" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="edit_answer" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="edit_test_case" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="add_assessment" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="edit_permission" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_student_info" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_teacher_info" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_answer" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_test_case" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_question" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
+<row name="view_all_question" null="0" autoincrement="0">
+<datatype>bit</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -133,7 +173,7 @@
 </key>
 <comment>contains username, passwords, and permissions. Includes all roles: Admin, Teacher, TA, student</comment>
 </table>
-<table x="114" y="257" name="course">
+<table x="50" y="188" name="course">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -155,7 +195,7 @@
 </key>
 <comment>such as 'Databases'</comment>
 </table>
-<table x="261" y="185" name="section">
+<table x="268" y="44" name="section">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -185,7 +225,7 @@
 </key>
 <comment>A concrete example of a class including specific dates, times, and roster.</comment>
 </table>
-<table x="416" y="104" name="assessment">
+<table x="576" y="41" name="assessment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -208,7 +248,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="399" y="491" name="test_case">
+<table x="197" y="317" name="test_case">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -234,7 +274,7 @@
 </key>
 <comment>cases specific to a question, weight signifies its relative importance to the problem</comment>
 </table>
-<table x="686" y="391" name="topic">
+<table x="836" y="330" name="topic">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -253,7 +293,7 @@
 </key>
 <comment>such as 'normal forms'</comment>
 </table>
-<table x="660" y="605" name="comment">
+<table x="884" y="610" name="comment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -276,7 +316,7 @@
 </key>
 <comment>comments given by the teacher or TA specific to an answer</comment>
 </table>
-<table x="639" y="116" name="job">
+<table x="942" y="60" name="job">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -316,4 +356,3 @@
 <comment>task for a user to complete. Assigned by teachers to students and TAs. The 'verb' to an assessment.</comment>
 </table>
 </sql>
-
