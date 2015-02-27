@@ -1,6 +1,6 @@
 This is to test if I know how to use this stage thing.
 
-- Ebube Chuba
+- Ebbed Cuba
 
 
 
@@ -11,3 +11,7 @@ I shall also test my knowledge of git.
 Test post please ignore.
 
 - Jack
+
+I can use git now!
+
+-Ben
