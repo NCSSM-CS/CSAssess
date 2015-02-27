@@ -3,41 +3,41 @@
 <!-- Active URL: http://ondras.zarovi.cz/sql/demo/ -->
 <sql>
 <datatypes db="mysql">
-    <group label="Numeric" color="rgb(238,238,170)">
-        <type label="Integer" length="0" sql="INTEGER" quote=""/>
-        <type label="TINYINT" length="0" sql="TINYINT" quote=""/>
-        <type label="SMALLINT" length="0" sql="SMALLINT" quote=""/>
-        <type label="MEDIUMINT" length="0" sql="MEDIUMINT" quote=""/>
-        <type label="INT" length="0" sql="INT" quote=""/>
-        <type label="BIGINT" length="0" sql="BIGINT" quote=""/>
-        <type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
-        <type label="Single precision" length="0" sql="FLOAT" quote=""/>
-        <type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
-    </group>
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" length="0" sql="INTEGER" quote=""/>
+	 	<type label="TINYINT" length="0" sql="TINYINT" quote=""/>
+	 	<type label="SMALLINT" length="0" sql="SMALLINT" quote=""/>
+	 	<type label="MEDIUMINT" length="0" sql="MEDIUMINT" quote=""/>
+	 	<type label="INT" length="0" sql="INT" quote=""/>
+		<type label="BIGINT" length="0" sql="BIGINT" quote=""/>
+		<type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
+		<type label="Single precision" length="0" sql="FLOAT" quote=""/>
+		<type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+	</group>
 
-    <group label="Character" color="rgb(255,200,200)">
-        <type label="Char" length="1" sql="CHAR" quote="'"/>
-        <type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
-        <type label="Text" length="0" sql="MEDIUMTEXT" re="TEXT" quote="'"/>
-        <type label="Binary" length="1" sql="BINARY" quote="'"/>
-        <type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
-        <type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
-    </group>
+	<group label="Character" color="rgb(255,200,200)">
+		<type label="Char" length="1" sql="CHAR" quote="'"/>
+		<type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
+		<type label="Text" length="0" sql="MEDIUMTEXT" re="TEXT" quote="'"/>
+		<type label="Binary" length="1" sql="BINARY" quote="'"/>
+		<type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
+		<type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
+	</group>
 
-    <group label="Date &amp; Time" color="rgb(200,255,200)">
-        <type label="Date" length="0" sql="DATE" quote="'"/>
-        <type label="Time" length="0" sql="TIME" quote="'"/>
-        <type label="Datetime" length="0" sql="DATETIME" quote="'"/>
-        <type label="Year" length="0" sql="YEAR" quote=""/>
-        <type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
-    </group>
-    
-    <group label="Miscellaneous" color="rgb(200,200,255)">
-        <type label="ENUM" length="1" sql="ENUM" quote=""/>
-        <type label="SET" length="1" sql="SET" quote=""/>
-        <type label="Bit" length="0" sql="bit" quote=""/>
-    </group>
-</datatypes><table x="518" y="537" name="answers">
+	<group label="Date &amp; Time" color="rgb(200,255,200)">
+		<type label="Date" length="0" sql="DATE" quote="'"/>
+		<type label="Time" length="0" sql="TIME" quote="'"/>
+		<type label="Datetime" length="0" sql="DATETIME" quote="'"/>
+		<type label="Year" length="0" sql="YEAR" quote=""/>
+		<type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
+	</group>
+	
+	<group label="Miscellaneous" color="rgb(200,200,255)">
+		<type label="ENUM" length="1" sql="ENUM" quote=""/>
+		<type label="SET" length="1" sql="SET" quote=""/>
+		<type label="Bit" length="0" sql="bit" quote=""/>
+	</group>
+</datatypes><table x="401" y="665" name="answer">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -46,12 +46,65 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="question_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="question" row="id" />
+</row>
+<row name="score" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="answer_text" null="0" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>a specific answer to a specific question. Also includes 'solutions' which are teacher submitted answers to the question.</comment>
+</table>
+<table x="157" y="606" name="question">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="created" null="0" autoincrement="0">
+<datatype>DATETIME</datatype>
+</row>
+<row name="created_by" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="language" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<comment>c, c++, java...</comment>
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<default>ALL</default><comment>all, test, quiz, practice, inactive</comment>
+</row>
+<row name="difficulty" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<comment>1-10</comment>
+</row>
+<row name="prev_question_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="question" row="id" />
+<comment>references previous versions of the question</comment>
+</row>
+<row name="version_number" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>1</default></row>
+<row name="last_given" null="1" autoincrement="0">
+<datatype>DATETIME</datatype>
+<default>NULL</default></row>
+<row name="question_text" null="0" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="177" y="532" name="questions">
+<table x="462" y="331" name="user">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -60,20 +113,8 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="42" y="207" name="users">
-<row name="id" null="0" autoincrement="1">
-<datatype>INTEGER</datatype>
-</row>
-<row name="created" null="0" autoincrement="0">
-<datatype>DATETIME</datatype>
-</row>
-<row name="created_by" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+<relation table="user" row="id" />
 </row>
 <row name="last_login" null="0" autoincrement="0">
 <datatype>DATETIME</datatype>
@@ -88,8 +129,11 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<key type="INDEX" name="">
+</key>
+<comment>contains username, passwords, and permissions. Includes all roles: Admin, Teacher, TA, student</comment>
 </table>
-<table x="301" y="51" name="courses">
+<table x="114" y="257" name="course">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -98,18 +142,20 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
 </row>
 <row name="course_code" null="0" autoincrement="0">
 <datatype>CHAR(6)</datatype>
 </row>
-<row name="course_name" null="0" autoincrement="0">
+<row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>such as 'Databases'</comment>
 </table>
-<table x="501" y="51" name="sections">
+<table x="261" y="185" name="section">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -118,18 +164,28 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
 </row>
-<row name="section_course" null="0" autoincrement="0">
+<row name="course_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="course" row="id" />
 </row>
-<row name="section_period" null="0" autoincrement="0">
+<row name="year" null="0" autoincrement="0">
+<datatype>YEAR</datatype>
+</row>
+<row name="term" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<comment>school dependant</comment>
+</row>
+<row name="period" null="0" autoincrement="0">
 <datatype>ENUM</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>A concrete example of a class including specific dates, times, and roster.</comment>
 </table>
-<table x="529" y="274" name="assignments">
+<table x="416" y="104" name="assessment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -138,12 +194,21 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="type" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<comment>problem_set, test, quiz</comment>
+</row>
+<row name="section_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="section" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="365" y="549" name="test_cases">
+<table x="399" y="491" name="test_case">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -152,12 +217,24 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="question_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="question" row="id" />
+</row>
+<row name="weight" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="content" null="0" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>cases specific to a question, weight signifies its relative importance to the problem</comment>
 </table>
-<table x="271" y="268" name="topics">
+<table x="686" y="391" name="topic">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -166,15 +243,17 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
 </row>
-<row name="topic_name" null="0" autoincrement="0">
+<row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
 <default>'Underwater Basket Weaving'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>such as 'normal forms'</comment>
 </table>
-<table x="462" y="396" name="comments">
+<table x="660" y="605" name="comment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -183,18 +262,21 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
 </row>
-<row name="comment_answer" null="0" autoincrement="0">
+<row name="answer_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="answer" row="id" />
 </row>
-<row name="comment_content" null="0" autoincrement="0">
+<row name="content" null="0" autoincrement="0">
 <datatype>VARCHAR(140)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>comments given by the teacher or TA specific to an answer</comment>
 </table>
-<table x="312" y="390" name="jobs">
+<table x="639" y="116" name="job">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -203,18 +285,35 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="user" row="id" />
 </row>
-<row name="job_section" null="0" autoincrement="0">
+<row name="section_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+<relation table="section" row="id" />
 </row>
-<row name="job_type" null="0" autoincrement="0">
+<row name="type" null="0" autoincrement="0">
 <datatype>ENUM</datatype>
 </row>
-<row name="job_content" null="0" autoincrement="0">
+<row name="assessment_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="assessment" row="id" />
+</row>
+<row name="assigned_to_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="content" null="0" autoincrement="0">
 <datatype>VARCHAR(140)</datatype>
+</row>
+<row name="taken_by_user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="user" row="id" />
+<comment>used when TA is grading, name of gradee</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>task for a user to complete. Assigned by teachers to students and TAs. The 'verb' to an assessment.</comment>
 </table>
 </sql>
+
