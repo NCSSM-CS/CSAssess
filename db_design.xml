@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <!-- Active URL: http://ondras.zarovi.cz/sql/demo/ -->
@@ -219,7 +218,3 @@
 </key>
 </table>
 </sql>
-
-=======
-testing
->>>>>>> b0f807c3b35ffe46a1131efdb27035bfe18f5330
