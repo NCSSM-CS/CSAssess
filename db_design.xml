@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="296" y="576" name="answers">
+</datatypes><table x="401" y="665" name="answers">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -46,17 +46,17 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
-<row name="answer_question" null="0" autoincrement="0">
+<row name="question_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="questions" row="id" />
+<relation table="question" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="97" y="630" name="questions">
+<table x="157" y="606" name="question">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -65,13 +65,13 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="90" y="358" name="users">
+<table x="470" y="305" name="user">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -80,8 +80,8 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
-<relation table="users" row="id" />
+<relation table="user" row="id" />
+<relation table="user" row="id" />
 </row>
 <row name="last_login" null="0" autoincrement="0">
 <datatype>DATETIME</datatype>
@@ -100,7 +100,7 @@
 </key>
 <comment>contains username, passwords, and permissions</comment>
 </table>
-<table x="327" y="233" name="courses">
+<table x="118" y="251" name="course">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -109,7 +109,7 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
 <row name="course_code" null="0" autoincrement="0">
 <datatype>CHAR(6)</datatype>
@@ -122,7 +122,7 @@
 </key>
 <comment>such as 'Databases'</comment>
 </table>
-<table x="494" y="235" name="sections">
+<table x="261" y="185" name="section">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -131,11 +131,11 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
-<row name="section_course" null="0" autoincrement="0">
+<row name="course_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="courses" row="id" />
+<relation table="course" row="id" />
 </row>
 <row name="section_year" null="0" autoincrement="0">
 <datatype>YEAR</datatype>
@@ -152,7 +152,7 @@
 </key>
 <comment>A concrete example of a class including specific dates, times, and roster.</comment>
 </table>
-<table x="589" y="452" name="assessments">
+<table x="416" y="104" name="assessment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -161,13 +161,21 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
+</row>
+<row name="assess_type" null="0" autoincrement="0">
+<datatype>ENUM</datatype>
+<comment>problem_set, test, quiz</comment>
+</row>
+<row name="section_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="section" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="234" y="701" name="test_cases">
+<table x="399" y="491" name="test_case">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -176,11 +184,11 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
-<row name="case_question" null="0" autoincrement="0">
+<row name="question_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="questions" row="id" />
+<relation table="question" row="id" />
 </row>
 <row name="case_weight" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -192,7 +200,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="581" y="756" name="topics">
+<table x="680" y="390" name="topic">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -201,7 +209,7 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
 <row name="topic_name" null="0" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
@@ -210,7 +218,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="541" y="553" name="comments">
+<table x="660" y="605" name="comment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -219,9 +227,9 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
-<row name="comment_answer" null="0" autoincrement="0">
+<row name="answer_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="answers" row="id" />
 </row>
@@ -232,7 +240,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="685" y="247" name="jobs">
+<table x="569" y="136" name="job">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -241,17 +249,28 @@
 </row>
 <row name="created_by" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="users" row="id" />
+<relation table="user" row="id" />
 </row>
-<row name="job_section" null="0" autoincrement="0">
+<row name="section_id" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="sections" row="id" />
+<relation table="section" row="id" />
+</row>
+<row name="assigned_to_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
 </row>
 <row name="job_type" null="0" autoincrement="0">
 <datatype>ENUM</datatype>
 </row>
 <row name="job_content" null="0" autoincrement="0">
 <datatype>VARCHAR(140)</datatype>
+</row>
+<row name="assessment_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="assessment" row="id" />
+</row>
+<row name="taken_by_user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>used when TA is grading, name of gradee</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
