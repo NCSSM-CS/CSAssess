@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="247" y="616" name="answer">
+</datatypes><table x="227" y="440" name="answer">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -63,7 +63,7 @@
 </key>
 <comment>a specific answer to a specific question. Also includes 'solutions' which are teacher submitted answers to the question.</comment>
 </table>
-<table x="30" y="536" name="question">
+<table x="49" y="618" name="question">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -104,7 +104,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="576" y="261" name="user">
+<table x="644" y="394" name="user">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -173,7 +173,7 @@
 </key>
 <comment>contains username, passwords, and permissions. Includes all roles: Admin, Teacher, TA, student</comment>
 </table>
-<table x="50" y="188" name="course">
+<table x="155" y="53" name="course">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -195,7 +195,7 @@
 </key>
 <comment>such as 'Databases'</comment>
 </table>
-<table x="268" y="44" name="section">
+<table x="612" y="173" name="section">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -225,7 +225,7 @@
 </key>
 <comment>A concrete example of a class including specific dates, times, and roster.</comment>
 </table>
-<table x="576" y="41" name="assessment">
+<table x="558" y="7" name="assessment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -248,7 +248,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="197" y="317" name="test_case">
+<table x="80" y="328" name="test_case">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -274,7 +274,7 @@
 </key>
 <comment>cases specific to a question, weight signifies its relative importance to the problem</comment>
 </table>
-<table x="836" y="330" name="topic">
+<table x="876" y="430" name="topic">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -293,7 +293,7 @@
 </key>
 <comment>such as 'normal forms'</comment>
 </table>
-<table x="884" y="610" name="comment">
+<table x="472" y="539" name="comment">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -316,7 +316,7 @@
 </key>
 <comment>comments given by the teacher or TA specific to an answer</comment>
 </table>
-<table x="942" y="60" name="job">
+<table x="1092" y="222" name="job">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -354,5 +354,65 @@
 <part>id</part>
 </key>
 <comment>task for a user to complete. Assigned by teachers to students and TAs. The 'verb' to an assessment.</comment>
+</table>
+<table x="90" y="229" name="assessment_question">
+<row name="assessment_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="assessment" row="id" />
+</row>
+<row name="question_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="question" row="id" />
+</row>
+<key type="PRIMARY" name="">
+</key>
+</table>
+<table x="828" y="657" name="question_topic">
+<row name="question_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="question" row="id" />
+</row>
+<row name="topic_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="topic" row="id" />
+</row>
+<key type="PRIMARY" name="">
+</key>
+</table>
+<table x="392" y="209" name="section_user">
+<row name="section_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="section" row="id" />
+</row>
+<row name="user_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<key type="PRIMARY" name="">
+</key>
+</table>
+<table x="866" y="160" name="user_assessment">
+<row name="user_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="user" row="id" />
+</row>
+<row name="assessment_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="assessment" row="id" />
+</row>
+<key type="PRIMARY" name="">
+</key>
+</table>
+<table x="868" y="46" name="assessment_topic">
+<row name="assessment_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="assessment" row="id" />
+</row>
+<row name="topic_id" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="topic" row="id" />
+</row>
+<key type="PRIMARY" name="">
+</key>
 </table>
 </sql>
