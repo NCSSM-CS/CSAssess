@@ -22,7 +22,7 @@ CREATE TABLE `answer` (
   `created_by` INTEGER NOT NULL,
   `question_id` INTEGER NOT NULL,
   `score` DECIMAL NULL DEFAULT NULL,
-  `answer_text` TEXT NOT NULL,
+  `content` TEXT NOT NULL,
   PRIMARY KEY (`id`)
 ) COMMENT 'a specific answer to a specific question. Also includes ''sol';
 -- EZ: WHAT ABOUT "`solution` bit NOT NULL"
@@ -38,13 +38,13 @@ CREATE TABLE `question` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `created` DATETIME NOT NULL,
   `created_by` INTEGER NOT NULL,
-  `language` ENUM('python', 'java', 'c') NOT NULL COMMENT 'c, c++, java...',
+  `language` ENUM('python', 'java', 'none') NOT NULL COMMENT 'c, c++, java...',
   `type` ENUM('all', 'test', 'quiz', 'practice', 'inactive') NOT NULL DEFAULT 'all' COMMENT 'all, test, quiz, practice, inactive',
   `difficulty` INTEGER NOT NULL COMMENT '1-10',
   `prev_question_id` INTEGER NULL DEFAULT NULL COMMENT 'references previous versions of the question',
   `version_number` INTEGER NOT NULL DEFAULT 1,
   `last_given` DATETIME NULL DEFAULT NULL,
-  `question_text` MEDIUMTEXT NOT NULL,
+  `content` MEDIUMTEXT NOT NULL,
   PRIMARY KEY (`id`),
   CHECK (difficulty>0 and difficulty<10) 
 );
@@ -63,12 +63,14 @@ CREATE TABLE `user` (
   `last_login` DATETIME NOT NULL,
   `username` VARCHAR(32) NOT NULL,
   `password` VARCHAR(32) NOT NULL COMMENT 'username+password MD5',
+  `first_name` VARCHAR(32) NOT NULL,
+  `last_name` VARCHAR(32) NOT NULL,
   `role` ENUM('admin', 'teacher', 'student') NOT NULL COMMENT 'ADMIN, TEACHER, STUDENT',
+  `add_assessment` bit NOT NULL,
   `edit_user` bit NOT NULL,
   `edit_question` bit NOT NULL,
   `edit_answer` bit NOT NULL,
   `edit_test_case` bit NOT NULL,
-  `add_assessment` bit NOT NULL,
   `edit_permission` bit NOT NULL,
   `view_student_info` bit NOT NULL,
   `view_teacher_info` bit NOT NULL,
@@ -126,6 +128,7 @@ CREATE TABLE `assessment` (
   `created_by` INTEGER NOT NULL,
   `type` ENUM('problem_set', 'test', 'quiz') NOT NULL COMMENT 'problem_set, test, quiz',
   `section_id` INTEGER NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
