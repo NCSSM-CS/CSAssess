@@ -4,4 +4,4 @@
 '''
 
 DEBUG = 0
-DIR=""
+DIR="/Users/EbubeChuba/Documents/School/NCSSM/Senior/Miniterm/CSAssess/controller/"
