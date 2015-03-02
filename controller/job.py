@@ -1,4 +1,4 @@
-#!/usr/bin/env pyhton2.6
+#!/usr/bin/env python.2.7
 
 """
 created_by: Samuel Murray
