@@ -34,7 +34,7 @@ def newQuestion(created_by, language, type, difficulty, prev_question_id, versio
     this function takes the parameters of a question and adds a new question entry
     into the database
     """
-    newQuestion = Question(time.strftime("%Y-%m-%d %H:%M:%S"), created_by, language, type, difficulty, prev_question_id, version_number, content, topic_list)
+    newQuestion = Question.noID(time.strftime("%Y-%m-%d %H:%M:%S"), created_by, language, type, difficulty, prev_question_id, version_number, content, topic_list)
     addQuestion(newQuestion)
 # function to add assessment to database
 def addQuestion(question):
