@@ -73,17 +73,21 @@
         </div>
         <div class="row practiceContent">
             <form class="praticeForm" method="POST" enctype="multipart/form-data" >
-                                    <div class="row practiceContent" id="praciteLabel">Get Question by: </div>
+                                    <div class="row practiceContent" id="praciteLabel">Get Question by any or all of these </div>
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-3">
                                             <!--TODO: get the list of topics from the database!-->
-                                             <select class="practiceElement" id="units" name="topicSelect">
+                                            <!-- validation must ensure that the topic exists !-->
+                                             <select class="practiceElement" id="topic" name="topicSelect">
+                                                     <option value="" selected="selected">Topic</option>
                                                      <option value="Recursion">Recursion</option>
                                                      <option value="loops">Loops</option>
                                                      <option value="database">Database</option>
                                                      <option value="search">Search</option>
                                               </select>
-                                             <select class="practiceElement"id="units" name="difficultySelect">
+                                             <!-- validation must ensure that the topic exists !-->
+                                             <select class="practiceElement" id="difficulty" name="difficultySelect">
+                                                 <option value="" selected="selected">Difficulty</option>
                                                      <option value="1">1</option>
                                                      <option value="2">2</option>
                                                      <option value="3">3</option>
