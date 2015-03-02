@@ -1,5 +1,12 @@
 #!/usr/bin/python2.7
+"""
+created_by:         Micah Halter
+created_date:       2/28/2015
+last_modified_by:   Micah Halter
+last_modified_date: 3/2/2015
+"""
 
+#imports
 import constants
 import sys
 
@@ -26,4 +33,10 @@ from section import Section
 from course import Course
 from user import User
 
-print(viewAssessment.byID(1).sortByTopic())
+# functions
+def main():
+    print(viewAssessment.byID(1).sortByTopic())
+
+# running code
+if __name__ == "__main__":
+    main()
