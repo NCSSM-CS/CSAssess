@@ -150,3 +150,13 @@ class Assessment:
             string += "\tcontent: "    +     i.content     + "\n\n"
 
         return string
+    def toJson(self):
+        data = [{
+        "id"        : self.id,
+        "created"   : self.created,
+        "created by": self.created_by,
+        "type"      : self.type,
+        "section id": self.section,
+        "name"      : self.name
+        }]
+        return json.dumps(data)
