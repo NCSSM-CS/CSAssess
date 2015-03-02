@@ -94,7 +94,7 @@ class Job:
             string += "created by: "     + str(self.created_by)      + "\n"
             string += "\nsection id: "   + str(self.section_id)      + "\n"
             string += "type: "           + str(self.type)            + "\n"
-            string += "assessment id: "  + self.assessment id        + "\n"
+            string += "assessment id: "  + self.assessment_id        + "\n"
             string += "assigned to id: " + self.assigned_to_id       + "\n"
             string += "content: "        + self.content              + "\n"
             string += "taken by user:"   + self.taken_by_user_id     + "\n"
