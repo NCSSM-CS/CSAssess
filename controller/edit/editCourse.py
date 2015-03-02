@@ -25,8 +25,10 @@ import mysql.connector
 from mysql_connect_config import getConfig
 
 # functions
+# TODO: this -EC
 def newCourse():
     pass
+
 def addCourse(course):
     """
     course - the course that is being inserted into the database
