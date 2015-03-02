@@ -8,6 +8,7 @@ last_modified date: 3/2/2015
 """
 
 # imports
+import json
 import constants
 
 # classes
@@ -152,11 +153,11 @@ class Assessment:
         return string
     def toJson(self):
         data = [{
-        "id"        : self.id,
-        "created"   : self.created,
-        "created by": self.created_by,
-        "type"      : self.type,
-        "section id": self.section,
-        "name"      : self.name
+        "id"        :     self.id,
+        "created"   : str(self.created),
+        "created by":     self.created_by,
+        "type"      :     self.type,
+        "section id":     self.section,
+        "name"      :     self.name
         }]
         return json.dumps(data)

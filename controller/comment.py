@@ -92,10 +92,10 @@ class Comment:
         return string
     def toJson(self):
         data = [{
-        "id"        : self.id,
-        "created"   : self.created,
-        "created by": self.created_by,
-        "answer"    : self.answer,
-        "content"   : self.content
+        "id"        :     self.id,
+        "created"   : str(self.created),
+        "created by":     self.created_by,
+        "answer"    :     self.answer,
+        "content"   :     self.content
         }]
         return json.dumps(data)

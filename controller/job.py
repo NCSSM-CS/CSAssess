@@ -9,6 +9,7 @@ last_modified_date: 3/2/2015
 
 #imports
 import constants
+import json
 
 class Job:
     'Job object to hold attributes and functions for a job.'
@@ -102,6 +103,7 @@ class Job:
             return string
         def toJson(self):
             data = [{
+<<<<<<< HEAD
             "id"                : self.id,
             "created"           : self.created,
             "created_by"        : self.created_by,
@@ -111,5 +113,20 @@ class Job:
             "assigned to id"    : self.assigned_to_id,
             "content"           : self.content,
             "take by user id"   : self.take_by_user_id
+=======
+            "id"                :     self.id,
+            "created"           : str(self.created),
+            "created_by"        :     self.created_by,
+            "section_id"        :     self.section_id,
+            "type"              :     self.type,
+            "assessment id"     :     self.assessment_id,
+            "assigned to id"    :     self.assigned_to_id,
+            "content"           :     self.content,
+<<<<<<< HEAD
+            "take by user id"   :     self.take_by_user_id
+=======
+            "taken by user id"  :     self.taken_by_user_id
+>>>>>>> 2f1c846e9b3a19bbc9e6f3c28bcbc10e2f0816eb
+>>>>>>> 9c64bfc51a18f52c0ce4492c23b8b88c91a446c8
             }]
             return json.dumps(data)
