@@ -14,13 +14,13 @@ import constants
 class Comment:
     'Comment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, answer_id, content):
+    def __init__(self, id, created, created_by, answer, content):
         """
         self       - the comment in question
         id         - the id number of the comment 'self' in the database
         created    - the date when the comment 'self' was created
         created_by - the user that created the comment 'self'
-        answer_id  - the ID of the answer of the comment 'self'
+        answer     - the answer of the comment 'self'
         content    - the content of the topic 'self'
 
         this function acts as the constructor to define a new topic object
@@ -28,11 +28,11 @@ class Comment:
         self.id         = id
         self.created    = created
         self.created_by = created_by
-        self.answer_id  = answer_id
+        self.answer     = answer
         self.content    = content
 
     @classmethod
-    def noID(self, created, created_by, answer_id, content):
+    def noID(self, created, created_by, answer, content):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -42,7 +42,7 @@ class Comment:
         this function acts as a second constructor where you have created a
         comment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, answer_id, content)
+        return self(None, created, created_by, answer, content)
 
     def __eq__(self, other):
         """
@@ -60,7 +60,7 @@ class Comment:
         self.id         == other.id         and
         self.created    == other.created    and
         self.created_by == other.created_by and
-        self.answer_id  == other.answer_id  and
+        self.answer     == other.answer     and
         self.content    == other.content)
 
     def setID(self, id):
@@ -86,6 +86,6 @@ class Comment:
         string += "id: "         + str(self.id)         + "\n"
         string += "created: "    + str(self.created)    + "\n"
         string += "created by: " + str(self.created_by) + "\n"
-        string += "answer id:  " + str(self.answer_id)  + "\n"
+        string += "answer: "     + str(self.answer)     + "\n"
         string += "content: "    + self.content         + "\n"
         return string

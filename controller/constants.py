@@ -4,4 +4,4 @@
 '''
 
 DEBUG = 0
-DIR=""
+DIR="/Users/Keshav/CSAssess/controller/"
