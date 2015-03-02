@@ -72,3 +72,5 @@ def addUser(user):
 
     This function takes a new user and adds him/her to the database.
     """ 
+
+   #MODEL TEAM: write SQL code for adding to database
