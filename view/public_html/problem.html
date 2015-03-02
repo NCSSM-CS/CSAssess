@@ -19,7 +19,10 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
-
+        
+        <script src="codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+        <script src="codemirror/mode/python/python.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
@@ -119,6 +122,15 @@
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+        <script>
+          var editor = CodeMirror.fromTextArea(document.getElementById("codingArea"), {
+            lineNumbers: true,
+            name: "python",
+            version: 3,
+            indentUnit: 4,
+            matchBrackets: true
+          });
         </script>
     </body>
 </html>

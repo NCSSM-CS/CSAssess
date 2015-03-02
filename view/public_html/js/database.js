@@ -1,6 +1,3 @@
-
-
-
 function searchDatabase()
 {
 	var questions = parseJSON("/test/test.json");
@@ -9,7 +6,7 @@ function searchDatabase()
 	var keyword = document.getElementById("practiceKeyword");
 	for (var i = 0; i < questions.length; i++)
 	{
-		topic_id = questions[i].topic
+		var topic_id = questions[i].topic;
 		if (topic != topic_id)
 		{
 			questions.splice(i, 1);
@@ -19,7 +16,7 @@ function searchDatabase()
 	{
 		for (i = 0; i < questions.length; i++)
 		{
-			difficulty_id = questions[i].difficulty
+			var difficulty_id = questions[i].difficulty;
 			if (difficulty != difficulty_id)
 			{
 				questions.splice(i, 1);
@@ -37,7 +34,7 @@ function searchDatabase()
 		keyword[0] = keyword;
 		for (i = 0; i < questions.length; i++)
 		{
-			question_content = questions[i].content;
+			var question_content = questions[i].content;
 			question_content = question_content.split(" ");
 			var contains = 0;
 			for (j = 0; j < question_content.length; j++)
@@ -54,16 +51,19 @@ function searchDatabase()
 			}
 		}
 	}
+	var data = ["language", "difficulty", "last_given", "content", "topic"]
 	var database = document.createElement("TABLE");
-	database.setAttribute("id","database"); //creates table to keep the game in
-	for (i = 0; i < table; i++) {
-	var tr = document.createElement("TR");
-		for (var j = 0; j < game.size; j++)
+	database.setAttribute("id","database"); //creates table to keep the database in
+	for (i = 0; i < questions.length; i++) 
+	{
+		var tr = document.createElement("TR");
+		for (var j = 0; j < 5; j++)
 		{
 			var td = document.createElement("TD");
+			td.setAttribute("text", question[i].data[j])
 			tr.appendChild(td);
 		}
 		database.appendChild(tr);
 	}
-	document.getElementById("nonoDiv").appendChild(database);
+	document.getElementById("database_container").appendChild(database);
 }

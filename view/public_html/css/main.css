@@ -5,10 +5,19 @@
 
 .navbar-text{
     font-size: 14px;
+    margin-left:0;
+    margin-right:0;
+    padding-left:10px;
+    padding-right:10px;
     line-height: 1;
 }
 
-
+.navbar-wrapper,.navbar-right, .navbar-left, .navbar, .navbar-inner, .container{
+  margin-left:0;
+  margin-right:0;
+  padding-left:10px;
+  padding-right:10px;
+}
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
