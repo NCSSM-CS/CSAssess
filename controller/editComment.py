@@ -25,7 +25,7 @@ from mysql_connect_config import getConfig
 
 
 # functions
-def newComment):
+def newComment():
     pass
 # function to add comment to database
 def addComment(comment):
