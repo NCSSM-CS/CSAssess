@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/1/2015
+last_modified_by:   John Fang
+last_modified date: 3/2/2015
 """
 
 # imports
@@ -98,3 +98,14 @@ class Section:
         string += "period: "     +     self.period      + "\n"
 
         return string
+    def toJson(self):
+        data = [{
+        "id"            : self.id,
+        "created"       : self.created,
+        "created by"    : self.created_by,
+        "course"        : self.course,
+        "year"          : self.year,
+        "term"          : self.term,
+        "period"        : self.period
+        }]
+        return json.dumps(data)

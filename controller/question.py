@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       2/28/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/1/2015
+last_modified_by:   Aninda Manocha
+last_modified date: 3/2/2015
 """
 
 # imports
@@ -117,3 +117,18 @@ class Question:
             string += "\t" + i.name + "\n"
 
         return string
+    def toJson(self):
+        data = [{
+        "id"			: self.id,
+        "created"		: self.created,
+        "created by"		: self.created_by,
+        "language"		: self.language, 
+        "type"			: self.type,
+        "difficulty"		: self.difficulty,
+        "previous question id"	: self.prev_question_id,
+        "version number"	: self.version_number,
+        "last given"		: self.last_given,
+        "content"		: self.content,
+        "topics"		: self.topic_list
+	}]
+		return json.dumps(data)
