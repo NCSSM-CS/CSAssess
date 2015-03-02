@@ -1,28 +1,25 @@
 #!/usr/bin/python
 
 """
-created_by:         Micah Halter
-created_date:       2/28/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/1/2015
+created_by:         EZ
+created_date:       3/2/2015
+last_modified_by:   EZ
+last_modified date: 3/2/2015
 """
 
 """
 TODO:
-    - figure out how we want to finish up the
-      newAssessment generator function
 """
 
 # imports
-import constants
 import sys
 import time
 import random
 
-sys.path.insert(0, constants.DIR + "objects")
+sys.path.insert(0, "../objects")
 from assessment import Assessment
 
-sys.path.insert(0, constants.DIR)
+sys.path.insert(0, "../")
 import mysql.connector
 from mysql_connect_config import getConfig
 
@@ -115,4 +112,3 @@ def addAssessment(assessment):
     cnx.commit()
     cursor.close()
     cnx.close()
-

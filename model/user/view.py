@@ -11,10 +11,10 @@ last_modified date: 3/1/2015
 import constants
 import sys
 
-sys.path.insert(0, constants.DIR + "objects/")
+sys.path.insert(0, "../objects")
 from user import User
 
-sys.path.insert(0, constants.DIR)
+sys.path.insert(0, "../")
 import mysql.connector
 from mysql_connect_config import getConfig
 

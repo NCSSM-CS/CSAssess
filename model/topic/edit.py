@@ -14,14 +14,13 @@ TODO:
 """
 
 # imports
-import constants
 import sys
 import time
 
-sys.path.insert(0, constants.DIR + "objects")
+sys.path.insert(0, "../objects")
 from topic import Topic
 
-sys.path.insert(0, constants.DIR)
+sys.path.insert(0, "../")
 import mysql.connector
 from mysql_connect_config import getConfig
 

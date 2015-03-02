@@ -12,10 +12,10 @@ import constants
 import viewUser
 import sys
 
-sys.path.insert(0, constants.DIR + "objects")
+sys.path.insert(0, "../objects")
 from course import Course
 
-sys.path.insert(0, constants.DIR)
+sys.path.insert(0, "../")
 import mysql.connector
 from mysql_connect_config import getConfig
 
@@ -42,7 +42,7 @@ def all():
     for (id) in cursor:
         course_list.append(byID(id))
 
-    return question_list
+    return course_list
 
 def byID(courseId):
     """
