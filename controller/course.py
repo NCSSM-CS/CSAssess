@@ -89,3 +89,13 @@ class Course:
         string += "name: "        +     self.name         + "\n"
 
         return string
+    def toJson(self):
+        data = [{
+        "id"            : self.id,
+        "created"       : self.created,
+        "cread_by"      : self.created_by,
+        "course_code"   : self.course_code,
+        "name"          : self.name
+        }]
+        return json.dumps(data)
+
