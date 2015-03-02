@@ -157,29 +157,6 @@ class User:
         return string
     def toJson(self):
         data = [{
-<<<<<<< HEAD
-        "id"                : self.id,
-        "created"           : self.created,
-        "created by"        : self.created_by,
-        "last login"        : self.last_login,
-        "username"          : self.username,
-        "password"          : self.password,
-        "first name"        : self.first_name,
-        "last name"         : self.last_name,
-        "role"              : self.role,
-        "add assessment"    : self.add_assessment,
-        "edit user"         : self.edit_user,
-        "edit question"     : self.edit_question,
-        "edit answer"       : self.edit_answer,
-        "edit test case"    : self.edit_test_case,
-        "edit eprmission"   : self.edit_permission,
-        "view student info" : self.view_student_info,
-        "view teacher info" : self.view_teacher_info,
-        "view answer"       : self.view_answer,
-        "view test case"    : self.view_test_case,
-        "view question"     : self.view_question,
-        "view all question" : self.view_all_question
-=======
         "id"                :     self.id,
         "created"           : str(self.created),
         "created by"        :     self.created_by,
@@ -194,13 +171,12 @@ class User:
         "edit question"     :     self.edit_question,
         "edit answer"       :     self.edit_answer,
         "edit test case"    :     self.edit_test_case,
-        "edit eprmission"   :     self.edit_permission,
+        "edit permission"   :     self.edit_permission,
         "view student info" :     self.view_student_info,
         "view teacher info" :     self.view_teacher_info,
         "view answer"       :     self.view_answer,
         "view test case"    :     self.view_test_case,
         "view question"     :     self.view_question,
         "view all question" :     self.view_all_question
->>>>>>> 9c64bfc51a18f52c0ce4492c23b8b88c91a446c8
         }]
         return json.dumps(data)
