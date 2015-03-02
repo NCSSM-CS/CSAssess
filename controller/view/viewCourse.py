@@ -34,7 +34,7 @@ def all():
     courseView = (
             "SELECT c.id "
             "FROM course AS c;")
-    cursor.execute(courseView)
+    cursor.execute(sqlCall())
 
     # for every course id, it created a course object and
     # adds it to a list to return

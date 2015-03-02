@@ -44,7 +44,7 @@ class Test_Case:
         this function acts as a second constructor where you have created a
         test_case that has not yet been assigned an id from the database
         """
-        return self(self, id, created, created_by, question_id, weight, content):
+        return self(self, id, created, created_by, question_id, weight, content)
 
     def __eq__(self, other):
         """

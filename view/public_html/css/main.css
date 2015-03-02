@@ -7,6 +7,61 @@
     font-size: 14px;
     line-height: 1;
 }
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.pageContentHeader {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 20px;
+    font-size: 50px;
+}
+.centeredText {
+    text-align: center;
+}
+.practiceContent {
+    text-align: center; 
+    margin-top: 20px;
+}
+
+.dropdown {
+    text-decoration: none;
+    color: black;
+    list-style-type: none;
+}
+.practiceElement {
+    margin-left: 5px;
+}
+.dropdown-toggle {
+    color: black;
+}
+#praciteLabel {
+    font-size: 30px;
+}
+
+a:link {text-decoration: none; color:white;} //the original link with no underline
+a:visited {text-decoration: none;} //the visited link with no underline
+a:hover {text-decoration: none; font-weight: 800; } //mouseover link and an underline appears
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */

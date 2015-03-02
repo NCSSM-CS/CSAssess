@@ -199,6 +199,22 @@ CREATE TABLE `job` (
 ) COMMENT 'task for a user to complete. Assigned by teachers to student';
 
 -- ---
+-- Table 'session'
+-- keeps track of user sessions
+-- ---
+
+DROP TABLE IF EXISTS `session`;
+
+CREATE TABLE `session` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `timestamp` TIMESTAMP NOT NULL,
+  `token` CHAR(64) NOT NULL,
+  `ip` VARCHAR(39) NOT NULL,
+  `user_id` INT NOT NULL,
+  `active` BIT NOT NULL,
+  PRIMARY KEY (`id`)
+) COMMENT 'keeps track of user sessions';
+-- ---
 -- Table 'assessment_question'
 -- 
 -- ---
@@ -283,6 +299,7 @@ ALTER TABLE `job` ADD FOREIGN KEY (section_id) REFERENCES `section` (`id`);
 ALTER TABLE `job` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `job` ADD FOREIGN KEY (assigned_to_id) REFERENCES `user` (`id`);
 ALTER TABLE `job` ADD FOREIGN KEY (taken_by_user_id) REFERENCES `user` (`id`);
+ALTER TABLE `session` ADD FOREIGN KEY (user_id) REFERENCES `user` (`id`);
 ALTER TABLE `assessment_question` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `assessment_question` ADD FOREIGN KEY (question_id) REFERENCES `question` (`id`);
 ALTER TABLE `question_topic` ADD FOREIGN KEY (question_id) REFERENCES `question` (`id`);

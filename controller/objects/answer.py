@@ -14,7 +14,11 @@ import constants
 class Answer:
     'Question object to hold attributes and functions for a question'
 
+<<<<<<< HEAD
     def __init__(self, id, created, created_by, question, score, answer_text): 
+=======
+    def __init__(self, id, created, created_by, question_id, score, answer_text):
+>>>>>>> 74b117c77f2de92db67fe0e8f1937a63f0075f5e
         """
         self             - the answer in answer
         id               - the id number of the answer 'self' in the database
@@ -64,7 +68,7 @@ class Answer:
         self.created_by       == other.created_by       and
         self.question         == other.question         and
         self.score            == other.score            and
-        self.answer_text      == other.answer_text      
+        self.answer_text      == other.answer_text
         )
 
     def setID(self, id):
