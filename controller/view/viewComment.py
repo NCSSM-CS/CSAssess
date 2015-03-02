@@ -118,4 +118,4 @@ def byID(commentId):
 
     # calls viewUser to get the neededuser object by the id that is
     # held in the metadata of the course
-    return Comment(id, created, viewUser.byID(created_by), viewAnswer.byID(answerId), content)
+    return Comment(id, created, viewUser.byID(created_by), viewAnswer.byID(answer_id), content)
