@@ -9,6 +9,7 @@ last_modified_date: 3/2/2015
 
 #imports
 import constants
+import json
 
 class Job:
     'Job object to hold attributes and functions for a job.'
@@ -110,6 +111,10 @@ class Job:
             "assessment id"     :     self.assessment_id,
             "assigned to id"    :     self.assigned_to_id,
             "content"           :     self.content,
+<<<<<<< HEAD
             "take by user id"   :     self.take_by_user_id
+=======
+            "taken by user id"  :     self.taken_by_user_id
+>>>>>>> 2f1c846e9b3a19bbc9e6f3c28bcbc10e2f0816eb
             }]
             return json.dumps(data)

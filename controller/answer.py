@@ -15,7 +15,7 @@ import json
 class Answer:
     'Question object to hold attributes and functions for a question'
 
-    def __init__(self, id, created, created_by, question, score, answer_text): 
+    def __init__(self, id, created, created_by, question, score, answer_text):
         """
         self             - the answer in answer
         id               - the id number of the answer 'self' in the database
@@ -98,11 +98,20 @@ class Answer:
         return string
     def toJson(self):
         data = [{
+<<<<<<< HEAD
         "id" 		:     self.id, 
         "created"	: str(self.created),
         "created by"	:     self.created_by,
         "question id"	:     self.question_id,
         "score"		:     score,
         "answer text"	:     answer_text
+=======
+        "id" 		: self.id,
+        "created"	: self.created,
+        "created by"	: self.created_by,
+        "question id"	: self.question_id,
+        "score"		: score,
+        "answer text"	: answer_text
+>>>>>>> 2f1c846e9b3a19bbc9e6f3c28bcbc10e2f0816eb
         }]
         return json.dumps(data)

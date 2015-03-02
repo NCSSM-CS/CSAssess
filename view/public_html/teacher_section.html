@@ -39,11 +39,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-text navbar-right">
-                <p>Testy Jones</p>
+                <p><a href="#">Testy Jones</a></p>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
+
     <div id="wrapper">
         <!-- The navbar on the right side -->
         <div id="sidebar-wrapper">
@@ -64,52 +65,72 @@
                     <li><a href="#">Grades</a></li>
                     <li><a href="#">Assignments</a></li>
                   </ul>
-              <li><a href="practice.html">Practice</a></li>
+              <li><a href="#">Practice</a></li>
             </ul>
             
         </div>
-        <div class="row pageContentHeader">
-            View The Database
+
+
+        <!-- Home Page -->
+        <div id="page-content-wrapper">
+	        <h2 align="center">CS402: AP Computer Science I</h2>
+	        <h4 align="center">A-Block, 2014-2015 T2</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 align="center"> Roster </h4>
+                    <div class="table align="center""><table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Last </th>
+                                <th> First </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            </tr>
+                            <tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            </tr>
+                            <tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            </tr>
+                            <tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            <tr>
+                            </tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            </tr>
+                            <tr>
+                                <th><a href="#"> Dough </a></th>
+                                <th><a href="#"> John </a></th>
+                            </tr>
+                        </tbody>
+                    </table></div>    
+                </div>
+                <div class="col-md-6">
+                    <h4> </h4>
+                    <h4 align="center"> <a href="#">New Assignments to Grade</a></h4>
+                    <h4 align="center"> <a href="#">Create Assessment</a></h4>
+                    <h4 align="center"> <a href="#">Review Grades</a></h4>
+                    <h4 align="center"> <a href="#">4th Option</a></h4>
+                </div>
+            </div>
         </div>
-        <div class="row practiceContent">
-            <form class="praticeForm" method="POST" enctype="multipart/form-data" >
-                                    <div class="row practiceContent" id="praciteLabel">Sort by any or all of these </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <!--TODO: get the list of topics from the database!-->
-                                            <!-- validation must ensure that the topic exists before sorting by that !-->
-                                             <select class="practiceElement" id="topic" name="topicSelect">
-                                                     <option value="" selected="selected">Topic</option>
-                                                     <option value="Recursion">Recursion</option>
-                                                     <option value="loops">Loops</option>
-                                                     <option value="database">Database</option>
-                                                     <option value="search">Search</option>
-                                              </select>
-                                             <!-- validation must ensure that the topic exists !-->
-                                             <select class="practiceElement" id="difficulty" name="difficultySelect">
-                                                    <option value="default" selected="selected">Difficulty</option>
-                                                    <option value="2">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                              </select>
-                                            <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
-                                            <input type="submit" class="practiceElement" value="Submit" onclick="searchDatabase()">
-                                    </div>
-                                </div>
-                            </form>
-                       </div>
-                </div> 
+
+    </div> 
+
+      <hr>
+
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+     <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>

@@ -9,6 +9,7 @@ last_modified date: 3/2/2015
 
 # imports
 import constants
+import json
 
 # classes
 class Course:
