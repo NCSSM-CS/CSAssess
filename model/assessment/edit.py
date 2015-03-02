@@ -1,22 +1,26 @@
 #!/usr/bin/python
 
 """
-created_by:         EZ
-created_date:       3/2/2015
+created_by:         Micah Halter
+created_date:       2/28/2015
 last_modified_by:   EZ
 last_modified date: 3/2/2015
 """
 
 """
 TODO:
+    - figure out how we want to finish up the
+      newAssessment generator function
 """
 
 # imports
+sys.path.insert(0, "../../controller/")
+import constants
 import sys
 import time
 import random
 
-sys.path.insert(0, "../objects")
+sys.path.insert(0, "../../controller/objects")
 from assessment import Assessment
 
 sys.path.insert(0, "../")
