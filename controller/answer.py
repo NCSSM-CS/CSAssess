@@ -14,11 +14,7 @@ import constants
 class Answer:
     'Question object to hold attributes and functions for a question'
 
-<<<<<<< HEAD
     def __init__(self, id, created, created_by, question, score, answer_text): 
-=======
-    def __init__(self, id, created, created_by, question_id, score, answer_text):
->>>>>>> 74b117c77f2de92db67fe0e8f1937a63f0075f5e
         """
         self             - the answer in answer
         id               - the id number of the answer 'self' in the database
