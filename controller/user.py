@@ -3,12 +3,13 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/1/2015
+last_modified_by:   John Fang
+last_modified date: 3/2/2015
 """
 
 # imports
 import constants
+import json
 
 # classes
 class User:
@@ -154,3 +155,28 @@ class User:
         string += "\tview question: "      + str(bool(self.view_question))     + "\n"
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
         return string
+    def toJson(self):
+        data = [{
+        "id"                :     self.id,
+        "created"           : str(self.created),
+        "created by"        :     self.created_by,
+        "last login"        : str(self.last_login),
+        "username"          :     self.username,
+        "password"          :     self.password,
+        "first name"        :     self.first_name,
+        "last name"         :     self.last_name,
+        "role"              :     self.role,
+        "add assessment"    :     self.add_assessment,
+        "edit user"         :     self.edit_user,
+        "edit question"     :     self.edit_question,
+        "edit answer"       :     self.edit_answer,
+        "edit test case"    :     self.edit_test_case,
+        "edit eprmission"   :     self.edit_permission,
+        "view student info" :     self.view_student_info,
+        "view teacher info" :     self.view_teacher_info,
+        "view answer"       :     self.view_answer,
+        "view test case"    :     self.view_test_case,
+        "view question"     :     self.view_question,
+        "view all question" :     self.view_all_question
+        }]
+        return json.dumps(data)

@@ -12,7 +12,6 @@ import viewTopic
 import viewSection
 import viewCourse
 import viewUser
-import viewComment
 
 import editAssessment
 import editQuestion
@@ -31,3 +30,7 @@ from course import Course
 from user import User
 from comment import Comment
 
+<<<<<<< HEAD
+=======
+print(viewUser.byID(1).toJson())
+>>>>>>> 826ffd962612a74d6912e313b563313358d9e11f

@@ -1,9 +1,9 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env pyhton2.6
 
 """
 created_by: Samuel Murray
 create_date: 3/2/2015
-last_modified_by: Samuel Murray
+last_modified_by: John Fang
 last_modified_date: 3/2/2015
 """
 
@@ -100,3 +100,16 @@ class Job:
             string += "taken by user:"   + self.taken_by_user_id     + "\n"
 
             return string
+        def toJson(self):
+            data = [{
+            "id"                : self.id,
+            "created"           : self.created,
+            "created_by"        : self.created_by,
+            "section_id"        : self.section_id,
+            "type"              : self.type,
+            "assessment id"     : self.assessment_id,
+            "assigned to id"    : self.assigned_to_id,
+            "content"           : self.content,
+            "take by user id"   : self.take_by_user_id
+            }]
+            return json.dumps(data)
