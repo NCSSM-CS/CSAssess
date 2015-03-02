@@ -29,16 +29,21 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a class="navbar-brand" href="#">CS Assess</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-text navbar-right">
-                <a href="user_profile.html">Testy Jones</a>
+                <p>Testy Jones</p>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
-
     <div id="wrapper">
         <!-- The navbar on the right side -->
         <div id="sidebar-wrapper">
@@ -59,33 +64,51 @@
                     <li><a href="#">Grades</a></li>
                     <li><a href="#">Assignments</a></li>
                   </ul>
-              <li><a href="#">Practice</a></li>
+              <li><a href="practice.html">Practice</a></li>
             </ul>
             
         </div>
-
-
-        <!-- Home Page -->
-        <div id="page-content-wrapper">
-          <h1>Home</h1>
-          <ul>
-            <li><h3>New Assignments</h3></li>
-            <ul>
-              <li>You have </li>
-            </ul>
-            <li><h3>Graded Assignments</h3></li>
-            <li><h3>Practice</h3></li>
-          </ul>
+        <div class="row pageContentHeader">
+            Practice
         </div>
-
-    </div> 
-
-      <hr>
-
+        <div class="row practiceContent">
+            <form class="praticeForm" method="POST" enctype="multipart/form-data" >
+                                    <div class="row practiceContent" id="praciteLabel">Get Question by</div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <!--TODO: get the list of topics from the database!-->
+                                             <select class="practiceElement" id="units" name="topicSelect">
+                                                     <option value="Recursion">Recursion</option>
+                                                     <option value="loops">Loops</option>
+                                                     <option value="database">Database</option>
+                                                     <option value="search">Search</option>
+                                              </select>
+                                             <select class="practiceElement"id="units" name="difficultySelect">
+                                                     <option value="1">1</option>
+                                                     <option value="2">2</option>
+                                                     <option value="3">3</option>
+                                                     <option value="4">4</option>
+                                                     <option value="1">5</option>
+                                                     <option value="2">6</option>
+                                                     <option value="3">7</option>
+                                                     <option value="4">8</option>
+                                                     <option value="1">9</option>
+                                                     <option value="2">10</option>
+                                              </select>
+                                            <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
+                                            <input type="submit" class="practiceElement" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+                       </div>
+        <div class="row centeredText">
+           You might want to work on <!-- TODO: get statistics from database !--> recursion. 
+        </div>
+                </div> 
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-     <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
