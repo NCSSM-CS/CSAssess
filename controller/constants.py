@@ -1,7 +1,6 @@
-#!/usr/bin/python2.7
-'''
- Constants.py
-'''
+#!/usr/bin/python
+"""
+CONSTANTS
+"""
 
 DEBUG = 0
-DIR="/Users/Keshav/CSAssess/controller/"

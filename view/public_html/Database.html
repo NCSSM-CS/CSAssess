@@ -69,15 +69,15 @@
             
         </div>
         <div class="row pageContentHeader">
-            Practice
+            View The Database
         </div>
         <div class="row practiceContent">
             <form class="praticeForm" method="POST" enctype="multipart/form-data" >
-                                    <div class="row practiceContent" id="praciteLabel">Get Question by any or all of these </div>
+                                    <div class="row practiceContent" id="praciteLabel">Sort by any or all of these </div>
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-3">
                                             <!--TODO: get the list of topics from the database!-->
-                                            <!-- validation must ensure that the topic exists !-->
+                                            <!-- validation must ensure that the topic exists before sorting by that !-->
                                              <select class="practiceElement" id="topic" name="topicSelect">
                                                      <option value="" selected="selected">Topic</option>
                                                      <option value="Recursion">Recursion</option>
@@ -87,17 +87,17 @@
                                               </select>
                                              <!-- validation must ensure that the topic exists !-->
                                              <select class="practiceElement" id="difficulty" name="difficultySelect">
-                                                 <option value="" selected="selected">Difficulty</option>
-                                                     <option value="1">1</option>
-                                                     <option value="2">2</option>
-                                                     <option value="3">3</option>
-                                                     <option value="4">4</option>
-                                                     <option value="1">5</option>
-                                                     <option value="2">6</option>
-                                                     <option value="3">7</option>
-                                                     <option value="4">8</option>
-                                                     <option value="1">9</option>
-                                                     <option value="2">10</option>
+                                                    <option value="default" selected="selected">Difficulty</option>
+                                                    <option value="2">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
                                               </select>
                                             <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
                                             <input type="submit" class="practiceElement" value="Submit">
@@ -105,9 +105,6 @@
                                 </div>
                             </form>
                        </div>
-        <div class="row centeredText">
-           You might want to work on <!-- TODO: get statistics from database !--> recursion. 
-        </div>
                 </div> 
       <footer>
         <p>&copy; Company 2014</p>
