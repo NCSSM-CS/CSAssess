@@ -122,11 +122,7 @@ class Question:
         "id"			: self.id,
         "created"		: self.created,
         "created by"		: self.created_by,
-<<<<<<< HEAD
         "language"		: self.language, 
-=======
-        "language"		: self.language,
->>>>>>> 9c64bfc51a18f52c0ce4492c23b8b88c91a446c8
         "type"			: self.type,
         "difficulty"		: self.difficulty,
         "previous question id"	: self.prev_question_id,
