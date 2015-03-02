@@ -15,10 +15,8 @@ import constants
 import viewUser
 import sys
 
-sys.path.insert(0, constants.DIR + "objects")
 from test_case import Test_Case
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 

@@ -13,12 +13,10 @@ import viewUser
 import viewQuestion
 import sys
 
-sys.path.insert(0, constants.DIR + "objects")
 from answer import Answer
 from user import User
 from question import Question
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 

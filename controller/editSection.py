@@ -18,10 +18,8 @@ import constants
 import sys
 import time
 
-sys.path.insert(0, constants.DIR + "objects")
 from section import Section
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 
