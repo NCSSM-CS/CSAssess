@@ -9,7 +9,7 @@ last_modified date: 3/2/2015
 
 # imports
 
-def newUser(created_by, username, password, first_name, last_name, role)
+def newUser(created_by, username, password, first_name, last_name, role):
     """
     created_by - the user who created the new user
     username   - the username of the new user
@@ -73,4 +73,5 @@ def addUser(user):
     This function takes a new user and adds him/her to the database.
     """ 
 
-   #MODEL TEAM: write SQL code for adding to database
+    #MODEL TEAM: write SQL code for adding to database
+    pass
