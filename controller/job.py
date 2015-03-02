@@ -102,14 +102,14 @@ class Job:
             return string
         def toJson(self):
             data = [{
-            "id"                : self.id,
-            "created"           : self.created,
-            "created_by"        : self.created_by,
-            "section_id"        : self.section_id,
-            "type"              : self.type,
-            "assessment id"     : self.assessment_id,
-            "assigned to id"    : self.assigned_to_id,
-            "content"           : self.content,
-            "take by user id"   : self.take_by_user_id
+            "id"                :     self.id,
+            "created"           : str(self.created),
+            "created_by"        :     self.created_by,
+            "section_id"        :     self.section_id,
+            "type"              :     self.type,
+            "assessment id"     :     self.assessment_id,
+            "assigned to id"    :     self.assigned_to_id,
+            "content"           :     self.content,
+            "take by user id"   :     self.take_by_user_id
             }]
             return json.dumps(data)
