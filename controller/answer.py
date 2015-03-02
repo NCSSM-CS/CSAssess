@@ -96,7 +96,7 @@ class Answer:
         string += "answer text: "          + str(answer_text)           + "\n"
 
         return string
-    def toJSON(self):
+    def toJson(self):
         data = [{
         "id" : self.id, 
         "created": self.created,
