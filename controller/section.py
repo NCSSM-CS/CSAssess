@@ -98,3 +98,14 @@ class Section:
         string += "period: "     +     self.period      + "\n"
 
         return string
+    def toJson(self):
+        data = [{
+        "id"            : self.id,
+        "created"       : self.created,
+        "created by"    : self.created_by,
+        "course"        : self.course,
+        "year"          : self.year,
+        "term"          : self.term,
+        "period"        : self.period
+        }]
+        return json.dumps(data)
