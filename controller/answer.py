@@ -14,7 +14,7 @@ import constants
 class Answer:
     'Question object to hold attributes and functions for a question'
 
-    def __init__(self, id, created, created_by, question_id, score, answer_text):
+    def __init__(self, id, created, created_by, question, score, answer_text): 
         """
         self             - the answer in answer
         id               - the id number of the answer 'self' in the database
@@ -29,12 +29,12 @@ class Answer:
         self.id               = id
         self.created          = created
         self.created_by       = created_by
-        self.question_id      = question_id
+        self.question_id      = question
         self.score            = score
         self.answer_text      = answer_text
 
     @classmethod
-    def noID(self, id, created, created_by, question_id, score, answer_text):
+    def noID(self, id, created, created_by, question, score, answer_text):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -44,7 +44,7 @@ class Answer:
         this function acts as a second constructor where you have created a
         answer that has not yet been assigned an id from the database
         """
-        return self(None, id, created, created_by, question_id, score, answer_text)
+        return self(None, id, created, created_by, question, score, answer_text)
 
     def __eq__(self, other):
         """
@@ -62,7 +62,7 @@ class Answer:
         self.id               == other.id               and
         self.created          == other.created          and
         self.created_by       == other.created_by       and
-        self.question_id      == other.question_id      and
+        self.question         == other.question         and
         self.score            == other.score            and
         self.answer_text      == other.answer_text
         )
@@ -90,7 +90,7 @@ class Answer:
         string += "id: "                   + str(self.id)               + "\n"
         string += "created: "              + str(self.created)          + "\n"
         string += "created by: "           + str(self.created_by)       + "\n"
-        string += "question id: "          + str(question_id)           + "\n"
+        string += "question: "             + str(question)              + "\n"
         string += "score: "                + str(score)                 + "\n"
         string += "answer text: "          + str(answer_text)           + "\n"
 
