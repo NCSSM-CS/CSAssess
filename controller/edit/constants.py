@@ -4,3 +4,4 @@
 '''
 
 DEBUG = 0
+DIR="/home/micah/data/developer/python/CsAssessTesting/"
