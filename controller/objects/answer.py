@@ -3,12 +3,13 @@
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
-last_modified_by:   Ebube Chuba
+last_modified_by:   Aninda Manocha
 last_modified date: 3/2/2015
 """
 
 # imports
 import constants
+import json
 
 # classes
 class Answer:
@@ -95,3 +96,13 @@ class Answer:
         string += "answer text: "          + str(answer_text)           + "\n"
 
         return string
+	def toJSON(self):
+		data = [{
+			"id" : self.id, 
+			"created" : self.created
+			"created by" : self.created_by,
+			"question id" : self.question_id,
+			"score" : score,
+ 			"answer text" : answer_text
+		}]
+		return json.dumps(data)
