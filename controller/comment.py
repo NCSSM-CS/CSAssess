@@ -9,6 +9,7 @@ last_modified date: 3/2/2015
 
 # imports
 import constants
+import json
 
 # classes
 class Comment:
@@ -89,3 +90,12 @@ class Comment:
         string += "answer: "     + str(self.answer)     + "\n"
         string += "content: "    + self.content         + "\n"
         return string
+    def toJson(self):
+        data = [{
+        "id"        : self.id,
+        "created"   : self.created,
+        "created by": self.created_by,
+        "answer"    : self.answer,
+        "content"   : self.content
+        }]
+        return json.dumps(data)
