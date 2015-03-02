@@ -59,7 +59,7 @@ def byID(userId):
     userView = (
             "SELECT u.* "
             "FROM user AS u "
-            "WHERE u.id=%s" % userId)
+            "WHERE u.id=%s;" % userId)
 
     cursor.execute(userView)
 

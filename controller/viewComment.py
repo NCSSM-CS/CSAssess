@@ -62,7 +62,7 @@ def byAnswerID(answerId):
     commentView = (
             "SELECT c.id "
             "FROM comment as c"
-            "WHERE c.id=%s;" % answerId)
+            "WHERE c.answer_id=%s;" % answerId)
     cursor.execute(commentView)
 
     # for every comment id, it created a comment object and
@@ -91,7 +91,7 @@ def byID(commentId):
     #gets all of the metadata of the topic at the id 'topicId'
     commentView = (
             "SELECT c.* "
-            "FROM topic AS c "
+            "FROM comment AS c "
             "WHERE c.id=%s" % commentId)
     cursor.execute(commentView)
 

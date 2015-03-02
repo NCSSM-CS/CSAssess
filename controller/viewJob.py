@@ -14,10 +14,8 @@ import viewUser
 import constants
 import viewAssessment
 
-sys.path.insert(0, constants.DIR + "objects/")
 from job import Job
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 
