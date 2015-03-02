@@ -42,7 +42,7 @@ def all():
     for (id) in cursor:
         course_list.append(byID(id))
 
-    return question_list
+    return course_list
 
 def byID(courseId):
     """
