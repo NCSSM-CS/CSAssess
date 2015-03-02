@@ -1,8 +1,8 @@
 def getConfig(dbName):
     config = {
-        'user': 'root',
+        'user': '',
         'password': '',
-        'host': '127.0.0.1',
+        'host': '',
         'database': dbName,
         'raise_on_warnings': True,
     }
