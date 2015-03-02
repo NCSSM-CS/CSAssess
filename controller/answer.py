@@ -99,10 +99,10 @@ class Answer:
     def toJSON(self):
         data = [{
         "id" : self.id, 
-        "created" : self.created
-        "created by" : self.created_by,
-        "question id" : self.question_id,
-        "score" : score,
-        "answer text" : answer_text
+        "created": self.created,
+        "created by": self.created_by,
+        "question id": self.question_id,
+        "score": score,
+        "answer text": answer_text
         }]
         return json.dumps(data)
