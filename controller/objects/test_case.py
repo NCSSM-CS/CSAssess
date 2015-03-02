@@ -11,8 +11,8 @@ last_modified date: 3/2/2015
 import constants
 
 # classes
-class Assessment:
-    'Assessment object to hold attributes and functions for an assessment'
+class Test_Case:
+    'test_case object to hold attributes and functions for a test_case'
 
     def __init__(self, id, created, created_by, question_id, weight, content):
         """
