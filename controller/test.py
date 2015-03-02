@@ -9,7 +9,6 @@ import viewTopic
 import viewSection
 import viewCourse
 import viewUser
-import viewComment
 
 import editAssessment
 import editQuestion
@@ -24,4 +23,4 @@ from section import Section
 from course import Course
 from user import User
 
-print(viewComment.byID(1))
+print(viewUser.byID(1).toJson())
