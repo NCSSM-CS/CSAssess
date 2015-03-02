@@ -85,3 +85,12 @@ class Topic:
         string += "created by: " + str(self.created_by) + "\n"
         string += "name: "       +     self.name        + "\n"
         return string
+    def toJson(self):
+        data = [{
+        "id"        : self.id,
+        "created"   : self.created,
+        "created by": self.created_by,
+        "name"      : self.name
+        }]
+        return json.dumps(data)
+

@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       2/28/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/1/2015
+last_modified_by:   John Fang
+last_modified date: 3/2/2015
 """
 
 # imports
