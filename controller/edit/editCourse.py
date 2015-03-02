@@ -14,18 +14,18 @@ TODO:
 """
 
 # imports
+import constants
 import sys
 import time
 
-sys.path.insert(0, "../objects")
+sys.path.insert(0, constants.DIR + "objects")
 from course import Course
 
-sys.path.insert(0, "../")
+sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 
 # functions
-# TODO: this -EC
 def newCourse():
     pass
 

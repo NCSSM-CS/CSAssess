@@ -14,14 +14,15 @@ TODO:
 """
 
 # imports
+import constants
 import sys
 import time
 import random
 
-sys.path.insert(0, "../objects")
+sys.path.insert(0, constants.DIR + "objects")
 from assessment import Assessment
 
-sys.path.insert(0, "../")
+sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 

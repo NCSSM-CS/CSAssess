@@ -137,7 +137,7 @@ class Assessment:
         string += "created: "    + str(self.created)    + "\n"
         string += "created by: " + str(self.created_by) + "\n"
         string += "type: "       +     self.type        + "\n"
-        string += "section id: " + str(self.section_id) + "\n"
+        string += "section id: " + str(self.section)    + "\n"
         string += "name: "       +     self.name
 
         string += "\nTopics:\n"
