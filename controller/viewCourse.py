@@ -12,10 +12,8 @@ import constants
 import viewUser
 import sys
 
-sys.path.insert(0, constants.DIR + "objects")
 from course import Course
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 

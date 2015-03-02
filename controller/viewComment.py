@@ -13,10 +13,8 @@ import viewUser
 import viewAnswer
 import sys
 
-sys.path.insert(0, constants.DIR + "objects")
 from comment import Comment
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 

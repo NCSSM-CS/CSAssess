@@ -12,10 +12,8 @@ import constants
 import sys
 import time
 
-sys.path.insert(0, "../objects")
 from question import Question
 
-sys.path.insert(0, constants.DIR)
 import mysql.connector
 from mysql_connect_config import getConfig
 
