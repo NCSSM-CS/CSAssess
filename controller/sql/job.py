@@ -183,6 +183,8 @@ class Job:
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
+	    
+	    return returnList
 
 
         def toJson(self):
@@ -191,7 +193,7 @@ class Job:
             "created"           : str(self.created),
             "created_by"        :     self.created_by,
             "section_id"        :     self.section_id,
-            "type"              :     self.type,
+	    "type"              :     self.type,
             "assessment id"     :     self.assessment_id,
             "assigned to id"    :     self.assigned_to_id,
             "content"           :     self.content,
