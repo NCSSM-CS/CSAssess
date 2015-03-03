@@ -219,6 +219,7 @@ class User(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
+        if self.id is not None:
             self.active = int(bool)
             update = ("UPDATE user SET active=%s WHERE id=%s;" % (int(bool), self.id))
             cursor.execute(update)
