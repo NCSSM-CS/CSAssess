@@ -95,34 +95,34 @@ class Job:
             string += "content: "        + self.content              + "\n"
             string += "taken by user:"   + self.taken_by_user_id     + "\n"
 	    string += "active: "         + str(self.active)          + "\n"
-            
+
 	    return string
 
 	def add(self):
-	    
+
 	    if self.id is not None:
 	        return
-	    
+
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
-            
-	    insert = ("INSERT INTO jobs (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
-	    
+
+	    insert = ("INSERT INTO job (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+
 	    cursor.execute(insert)
 
 	    for(id) in cursor:
 	        self.id=id
-	    
+
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
 
-	def edit(self):
+	def update(self):
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
 
 	    if self.id is not None:
-	    	update = ("UPDATE jobs SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    	update = ("UPDATE job SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
 		cursor.execute(update)
 
 	    cnx.commit()
@@ -136,13 +136,54 @@ class Job:
 	    if self.active is not None:
 
 	        self.active = int(bool)
-	        active = ("UPDATE jobs SET active=%s WHERE id=%s;" % (int(bool), self.id))
-	    
+	        active = ("UPDATE job SET active=%s WHERE id=%s;" % (int(bool), self.id))
+
 	        cursor.execute()
 
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
+
+	@classmethod
+	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
+	    """
+	    
+	    """
+	    cnx = mysql.connector.connect(**getConfig())
+	    cursor = cnx.cursor()
+
+	    returnList = []
+	    query = ""
+	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
+	    	query = "SELECT * FROM job"
+	    elif searchAssignedTo is not None:
+	        query = ("SELECT * FROM job WHERE assigned_to_id = %s" % (searchAssignedTo))
+	    elif searchTakenBy is not None:
+	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy))
+	    elif type(search) is int:
+	    	query = ("SELECT * FROM job WHERE id=%s" % (search))
+	    elif type(search) is user:
+	    	query = ("SELECT * FROM job WHERE created_by=%s" % (search.id))
+	    elif type(search) is section:
+	        query = ("SELECT * FROM job WHERE section_id=%s" % (search.id))
+	    elif type(search) is str:
+	        query = ("SELECT * FROM job WHERE type='%s'" % (search))
+	    
+	    query += "AND active=%s;" % (testActive)
+	    cursor.execute(query)
+	    
+	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:
+	        
+		user = User.get(created_by)[0]
+		newJob = Job(id, created, user, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
+		
+		if newJob not in returnList:
+		    returnList.append(newJob)
+	    
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+
 
         def toJson(self):
             data = [{

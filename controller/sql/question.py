@@ -118,7 +118,7 @@ class Question:
 
         return string
     def toJson(self):
-        data = [{
+        data = {
         "id"			: self.id,
         "created"		: self.created,
         "created by"		: self.created_by,
@@ -130,5 +130,5 @@ class Question:
         "last given"		: self.last_given,
         "content"		: self.content,
         "topics"		: self.topic_list
-	}]
-		return json.dumps(data)
+        }
+        return json.dumps(data)

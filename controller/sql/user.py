@@ -159,7 +159,7 @@ class User(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO user (created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID()" % (self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.active))
+            insert = ("INSERT INTO user (created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID()" % (self.created, self.created_by.id, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id
@@ -186,7 +186,7 @@ class User(object):
         elif type(search) is Assessment:
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
-                     "WHERE ua.assessment.id=%s"
+                     "WHERE ua.assessment_id=%s"
                      % (search.id))
 
         query += " AND active=%s;" % (testActive)
@@ -203,12 +203,12 @@ class User(object):
 
         return returnList
 
-    def edit(self):
+    def update(self):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE user SET created='%s', created_by=%s, last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
+            update = ("UPDATE user SET created='%s', created_by=%s, last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.created, self.created_by.id, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
             cursor.execute(update)
 
         cnx.commit()
@@ -219,6 +219,7 @@ class User(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
+        if self.id is not None:
             self.active = int(bool)
             update = ("UPDATE user SET active=%s WHERE id=%s;" % (int(bool), self.id))
             cursor.execute(update)

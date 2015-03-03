@@ -25,66 +25,21 @@ function searchDatabase(text)
 	//		questions.splice(i, 1);
 	//	}
 	//}
-	var length = Object.keys(questions).length;
-	if (difficulty != "")
-	{
-		console.log("Difficulty check running!");
-		for (i = 0; i < length; i++)
-		{
-			var difficulty_id = questions[i].difficulty;
-			if (difficulty != difficulty_id)
-			{
-				delete questions[i];
-			}
-		}
-	}
-	if (keyword != "" && keyword != null)
-	{
-		keyword = keyword.split(" ");
-		if ((typeof keyword[1]) != "undefined")
-		{
-			document.getElementById("error").textContent = "Multiple keywords are not supported. Please enter 1 keyword";
-			return 0;
-		}
-		keyword = keyword[0];
-		//todo: implement partial string matching
-		for (i = 0; i < length; i++)
-		{
-			if ((typeof questions[i]) == 'undefined')
-			{
-				continue;
-			}
-			var question_content = questions[i].content;
-			question_content = question_content.split(" ");																			
-			var contains = 0;
-			for (j = 0; j < question_content.length; j++)
-			{
-				if (question_content[j].indexOf(keyword) != -1)
-				{
-					contains = 1;
-					break;
-				}
-			}
-			if (contains != 1)
-			{
-				delete questions[i];
-			}
-		}
-	}
-	document.getElementById("error").textContent = "";
-	var container = document.getElementById("database_container");
-	while (container.firstChild) 
+	var length = Object.keys(questions).length; //gets length of associative array "questions"
+	document.getElementById("error").textContent = ""; //clears error div if success
+	var container = document.getElementById("database_container"); //gets container to put table in
+	while (container.firstChild) //removes old table if it exists
 	{
   		container.removeChild(container.firstChild);
 	}
-	var data = ["difficulty", "language", "last_given", "topic", "content"];
-	var data2 = ["Difficulty", "Language", "Last Given", "Topic", "Content"];
-	var database = document.createElement("TABLE");
-	database.setAttribute("id","database"); //creates table to keep the database in
-	database.setAttribute("class","table table-bordered");
-	var thead = document.createElement("THEAD");
+	var data = ["difficulty", "language", "last_given", "topic", "content"]; //topics to get from request
+	var data2 = ["Difficulty", "Language", "Last Given", "Topic", "Content"]; //labels for columns
+	var database = document.createElement("TABLE"); //creates table
+	database.setAttribute("id","database"); 		//identifies as database
+	database.setAttribute("class","table table-bordered"); //adds bootstrap table classes
+	var thead = document.createElement("THEAD"); //adds table head
 	var tr = document.createElement("TR");
-	for (j = 0; j < 5; j++) 
+	for (j = 0; j < 5; j++) 				//adds elements in table head as labels
 	{
     	var th = document.createElement("TH");
     	th.textContent = data2[j];
@@ -92,13 +47,9 @@ function searchDatabase(text)
     }
     thead.appendChild(tr);
     database.appendChild(thead);
-    var tbody = document.createElement("TBODY");
+    var tbody = document.createElement("TBODY"); //gets all questions and puts them in table 
 	for (i = 0; i < length; i++) 
-	{
-		if ((typeof questions[i]) == 'undefined')
-		{
-			continue;
-		}
+	{	
 		var tr = document.createElement("TR");
 		for (j = 0; j < 5; j++) 
 		{
@@ -109,15 +60,32 @@ function searchDatabase(text)
         tbody.appendChild(tr);
     }
     database.appendChild(tbody);
-    document.getElementById("database_container").appendChild(database);
+    document.getElementById("database_container").appendChild(database); //puts table on page
 }
-function submitQuery(e)
+function submitQuery()
 {
-	if (e.keycode == 13)
+	var difficulty = document.getElementById("difficulty").value;
+	var topic = document.getElementById("topicSelect").value;
+	//var keyword = document.getElementById("practiceKeyword").value;
+	var toSend = {};
+	if (difficulty != "")
 	{
-		getExternal('/view/public_html/js/test/test.json', searchDatabase); 
-		return false;
+		toSend.difficulty = difficulty;
 	}
+	if (topic != "")
+	{
+		toSend.topic = topic;
+	}
+	//todo in later versions: add actual validation w/ tokens
+	toSend.token = "token-standin";
+	toSend.requestType = "filter";
+	$.post(
+	{                                                 
+        url:"/cgi-bin/echo.py",                                                 
+        data: toSend,
+        dataType: "json",
+        success: searchDatabase
+	});
 }
 function submitQuestion() {
     var dataToSubmit = $("#questionSubmit").val();
