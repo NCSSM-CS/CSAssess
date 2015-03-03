@@ -192,9 +192,9 @@ class Assessment(object):
     def update(self):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
-        
+
         if self.id is not None:
-            update = ("UPDATE user SET created='%s', created_by=%s, type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.created, self.created_by.id, self.type, self.section.id))
+            update = ("UPDATE user SET type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.type, self.section.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -204,7 +204,7 @@ class Assessment(object):
     def activate(self, bool):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
-        
+
         if self.id is not None:
             self.active = int(bool)
             active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))

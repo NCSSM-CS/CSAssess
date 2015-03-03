@@ -125,7 +125,7 @@ class Test_Case(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = "UPDATE test_case SET created='%s', created_by=%s, question_id=%s, weight=%s, content='%s' WHERE id=%s;" % (self.created, self.created_by.id, self.question.id, self.weight, self.content, self.id)
+            update = "UPDATE test_case SET question_id=%s, weight=%s, content='%s' WHERE id=%s;" % (self.question.id, self.weight, self.content, self.id)
             cursor.execute(update)
 
         cnx.commit()

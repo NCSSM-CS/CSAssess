@@ -57,7 +57,7 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by.id, self.question.id, self.score, self.content, self.id))
+            update = ("UPDATE answer SET question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.question.id, self.score, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()

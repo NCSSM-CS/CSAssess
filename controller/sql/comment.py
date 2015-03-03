@@ -57,7 +57,7 @@ class Comment(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE comment SET created = '%s', created_by = %s, answer_id = %s,  content = '%s' WHERE id = %s;" % (self.created, self.created_by.id, self.asnwer_id, self.content, self.id))
+            update = ("UPDATE comment SET answer_id = %s,  content = '%s' WHERE id = %s;" % (self.asnwer_id, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()

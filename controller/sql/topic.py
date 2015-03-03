@@ -104,7 +104,7 @@ class Topic(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE topic SET created='%s', created_by=%s, name='%s', active=%s" % (self.created, self.created_by.id, self.name, self.active))
+            update = ("UPDATE topic SET name='%s', active=%s" % (self.name, self.active))
             cursor.execute(update)
 
         cnx.commit()

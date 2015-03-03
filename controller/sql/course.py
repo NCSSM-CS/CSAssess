@@ -107,7 +107,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-                update = ("UPDATE courses SET created = '%s', created_by = %s, type = '%s',, section_id = %s, name = '%s' WHERE id = %s;" % (self.created, self.created_by.id, self.type, self.section_id, self.name, self.id))
+                update = ("UPDATE courses SET type = '%s', section_id = %s, name = '%s' WHERE id = %s;" % (self.type, self.section_id, self.name, self.id))
 	        cursor.execute(update)
 
 	cnx.commit()

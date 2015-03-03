@@ -118,7 +118,7 @@ class Section:
 	cursor = cnx.cursor()
 
 	if self.id is not None:
-	    update = ("UPDATE job SET created = '%s', created_by = %s, course = %s, year = %s, term = '%s', period = '%s', active = %s;" % (self.created, self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
+	    update = ("UPDATE job SET course = %s, year = %s, term = '%s', period = '%s', active = %s;" % (self.course.id, self.year, self.term, self.period, self.active))
 
 	    cursor.execute(update)
 

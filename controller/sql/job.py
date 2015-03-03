@@ -122,7 +122,7 @@ class Job:
 	    cursor = cnx.cursor()
 
 	    if self.id is not None:
-	    	update = ("UPDATE job SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    	update = ("UPDATE job SET type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
 		cursor.execute(update)
 
 	    cnx.commit()
@@ -147,7 +147,7 @@ class Job:
 	@classmethod
 	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
 	    """
-	    
+
 	    """
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
@@ -168,22 +168,22 @@ class Job:
 	        query = ("SELECT * FROM job WHERE section_id=%s" % (search.id))
 	    elif type(search) is str:
 	        query = ("SELECT * FROM job WHERE type='%s'" % (search))
-	    
+
 	    query += "AND active=%s;" % (testActive)
 	    cursor.execute(query)
-	    
+
 	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:
-	        
+
 		user = User.get(created_by)[0]
 		newJob = Job(id, created, user, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
-		
+
 		if newJob not in returnList:
 		    returnList.append(newJob)
-	    
+
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
-	    
+
 	    return returnList
 
 
