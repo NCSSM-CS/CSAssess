@@ -141,14 +141,18 @@ class Course:
         query = ""
         if id == "all":
             query = "SELECT * FROM course"
-        else:
+        elif type(id) is int:
             query = ("SELECT * FROM course WHERE id=%s" % (id))
+        elif type(id) is str:
+            query = ("SELECT * FROM course WHERE (course_code LIKE '%%%s%%' OR name LIKE '%%%s%%')" % (id, id))
 
         query += " AND active=%s;" % (testActive)
         cursor.execute(query)
         for (id, created, created_by, course_code, name, active) in cursor:
             user = User.get(created_by)[0]
-            returnList.append(Course(id, created, user, course_code, name, active))
+            newCourse = Course(id, created, user, course_code, name, active)
+            if newCourse not in returnList:
+                returnList.append(newCourse)
 
         cnx.commit()
         cursor.close()
