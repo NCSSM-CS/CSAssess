@@ -106,7 +106,7 @@ class Job:
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
             
-	    insert = ("INSERT INTO jobs (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    insert = ("INSERT INTO job (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
 	    
 	    cursor.execute(insert)
 
@@ -122,7 +122,7 @@ class Job:
 	    cursor = cnx.cursor()
 
 	    if self.id is not None:
-	    	update = ("UPDATE jobs SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    	update = ("UPDATE job SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
 		cursor.execute(update)
 
 	    cnx.commit()
@@ -136,14 +136,30 @@ class Job:
 	    if self.active is not None:
 
 	        self.active = int(bool)
-	        active = ("UPDATE jobs SET active=%s WHERE id=%s;" % (int(bool), self.id))
+	        active = ("UPDATE job SET active=%s WHERE id=%s;" % (int(bool), self.id))
 	    
 	        cursor.execute()
 
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
+	
+	@classmethod
+	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
+	    cnx = mysql.connector.connect(**getConfig())
+	    cursor = cnx.cursor()
 
+	    returnList = []
+	    query = ""
+	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
+	    	query = "SELECT * FROM job"
+	    if searchAssignedTo is not None:
+	        query = 
+		
+
+	    elif type(search) is int:
+	    	query = "SELECT "
+	
         def toJson(self):
             data = [{
             "id"                :     self.id,
