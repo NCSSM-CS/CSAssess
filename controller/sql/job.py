@@ -13,7 +13,7 @@ import json
 
 class Job:
     'Job object to hold attributes and functions for a job.'
-    def __init__(self, id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id):
+    def __init__(self, id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active):
         """
         self               - the job in question
         id                 - the id number of the job 'self' in the database
@@ -24,6 +24,7 @@ class Job:
         assigned_to_id     - the user that job 'self' was assigned to
         content            - the content of the job 'self'
         taken_by_user_id   - the id of the user taking job 'self'
+	active             - bit specifying whether job is active or inactive
 
         this function acts as the constructor to define a new job object
         """
@@ -36,9 +37,10 @@ class Job:
         self.assigned_to_id   = assigned_to_id
         self.content          = content
         self.taken_by_user_id = taken_by_user_id
+	self.active           = active
 
         @classmethod
-        def noID(self, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id):
+        def noID(self, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active):
             """
             the parameters correspond with the parameters in the constructor above
 
@@ -48,7 +50,7 @@ class Job:
             this function acts as a second constructor where you have created a
             job that has not yet been assigned an id from the database
             """
-            return self(None, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id)
+            return self(None, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
         def __eq__(self, other):
             """
             self  - the job in question
@@ -70,16 +72,9 @@ class Job:
             self.assessment_id     == other.assessment_id     and
             self.assigned_to_id    == other.assigned_to_id    and
             self.content           == other.content           and
-            self.taken_by_user_id  == other.taken_by_user_id)
-        def setID(self, id):
-            """
-            self - the job in question
-            id   - the id for the job from the database
+            self.taken_by_user_id  == other.taken_by_user_id  and
+	    self.active            == other.active)
 
-            this function allows you to assign an id to the job after
-            inserting it into the database
-            """
-            self.id = id
         def __str__(self):
             """
             self - the job in question
@@ -99,8 +94,56 @@ class Job:
             string += "assigned to id: " + self.assigned_to_id       + "\n"
             string += "content: "        + self.content              + "\n"
             string += "taken by user:"   + self.taken_by_user_id     + "\n"
+	    string += "active: "         + str(self.active)          + "\n"
+            
+	    return string
 
-            return string
+	def add(self):
+	    
+	    if self.id is not None:
+	        return
+	    
+	    cnx = mysql.connector.connect(**getConfig())
+	    cursor = cnx.cursor()
+            
+	    insert = ("INSERT INTO jobs (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    
+	    cursor.execute(insert)
+
+	    for(id) in cursor:
+	        self.id=id
+	    
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+
+	def edit(self):
+	    cnx = mysql.connector.connect(**getConfig())
+	    cursor = cnx.cursor()
+
+	    if self.id is not None:
+	    	update = ("UPDATE jobs SET created = '%s', created_by = %s, type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.created, self.created_by.id, self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+		cursor.execute(update)
+
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+
+	def activate(self, bool):
+	    cnx = mysql.connector.connect(**getConfig())
+	    cursor = cnx.cursor()
+
+	    if self.active is not None:
+
+	        self.active = int(bool)
+	        active = ("UPDATE jobs SET active=%s WHERE id=%s;" % (int(bool), self.id))
+	    
+	        cursor.execute()
+
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+
         def toJson(self):
             data = [{
             "id"                :     self.id,
