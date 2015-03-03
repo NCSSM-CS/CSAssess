@@ -41,81 +41,63 @@
         <!-- The navbar on the right side -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#"> Home </a>
-                </li>
-                <li>
-                    <a href="#"> My Profile </a>
-                </li>
-                <li>
-                    <a href="#"> CS402 - Morrison </a>
-                </li>
-                <li>
-                    <a href="#"> CS404 - Boyarsky </a>
-                </li>
-                <li>
-                    <a href="#"> AS305 - Miller </a>
-                </li>
-                <li>
-                    <a href="#"> Practice </a>
-                </li>
+                <li class="sidebar-brand"><a href="#">Navigation</a></li>
+                <li><a href="#">Class 1</a></li>
+                  <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+                <li><a href="#">Class 2</a></li>
+                    <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+                <li><a href="#">Class 3</a></li>
+              <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+              <li><a href="#">Practice</a></li>
             </ul>
-        </div>    
-    
+            
+        </div>
+
 
         <!-- Home Page -->
         <div id="page-content-wrapper">
-	    <h2>Annoucements</h2>
-	    <ul>
-              <h4>Current Assignments</h4>
-                  <div class="table">
-                  <table class="table table-striped table-bordered">
-                      <thead>
-                          <tr>
-                              <th> Assignment </th>
-                              <th> Course </th>
-                              <th> Instructor </th>
-                              <th> Status </th>
-                              <th> Due </th>
-                              <th> # Questions </th>
-                              <th> Point Value </th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                              <th><a href="#"> Learning to use files </a> </th>
-                              <th> CS402 </th>
-                              <th> John Boyarsky </th>
-                              <th> Not Started </th>
-                              <th> 03/04/2015 </th>
-                              <th> 10 </th>
-                              <th> 100 </th>
-                          </tr>
-                          <tr>
-                              <th><a href="#"> Making the Array List </a> </th>
-                              <th> CS404 </th>
-                              <th> Sam Morrison </th>
-                              <th> Not Started </th>
-                              <th> 03/05/2015 </th>
-                              <th> 2 </th>
-                              <th> 50 </th>
-                          </tr>
-                      </tbody>
-                  </table>
-                  </div>
-	    </ul>
-        <ul>
-        <h4>Newly Graded Assignments</h4>
+	    <h2 align="center">CS402: AP Computer Science I</h2>
+	    <h4 align="center">Instructor: John Boyarsky</h4>
+        <h3>Assignments to Grade</h3>
+            <div class="table">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th> Assignment </th>
+                        <th> Course </th>
+                        <th> Instructor </th>
+                        <th> # Questions </th>
+                        <th> Point Value </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><a href="#"> Learning to use files </a> </th>
+                        <th> CS402 </th>
+                        <th> John Boyarsky </th>
+                        <th> 10 </th>
+                        <th> 100 </th>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        <h3>Assignments you have Graded</h3>
             <div class="table">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th> Assignment Title </th>
                             <th> Course </th>
-                            <th> Teacher </th>
-                            <th> Date Submitted </th>
-                            <th> Points Earned </th>
-                            <th> Point Value </th>
+                            <th> Instructor </th>
                             <th> Grade </th>
                         </tr>
                     </thead>
@@ -124,40 +106,32 @@
                             <th><a href="#"> Using files </a> </th>
                             <th> CS402 </th>
                             <th> John Boyarsky </th>
-                            <th> 02/24/2015 </th>
-                            <th> 10 </th>
-                            <th> 12 </th>
                             <th> 83 </th>
                         </tr>
                         <tr>
                             <th><a href="#"> Creating a linked list </a> </th>
-                            <th> CS404 </th>
+                            <th> CS402 </th>
                             <th> Sam Morrison </th>
-                            <th> 02/28/2015 </th>
-                            <th> 47 </th>
-                            <th> 50 </th>
                             <th> 94 </th>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            </ul>
+        <h3><a href="#">Practice</a></h3>
         </div>
 
     </div> 
 
       <hr>
 
+      <footer>
+        <p>&copy; Company 2014</p>
+      </footer>
      <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
-        <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-        </script>
+
         <script src="js/main.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

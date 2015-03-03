@@ -3,8 +3,8 @@
 """
 created_by: Samuel Murray
 create_date: 3/2/2015
-last_modified_by: Ebube Chuba
-last_modified_date: 3/3/2015
+last_modified_by: John Fang
+last_modified_date: 3/2/2015
 """
 
 #imports
@@ -103,14 +103,14 @@ class Job:
             return string
         def toJson(self):
             data = [{
-            "id"                : self.id,
-            "created"           : self.created,
-            "created_by"        : self.created_by,
-            "section_id"        : self.section_id,
-            "type"              : self.type,
-            "assessment id"     : self.assessment_id,
-            "assigned to id"    : self.assigned_to_id,
-            "content"           : self.content,
-            "take by user id"   : self.take_by_user_id
+            "id"                :     self.id,
+            "created"           : str(self.created),
+            "created_by"        :     self.created_by,
+            "section_id"        :     self.section_id,
+            "type"              :     self.type,
+            "assessment id"     :     self.assessment_id,
+            "assigned to id"    :     self.assigned_to_id,
+            "content"           :     self.content,
+            "taken by user id"  :     self.taken_by_user_id
             }]
             return json.dumps(data)
