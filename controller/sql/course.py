@@ -11,7 +11,7 @@ last_modified date: 3/2/2015
 import constants
 import json
 import mysql.connector
-from mysql_connect_config import get Config
+from mysql_connect_config import getConfig
 
 # classes
 class Course:
@@ -64,16 +64,6 @@ class Course:
         self.course_code == other.course_code and
         self.name        == other.name)
 
-    def setID(self, id):
-        """
-        self - the course in question
-        id   - the id for the course in the database
-
-        this function allows you to assign an id to the course
-        'self' after inserting it into the database
-        """
-        self.id = id
-
     def __str__(self):
         """
         self - the course in question
@@ -93,8 +83,52 @@ class Course:
 
         return string
 
+    def add(self):
+    	
+	if self.id is not None:
+		return
+
+    	cnx = mysql.connector.connect(**getConfig("csassess"))
+	cursor = cnx.cursor()
+
+	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name) VALUES (%s, '%s', %s,'%s', %s, '%s'); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by, self.type, self.section_id, self.name))
+	cursor.execute(insert)
+	
+	for (id) in cursor:
+		self.id=id
+
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+
+    def edit(self):
+    	
+        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+                update = ("UPDATE courses SET created = '%s', created_by = %s, type = '%s',, section_id = %s, name = '%s' WHERE id = %s;" % (self.created, self.created_by, self.type, self.section_id, self.name, self.id))
+	        cursor.execute(update)
+	
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+    
+    def active(self, bool):
+    	cnx = mysql.connector.connect(**getConfig("csassess"))
+	cursor = cnx.cursor()
+	
+	active = ("UPDATE courses SET active=%s WHERE id=%s;" % (int(bool), self.id))
+
+	cursor.execute()
+
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+
+
     @classmethod
-    def get(self, id="all")
+    def get(self, id="all"):
         cnx = mysql.connector.connect(**getConfig("csassess"))
         cursor = cnx.cursor()
 
