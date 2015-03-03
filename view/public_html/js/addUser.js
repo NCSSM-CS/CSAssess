@@ -17,6 +17,7 @@ function submitUser()
 	//todo in later versions: add actual validation w/ tokens
 	toSend.token = "token-standin";
 	toSend.requestType = "addUser";
+	console.log(toSend);
 	$.post(
 	{                                                 
         url:"/cgi-bin/request.py",                                                 
