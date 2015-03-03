@@ -88,7 +88,7 @@ class Course:
 	if self.id is not None:
 		return
 
-    	cnx = mysql.connector.connect(**getConfig("csassess"))
+    	cnx = mysql.connector.connect(**getConfig())
 	cursor = cnx.cursor()
 
 	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name) VALUES (%s, '%s', %s,'%s', %s, '%s'); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by, self.type, self.section_id, self.name))
@@ -103,7 +103,7 @@ class Course:
 
     def edit(self):
     	
-        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         if self.id is not None:
@@ -115,12 +115,12 @@ class Course:
 	cnx.close()
     
     def active(self, bool):
-    	cnx = mysql.connector.connect(**getConfig("csassess"))
+    	cnx = mysql.connector.connect(**getConfig())
 	cursor = cnx.cursor()
 	
 	active = ("UPDATE courses SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
-	cursor.execute()
+	cursor.execute(active)
 
 	cnx.commit()
 	cursor.close()
@@ -129,7 +129,7 @@ class Course:
 
     @classmethod
     def get(self, id="all"):
-        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
