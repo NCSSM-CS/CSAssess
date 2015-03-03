@@ -105,7 +105,7 @@ class Course(object):
 	cursor.close()
 	cnx.close()
 
-    def edit(self):
+    def update(self):
 
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()

@@ -34,10 +34,10 @@ class Comment(object):
         self.answer     = answer
         self.content    = content
     def add(self):
-        
+
         if self.id is not None:
             return
-        
+
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -50,9 +50,9 @@ class Comment(object):
         cnx.commit()
         cursor.close()
         cnx.close()
-    
-    def edit(self):
-        
+
+    def update(self):
+
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -63,7 +63,7 @@ class Comment(object):
         cnx.commit()
         cursor.close()
         cnx.close()
-        
+
     def activate(self, bool):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
@@ -76,7 +76,7 @@ class Comment(object):
         cnx.commit()
         cursor.close()
         cnx.close()
-        
+
     @classmethod
     def get(self, search="all", testActive=1):
         cnx = mysql.connector.connect(**getcConfig())
@@ -90,7 +90,7 @@ class Comment(object):
             query = ("SELECT * FROM comment WHERE id=%s" % (search))
         elif type(search) is User:
             query = ("SELECT * FROM comment WHERE created_by=%s" % (search))
-        elif type(search) is Answer: 
+        elif type(search) is Answer:
             query = ("SELECT * FROM comment WHERE answer_id=%s" % (search))
 
         query += " AND active =%s;" % (testActive)
@@ -100,7 +100,7 @@ class Comment(object):
             newComment = Comment(id, created, user, answer_id, content, active)
             if newComment not in returnList:
                 returnList.append(newComment)
-        
+
         cnx.commit()
         cursor.close()
         cnx.close

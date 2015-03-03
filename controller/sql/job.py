@@ -95,29 +95,29 @@ class Job:
             string += "content: "        + self.content              + "\n"
             string += "taken by user:"   + self.taken_by_user_id     + "\n"
 	    string += "active: "         + str(self.active)          + "\n"
-            
+
 	    return string
 
 	def add(self):
-	    
+
 	    if self.id is not None:
 	        return
-	    
+
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
-            
+
 	    insert = ("INSERT INTO job (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
-	    
+
 	    cursor.execute(insert)
 
 	    for(id) in cursor:
 	        self.id=id
-	    
+
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
 
-	def edit(self):
+	def update(self):
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
 
@@ -137,13 +137,13 @@ class Job:
 
 	        self.active = int(bool)
 	        active = ("UPDATE job SET active=%s WHERE id=%s;" % (int(bool), self.id))
-	    
+
 	        cursor.execute()
 
 	    cnx.commit()
 	    cursor.close()
 	    cnx.close()
-	
+
 	@classmethod
 	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
 	    cnx = mysql.connector.connect(**getConfig())
@@ -154,12 +154,12 @@ class Job:
 	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
 	    	query = "SELECT * FROM job"
 	    if searchAssignedTo is not None:
-	        query = 
-		
+	        query =
+
 
 	    elif type(search) is int:
 	    	query = "SELECT "
-	
+
         def toJson(self):
             data = [{
             "id"                :     self.id,
