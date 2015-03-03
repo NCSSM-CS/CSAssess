@@ -160,7 +160,7 @@ class Assessment(object):
         cnx.close()
 
     @classmethod
-    def get(search="all", testActive):
+    def get(self, search="all", testActive=1):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -189,6 +189,7 @@ class Assessment(object):
         cnx.commit()
         cursor.close()
         cnx.close()
+    def update(self)
 
     def toJson(self):
         data = {
