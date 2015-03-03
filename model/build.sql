@@ -257,7 +257,8 @@ DROP TABLE IF EXISTS `section_user`;
 		
 CREATE TABLE `section_user` (
   `section_id` INTEGER NOT NULL,
-  `user_id` INTEGER NOT NULL
+  `user_id` INTEGER NOT NULL,
+  `ta_flag` BIT NOT NULL DEFAULT 1
 );
 
 -- ---
