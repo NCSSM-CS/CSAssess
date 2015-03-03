@@ -146,6 +146,9 @@ class Job:
 
 	@classmethod
 	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
+	    """
+	    
+	    """
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
 
@@ -153,12 +156,36 @@ class Job:
 	    query = ""
 	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
 	    	query = "SELECT * FROM job"
-	    if searchAssignedTo is not None:
-	        query =
-
-
+	    elif searchAssignedTo is not None:
+	        query = ("SELECT * FROM job WHERE assigned_to_id = %s" % (searchAssignedTo))
+	    elif searchTakenBy is not None:
+	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy))
 	    elif type(search) is int:
-	    	query = "SELECT "
+	    	query = ("SELECT * FROM job WHERE id=%s" % (search))
+	    elif type(search) is user:
+	    	query = ("SELECT * FROM job WHERE created_by=%s" % (search.id))
+	    elif type(search) is section:
+	        query = ("SELECT * FROM job WHERE section_id=%s" % (search.id))
+	    elif type(search) is str:
+	        query = ("SELECT * FROM job WHERE type='%s'" % (search))
+	    
+	    query += "AND active=%s;" % (testActive)
+	    cursor.execute(query)
+	    
+	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:
+	        
+		user = User.get(created_by)[0]
+		newJob = Job(id, created, user, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
+		
+		if newJob not in returnList:
+		    returnList.append(newJob)
+	    
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+	    
+	    return returnList
+
 
         def toJson(self):
             data = [{
@@ -166,7 +193,7 @@ class Job:
             "created"           : str(self.created),
             "created_by"        :     self.created_by,
             "section_id"        :     self.section_id,
-            "type"              :     self.type,
+	    "type"              :     self.type,
             "assessment id"     :     self.assessment_id,
             "assigned to id"    :     self.assigned_to_id,
             "content"           :     self.content,

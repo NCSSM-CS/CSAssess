@@ -88,22 +88,18 @@ class Course(object):
         return string
 
     def add(self):
+   	cnx = mysql.connector.connect(**getConfig())
+   	cursor = cnx.cursor()
 
-	if self.id is not None:
-		return
+	if self.id is None:
+    	insert = ("INSERT INTO course (id, created, created_by, type, section_id, name, active) VALUES (%s, '%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.section_id, self.name, self.active))
+    	cursor.execute(insert)
+        for (id) in cursor:
+            self.id = id
 
-    	cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
-
-	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name, active) VALUES (%s, '%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.section_id, self.name, self.active))
-	cursor.execute(insert)
-
-	for (id) in cursor:
-		self.id=id
-
-	cnx.commit()
-	cursor.close()
-	cnx.close()
+   	cnx.commit()
+   	cursor.close()
+   	cnx.close()
 
     def update(self):
 
@@ -120,16 +116,16 @@ class Course(object):
 
     def activate(self, bool):
     	cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
+    	cursor = cnx.cursor()
 
-        self.active = int(bool)
-	active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
+        if self.id is not None:
+            self.active = int(bool)
+        	active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
+        	cursor.execute(active)
 
-	cursor.execute(active)
-
-	cnx.commit()
-	cursor.close()
-	cnx.close()
+    	cnx.commit()
+    	cursor.close()
+	    cnx.close()
 
 
     @classmethod

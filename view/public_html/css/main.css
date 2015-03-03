@@ -61,6 +61,17 @@
 #praciteLabel {
     font-size: 30px;
 }
+#titleCent{
+	margin-right: auto;
+	margin-left: auto;
+}
+#titleCent2{
+	margin-right: auto;
+	margin-left: auto;
+}
+textarea {
+    resize: none;
+}
 
 a:link {text-decoration: none; color:white;} //the original link with no underline
 a:visited {text-decoration: none;} //the visited link with no underline

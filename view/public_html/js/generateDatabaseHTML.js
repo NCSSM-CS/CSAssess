@@ -2,12 +2,11 @@
  *This is a javascript file for setting the HTML content of various elements on the 
  * database view page. 
  */ 
-//This isn't run when the page loads.
-//$(document).ready(whenReady());
 
+//Run by an onload event in the body tag. 
 function doOnLoad() {
-    var dataDef = {requestType:"getTopics", thisIsAnEcho:"EchoEchoEcho"};
-    var urlDef = "/cgi-bin/echoJSON.py";
+    var dataDef = {requestType:"getTopics"};
+    var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
     $.post(urlDef, dataDef, getTopics, dataTypeDef);

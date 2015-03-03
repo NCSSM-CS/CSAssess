@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   John Fang
-last_modified date: 3/2/2015
+last_modified_by:   EZ
+last_modified date: 3/3/2015
 """
 
 # imports
@@ -70,16 +70,6 @@ class Section:
         self.term       == other.term       and
         self.period     == other.period)
 
-    def setID(self, id):
-        """
-        self - the section in question
-        id   - the id for the section from the database
-
-        this function allows you to assign an id to the assessment after
-        inserting it into the database
-        """
-        self.id = id
-
     def __str__(self):
         """
         self - the section in question
@@ -99,6 +89,21 @@ class Section:
         string += "period: "     +     self.period      + "\n"
 
         return string
+
+    def add(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor)
+
+        if 
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    @classmethod
+    def get(self, search, active):
+        pass
+
     def toJson(self):
         data = [{
         "id"            :     self.id,

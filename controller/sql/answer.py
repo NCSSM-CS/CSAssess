@@ -32,7 +32,7 @@ class Answer(object):
         self.id               = id
         self.created          = created
         self.created_by       = created_by
-        self.question_id      = question
+        self.question         = question
         self.score            = score
         self.answer_text      = answer_text
         self.active           = active
@@ -43,7 +43,7 @@ class Answer(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by, self.question_id, self.score, self.content, self.active))
+        insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.active))
         cursor.execute(insert)
         for (id) in cursor:
             self.id=id
@@ -57,12 +57,13 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by, self.question_id, self.score, self.content, self.id))
+            update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by.id, self.question.id, self.score, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()
         cursor.close()
         cnx.close()
+
     def activate(self, bool):
         cnx = mysql.connector.connecto(**getCongif())
         cursor = cnx.cursor()
@@ -96,7 +97,7 @@ class Answer(object):
             user = User.get(created_by)[0]
             returnList.append(Answer(id, created, user, question_id, score, content, active ))
 
-	cnx.commit()
+        cnx.commit()
         cursor.close()
         cnx.close
 
@@ -167,11 +168,11 @@ class Answer(object):
         return string
     def toJson(self):
         data = {
-        "id" 		:     self.id,
-        "created"	: str(self.created),
-        "created by"	:     self.created_by,
-        "question id"	:     self.question_id,
-        "score"		:     self.score,
-        "answer text"	:     self.answer_text
+        "id"            :     self.id,
+        "created"       : str(self.created),
+        "created by"    :     self.created_by,
+        "question"      :     self.question_id,
+        "score"         :     self.score,
+        "answer text"   :     self.answer_text
         }
         return json.dumps(data)

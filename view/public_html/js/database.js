@@ -87,3 +87,23 @@ function submitQuery()
         success: searchDatabase
 	});
 }
+function submitQuestion() {
+    var dataToSubmit = $("#questionSubmit").val();
+    if(dataToSubmit === "") {
+        alert("Please enter a question");
+        return false;
+    }
+    var keepGoing = prompt("Is this the question you want to add? \n\Type yes to submit it.");
+    if(keepGoing.toUpperCase() !== "YES") 
+    {
+        alert("Your question was not added to the database.");
+        return false;
+    }
+    var dataDef = {requestType:"addQuestion", data: dataToSubmit};
+    var urlDef = "/cgi-bin/request.py";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    $.post(urlDef, dataDef, successs);
+}
+function successs() {
+    alert("Your question has been added to the database.");
+}
