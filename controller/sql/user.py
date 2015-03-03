@@ -166,7 +166,7 @@ class User:
         cursor.close()
         cnx.close()
 
-    @classfunction
+    @classmethod
     def get(search="all"):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
@@ -208,7 +208,7 @@ class User:
         cursor.close()
         cnx.close()
 
-    def active(self, bool)
+    def active(self, bool):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
