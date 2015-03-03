@@ -23,7 +23,9 @@
         <script src="codemirror/lib/codemirror.js"></script>
         <link rel="stylesheet" href="codemirror/lib/codemirror.css">
         <script src="codemirror/mode/python/python.js"></script>
+        <script src="codemirror/mode/clike/clike.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="mode.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -86,8 +88,8 @@
           <textarea id="codingArea" cols="125" rows="20">
           
           </textarea>
-          <div id="submitStuff">
-            <button type="button">
+          <div>
+            <button type="button" onclick="submitSubmission()">
             Submit
           </button>
           <button type="button">
@@ -96,6 +98,12 @@
           <button type="button">
             Run Test Cases
           </button>
+          <select id="languageSelect" onChange="returnValues(this.value)">
+              <option value="Python" selected>Python 3</option>
+              <option value="Java">Java</option>
+              <option value="C">C</option>
+              <option value="C++">C++</option>
+          </select>
           </div>
           
         </div>
@@ -107,30 +115,18 @@
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-     <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>
+     <!-- /container -->        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>-->
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
+          var editor = CodeMirror(function(elt) {
+            document.getElementById('codingArea').parentNode.replaceChild(
+              elt, document.getElementById('codingArea'));
+          }, languageArgs);
         </script>
-        <script>
-          var editor = CodeMirror.fromTextArea(document.getElementById("codingArea"), {
-            lineNumbers: true,
-            name: "python",
-            version: 3,
-            indentUnit: 4,
-            matchBrackets: true
-          });
-        </script>
+        
     </body>
 </html>
