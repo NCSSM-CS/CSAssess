@@ -14,7 +14,7 @@ from user import User
 from mysql_connect_config import getConfig
 
 # classes
-class Topic:
+class Topic(object):
     'Assessment object to hold attributes and functions for an assessment'
 
     def __init__(self, id, created, created_by, name, active):
