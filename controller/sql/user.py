@@ -167,7 +167,7 @@ class User:
         cnx.close()
 
     @classmethod
-    def get(search="all"):
+    def get(self, search="all"):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 

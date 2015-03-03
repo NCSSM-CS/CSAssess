@@ -3,7 +3,7 @@ def getConfig(dbName):
         'user': '',
         'password': '',
         'host': '',
-        'database': dbName,
+        'database': "csassess",
         'raise_on_warnings': True,
     }
     return config
