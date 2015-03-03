@@ -19,7 +19,7 @@ import json
 #cgitb.enable()
 
 #Next Line is a test case for toFile generation
-#form = {"requestType" : "addUser"}
+form = {"requestType" : "addUser"}
 
 #form = cgi.FieldStorage()
 toFile = ""
