@@ -11,6 +11,8 @@ last_modified date: 3/2/2015
 import json
 import constants
 from user import User
+from section import Section
+from course import Course
 from question import Question
 
 # classes

@@ -186,7 +186,7 @@ class User(object):
         elif type(search) is Assessment:
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
-                     "WHERE ua.assessment.id=%s"
+                     "WHERE ua.assessment_id=%s"
                      % (search.id))
 
         query += " AND active=%s;" % (testActive)
