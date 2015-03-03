@@ -134,6 +134,7 @@ CREATE TABLE `assessment` (
   `type` ENUM('problem_set', 'test', 'quiz') NOT NULL COMMENT 'problem_set, test, quiz',
   `section_id` INTEGER NOT NULL,
   `name` VARCHAR(255) NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 );
 

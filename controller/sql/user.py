@@ -16,7 +16,7 @@ from assessment import Assessment
 from mysql_connect_config import getConfig
 
 # classes
-class User:
+class User(object):
     'Assessment object to hold attributes and functions for an assessment'
 
     def __init__(self, id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
@@ -219,13 +219,13 @@ class User:
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        self.active = int(bool)
-        update = ("UPDATE user SET active=%s WHERE id=%s;" % (int(bool), self.id))
-        cursor.execute(update)
+            self.active = int(bool)
+            update = ("UPDATE user SET active=%s WHERE id=%s;" % (int(bool), self.id))
+            cursor.execute(update)
 
-        cnx.commit()
-        cursor.close()
-        cnx.close()
+            cnx.commit()
+            cursor.close()
+            cnx.close()
 
     def toJson(self):
         data = {

@@ -12,7 +12,7 @@ import json
 import constants
 
 # classes
-class Assessment:
+class Assessment(object):
     'Assessment object to hold attributes and functions for an assessment'
 
     def __init__(self, id, created, created_by, type, section, name, question_list, topic_list):
@@ -114,16 +114,6 @@ class Assessment:
         self.question_list.sort(key=lambda i: i.type, reverse = reverseOpt)
         return self
 
-    def setID(self, id):
-        """
-        self - the assessment in question
-        id   - the id for the assessment from the database
-
-        this function allows you to assign an id to the assessment after
-        inserting it into the database
-        """
-        self.id = id
-
     def __str__(self):
         """
         self - the assessment in question
@@ -138,7 +128,7 @@ class Assessment:
         string += "created: "    + str(self.created)    + "\n"
         string += "created by: " + str(self.created_by) + "\n"
         string += "type: "       +     self.type        + "\n"
-        string += "section id: " + str(self.section)    + "\n"
+        string += "section: " + str(self.section)    + "\n"
         string += "name: "       +     self.name
 
         string += "\nTopics:\n"
@@ -151,13 +141,58 @@ class Assessment:
             string += "\tcontent: "    +     i.content     + "\n\n"
 
         return string
+
+    def add(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        insert = ("INSERT INTO assessment (created, created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.type, self.section.id, self.name, self.active))
+        course.execute(insert)
+        for (id) in cursor:
+            self.id = id
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    @classmethod
+    def get(search="all", testActive):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        returnList = []
+        query = ""
+        if search == "all":
+            query = "SELECT * FROM assessment"
+        elif type(search) is int:
+            query = ("SELECT * FROM assessment WHERE id=%s" % (search))
+        elif type(search) is str:
+            query = ("SELECT * FROM assessment WHERE name='%s'" % (search))
+        elif type(search) is User:
+            query = ("SELECT * FROM assessment WHERE created_by=%s" % (search.id))
+        elif type(search) is Section:
+            query = ("SELECT * FROM assessment WHERE section_id=%s" % (search.id))
+        elif type(search) is Course:
+            query = ("SELECT a.*, c.id FROM section AS s "
+                     "INNER JOIN assessment AS a ON s.id=a.section_id "
+                     "INNER JOIN course AS c ON s.course_id=c.id WHERE c.id=%s"
+                     % (search.id))
+        elif type(search) is Question:
+            query = ("SELECT a.* FROM assessment_question as aq "
+                     "INNER JOIN assessment AS a ON aq.assessment_id=a.id "
+                     "WHERE aq.question_id=%s" % (search.id))
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
     def toJson(self):
-        data = [{
+        data = {
         "id"        :     self.id,
         "created"   : str(self.created),
         "created by":     self.created_by,
         "type"      :     self.type,
         "section id":     self.section,
         "name"      :     self.name
-        }]
+        }
         return json.dumps(data)
