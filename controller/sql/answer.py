@@ -14,10 +14,10 @@ import mysql.connector
 from user import User
 from mysql_connect_config import getConfig
 # classes
-class Answer:
+class Answer(object):
     'Question object to hold attributes and functions for a question'
 
-    def __init__(self, id, created, created_by, question, score, answer_text):
+    def __init__(self, id, created, created_by, question, score, answer_text, active):
         """
         self             - the answer in answer
         id               - the id number of the answer 'self' in the database
@@ -35,6 +35,7 @@ class Answer:
         self.question_id      = question
         self.score            = score
         self.answer_text      = answer_text
+        self.active           = active
 
     def add(self):
         if self.id is not None:
@@ -58,39 +59,44 @@ class Answer:
         if self.id is not None:
             update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by, self.question_id, self.score, self.content, self.id))
             cursor.execute(update)
-        
+
         cnx.commit()
         cursor.close()
         cnx.close()
-    def active(self, bool):
+    def activate(self, bool):
         cnx = mysql.connector.connecto(**getCongif())
         cursor = cnx.cursor()
-        
-        self.active = int(bool)
-        active = ("UPDATE courses SET active = %s WHERE id = %s;" % (int(bool), self.id))
-        
+
+        if self.id is not None:
+            self.active = int(bool)
+            active = ("UPDATE courses SET active = %s WHERE id = %s;" % (int(bool), self.id))
+
         cursor.execute(active)
         cnx.commit()
         cursor.close()
         cnx.close()
 
     @classmethod
-    def get(self, id="all"):
+    def get(self, search="all"):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
         query = ""
-        if id == "all":
+        if search == "all":
             query = "SELECT * FROM answer;"
-        else:
-            query = ("SELECT * FROM answer WHERE id=%s" % (id))
+        elif type(search) is int:
+            query = ("SELECT * FROM answer WHERE id=%s" % (search))
         cursor.execute(query)
+        elif type(search) is Question:
+            query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
+        elif type(search) is User:
+            query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
         for (id, created, created_by, question_id, score, content, active) in cursor:
             user = User.get(created_by)[0]
             returnList.append(Answer(id, created, user, question_id, score, content, active ))
-        
-	    cnx.commit()
+
+	cnx.commit()
         cursor.close()
         cnx.close
 
@@ -124,6 +130,7 @@ class Answer:
         self.id               == other.id               and
         self.created          == other.created          and
         self.created_by       == other.created_by       and
+        self.activate         == other.activate         and
         self.question         == other.question         and
         self.score            == other.score            and
         self.answer_text      == other.answer_text
@@ -152,18 +159,19 @@ class Answer:
         string += "id: "                   + str(self.id)               + "\n"
         string += "created: "              + str(self.created)          + "\n"
         string += "created by: "           + str(self.created_by)       + "\n"
+        string += "activate: "             + str(bool(self.activate))   + "\n"
         string += "question: "             + str(question)              + "\n"
         string += "score: "                + str(score)                 + "\n"
         string += "answer text: "          + str(answer_text)           + "\n"
 
         return string
     def toJson(self):
-        data = [{
-        "id" 		: self.id,
-        "created"	: self.created,
-        "created by"	: self.created_by,
-        "question id"	: self.question_id,
-        "score"		: score,
-        "answer text"	: answer_text
-        }]
+        data = {
+        "id" 		:     self.id,
+        "created"	: str(self.created),
+        "created by"	:     self.created_by,
+        "question id"	:     self.question_id,
+        "score"		:     self.score,
+        "answer text"	:     self.answer_text
+        }
         return json.dumps(data)

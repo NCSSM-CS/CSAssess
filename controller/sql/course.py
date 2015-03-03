@@ -15,7 +15,7 @@ from user import User
 from mysql_connect_config import getConfig
 
 # classes
-class Course:
+class Course(object):
     'Course object to hold attributes and functions for a course'
 
     def __init__(self, id, created, created_by, course_code, name, active):
@@ -95,7 +95,7 @@ class Course:
     	cnx = mysql.connector.connect(**getConfig())
 	cursor = cnx.cursor()
 
-	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name, active) VALUES (%s, '%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by, self.type, self.section_id, self.name, self.active))
+	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name, active) VALUES (%s, '%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.section_id, self.name, self.active))
 	cursor.execute(insert)
 
 	for (id) in cursor:
@@ -111,7 +111,7 @@ class Course:
         cursor = cnx.cursor()
 
         if self.id is not None:
-                update = ("UPDATE courses SET created = '%s', created_by = %s, type = '%s',, section_id = %s, name = '%s' WHERE id = %s;" % (self.created, self.created_by, self.type, self.section_id, self.name, self.id))
+                update = ("UPDATE courses SET created = '%s', created_by = %s, type = '%s',, section_id = %s, name = '%s' WHERE id = %s;" % (self.created, self.created_by.id, self.type, self.section_id, self.name, self.id))
 	        cursor.execute(update)
 
 	cnx.commit()
@@ -133,18 +133,18 @@ class Course:
 
 
     @classmethod
-    def get(self, id="all", testActive=1):
+    def get(self, search="all", testActive=1):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
         query = ""
-        if id == "all":
+        if search == "all":
             query = "SELECT * FROM course"
-        elif type(id) is int:
-            query = ("SELECT * FROM course WHERE id=%s" % (id))
-        elif type(id) is str:
-            query = ("SELECT * FROM course WHERE (course_code LIKE '%%%s%%' OR name LIKE '%%%s%%')" % (id, id))
+        elif type(search) is int:
+            query = ("SELECT * FROM course WHERE id=%s" % (search))
+        elif type(search) is str:
+            query = ("SELECT * FROM course WHERE (course_code LIKE '%%%s%%' OR name LIKE '%%%s%%')" % (search, search))
 
         query += " AND active=%s;" % (testActive)
         cursor.execute(query)
