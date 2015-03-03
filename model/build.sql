@@ -23,9 +23,10 @@ CREATE TABLE `answer` (
   `question_id` INTEGER NOT NULL,
   `score` DECIMAL NULL DEFAULT NULL,
   `content` TEXT NOT NULL,
+  `solution` BIT NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'a specific answer to a specific question. Also includes ''sol';
--- EZ: WHAT ABOUT "`solution` bit NOT NULL"
 
 -- ---
 -- Table 'question'
@@ -45,6 +46,7 @@ CREATE TABLE `question` (
   `version_number` INTEGER NOT NULL DEFAULT 1,
   `last_given` DATETIME NULL DEFAULT NULL,
   `content` MEDIUMTEXT NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   CHECK (difficulty>0 and difficulty<10) 
 );
@@ -78,6 +80,7 @@ CREATE TABLE `user` (
   `view_test_case` bit NOT NULL,
   `view_question` bit NOT NULL,
   `view_all_question` bit NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'contain username, passwords, and permissions. Includes all ';
 
@@ -94,6 +97,7 @@ CREATE TABLE `course` (
   `created_by` INTEGER NOT NULL,
   `course_code` CHAR(6) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'such as ''Databases''';
 
@@ -112,6 +116,7 @@ CREATE TABLE `section` (
   `year` YEAR NOT NULL,
   `term` ENUM('Trimester 1 - Fall', 'Trimester 2 - Winter', 'Trimester 3 - Spring') NOT NULL COMMENT 'school dependant',
   `period` ENUM('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I') NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'A concrete example of a class including specific dates, time';
 
@@ -146,6 +151,7 @@ CREATE TABLE `test_case` (
   `question_id` INTEGER NOT NULL,
   `weight` INTEGER NOT NULL,
   `content` MEDIUMTEXT NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'cases specific to a question, weight signifies its relative ';
 
@@ -161,6 +167,7 @@ CREATE TABLE `topic` (
   `created` DATETIME NOT NULL,
   `created_by` INTEGER NOT NULL,
   `name` VARCHAR(255) NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'such as ''normal forms''';
 
@@ -175,6 +182,7 @@ CREATE TABLE `comment` (
   `created_by` INTEGER NOT NULL,
   `answer_id` INTEGER NOT NULL,
   `content` VARCHAR(140) NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'comments given by the teacher or TA specific to an answer';
 
@@ -195,6 +203,7 @@ CREATE TABLE `job` (
   `assigned_to_id` INTEGER NOT NULL,
   `content` VARCHAR(140) NOT NULL,
   `taken_by_user_id` INTEGER NULL DEFAULT NULL COMMENT 'used when TA is grading, name of gradee',
+  `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) COMMENT 'task for a user to complete. Assigned by teachers to student';
 
@@ -211,7 +220,8 @@ CREATE TABLE `session` (
   `token` CHAR(64) NOT NULL,
   `ip` VARCHAR(39) NOT NULL,
   `user_id` INT NOT NULL,
-  `active` BIT NOT NULL,
+  `active` BIT NOT NULL DEFAULT 1,
+  UNIQUE (`token`),
   PRIMARY KEY (`id`)
 ) COMMENT 'keeps track of user sessions';
 -- ---
