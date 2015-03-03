@@ -17,6 +17,7 @@ from user import User
 cgitb.enable()
 
 # TODO: Session things (and IP address) - EC
+#       Wait for Micah to finish objects (specifically questions) - EC
 
 # Format of questions - EC
 # requestType: question

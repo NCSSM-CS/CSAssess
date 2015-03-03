@@ -6,25 +6,24 @@
 <html class="no-js"> <!--<![endif]-->
 	<head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		
-        <title>Home</title>
+        <title></title>
         
         <link href="css/sidebar.css" rel="stylesheet">
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
-		
-		<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/database.js"></script>
+	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
         </style>
-		
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -35,8 +34,8 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#menu-toggle" id="menu-toggle">CS Assess</a> 
 				</div>
-				<form class="navbar-text navbar-right" style="float: right">
-					<a href="user_profile.html" style=";font-size: 20px; color:#ffffff; padding-right: 20px; text-decoration: none"> Testy Jones</a>
+				<form class="navbar-text navbar-right" style:"float: right">
+					<a href="user_profile.html" style=";font-size: 20px; color:#ffffff; padding-right: 20px; text-decoration: none"> Testy Jones         </a>
 					<a href="login.html" style="font-size: 14px"> (Logout) </a>
 				</form>
 			</div><!--/.navbar-collapse -->
@@ -46,12 +45,17 @@
         <!-- The navbar on the right side -->
 			<div id="sidebar-wrapper">
 				<ul class="sidebar-nav">
-					<li class="sidebar-brand"><a href="#"> Home </a></li>
+					<li class="sidebar-brand"><a href="index.html"> Home </a></li>
 					<li><a href="#"> My Profile </a></li>
 					<li><a href="#"> CS402 - Morrison </a></li>
 					<li><a href="#"> CS404 - Boyarsky </a></li>
 					<li><a href="#"> AS305 - Miller </a></li>
-                    <li><a href="#"> Practice </a></li>
+                                        <li><a href="#"> Question Database </a></li> 
+                                        <ul>
+                                            <li><a href="database.html">View Question </a></li>
+                                            <li><a href="#"> Add Question </a></li>
+                                        </ul>
+                                        <li><a href="#"> Practice </a></li>
 				</ul>
 			</div>    
     
