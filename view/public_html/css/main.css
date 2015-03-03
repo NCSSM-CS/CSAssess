@@ -61,6 +61,14 @@
 #praciteLabel {
     font-size: 30px;
 }
+#titleCent{
+	margin-right: auto;
+	margin-left: auto;
+}
+#titleCent2{
+	margin-right: auto;
+	margin-left: auto;
+}
 textarea {
     resize: none;
 }
