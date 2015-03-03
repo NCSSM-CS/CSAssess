@@ -81,7 +81,7 @@
                       <div class="col-md-6 col-md-offset-3">
                 	      <!--TODO: get the list of topics from the database!-->
                           <!-- validation must ensure that the topic exists before sorting by that !-->
-                          <select class="practiceElement" id="topic" name="topicSelect">
+                          <select class="practiceElement" id="topicSelect" name="topicSelect">
                                 <option value="" selected="selected">Topic</option>
                                 <option value="Recursion">Recursion</option>
                                 <option value="loops">Loops</option>
@@ -103,7 +103,7 @@
                              <option value="10">10</option>
                     	 </select>
                          <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
-                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', searchDatabase(text)">
+                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', searchDatabase)">
                          <div id="database_container"></div>
                      </div>
                  </div>
