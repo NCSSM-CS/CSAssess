@@ -17,7 +17,7 @@ from mysql_connect_config import getConfig
 class User:
     'Assessment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question):
+    def __init__(self, id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
         """
         self              - the user in question
         id                - the id number of the user 'self' in the database
@@ -41,6 +41,7 @@ class User:
         view_test_case    - whether the user 'self' can view test cases or not
         view_question     - whether the user 'self' can view questions or not
         view_all_question - whether the user 'self' can view all questions or not
+        active            - whether the user is an active user or not
 
         this function acts as the constructor to define a new user object
         """
@@ -65,6 +66,7 @@ class User:
         self.view_test_case    = view_test_case
         self.view_question     = view_question
         self.view_all_question = view_all_question
+        self.active            = active
 
     @classmethod
     def noID(cls, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question):
@@ -112,7 +114,8 @@ class User:
         self.view_answer       == other.view_answer        and
         self.view_test_case    == other.view_test_case     and
         self.view_question     == other.view_question      and
-        self.view_all_question == other.view_all_question)
+        self.view_all_question == other.view_all_question  and
+        self.active            == other.active)
 
     def __str__(self):
         """
@@ -146,6 +149,7 @@ class User:
         string += "\tview test case: "     + str(bool(self.view_test_case))    + "\n"
         string += "\tview question: "      + str(bool(self.view_question))     + "\n"
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
+        string += "\tactive: "             + str(bool(self.active))            + "\n"
         return string
 
     def add(self):
@@ -162,8 +166,8 @@ class User:
         cursor.close()
         cnx.close()
 
-    @classfunction
-    def get(search="all"):
+    @classmethod
+    def get(self, search="all"):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -204,6 +208,18 @@ class User:
         cursor.close()
         cnx.close()
 
+    def active(self, bool):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        self.active = int(bool)
+        update = ("UPDATE user SET active=%s WHERE id=%s;" % (int(bool), self.id))
+        cursor.execute(update)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
     def toJson(self):
         data = [{
         "id"                :     self.id,
@@ -226,6 +242,7 @@ class User:
         "view answer"       :     self.view_answer,
         "view test case"    :     self.view_test_case,
         "view question"     :     self.view_question,
-        "view all question" :     self.view_all_question
+        "view all question" :     self.view_all_question,
+        "active"            :     self.active
         }]
         return json.dumps(data)
