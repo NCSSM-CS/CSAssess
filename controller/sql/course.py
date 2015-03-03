@@ -11,13 +11,14 @@ last_modified date: 3/2/2015
 import constants
 import json
 import mysql.connector
+from user import User
 from mysql_connect_config import getConfig
 
 # classes
 class Course:
     'Course object to hold attributes and functions for a course'
 
-    def __init__(self, id, created, created_by, course_code, name):
+    def __init__(self, id, created, created_by, course_code, name, active):
         """
         self        - the course in question
         id          - the id number of the course 'self' in the database
@@ -31,9 +32,10 @@ class Course:
         self.created_by  = created_by
         self.course_code = course_code
         self.name        = name
+        self.active      = active
 
     @classmethod
-    def noID(cls, created, created_by, course_code, name):
+    def noID(self, created, created_by, course_code, name, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -43,7 +45,7 @@ class Course:
         this function acts as a second constructor where you have created a
         course that has not yet been assigned an id from the database
         """
-        return cls(None, created, created_by, course_code, name)
+        return self(None, created, created_by, course_code, name, active)
 
     def __eq__(self, other):
         """
@@ -62,7 +64,8 @@ class Course:
         self.created     == other.created     and
         self.created_by  == other.created_by  and
         self.course_code == other.course_code and
-        self.name        == other.name)
+        self.name        == other.name        and
+        self.active      == other.active)
 
     def __str__(self):
         """
@@ -75,25 +78,26 @@ class Course:
         in it
         """
         string = ""
-        string += "id: "          + str(self.id)          + "\n"
-        string += "created: "     + str(self.created)     + "\n"
-        string += "created by: "  + str(self.created_by)  + "\n"
-        string += "course code: " + str(self.course_code) + "\n"
-        string += "name: "        +     self.name         + "\n"
+        string += "id: "          +      str(self.id)                   + "\n"
+        string += "created: "     +      str(self.created)              + "\n"
+        string += "created by: "  +      str(self.created_by.username)  + "\n"
+        string += "active: "      + str(bool(self.active))              + "\n"
+        string += "course code: " +      str(self.course_code)          + "\n"
+        string += "name: "        +          self.name                  + "\n"
 
         return string
 
     def add(self):
-    	
+
 	if self.id is not None:
 		return
 
     	cnx = mysql.connector.connect(**getConfig())
 	cursor = cnx.cursor()
 
-	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name) VALUES (%s, '%s', %s,'%s', %s, '%s'); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by, self.type, self.section_id, self.name))
+	insert = ("INSERT INTO courses (id, created, created_by, type, section_id, name, active) VALUES (%s, '%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by, self.type, self.section_id, self.name, self.active))
 	cursor.execute(insert)
-	
+
 	for (id) in cursor:
 		self.id=id
 
@@ -102,22 +106,23 @@ class Course:
 	cnx.close()
 
     def edit(self):
-    	
+
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         if self.id is not None:
                 update = ("UPDATE courses SET created = '%s', created_by = %s, type = '%s',, section_id = %s, name = '%s' WHERE id = %s;" % (self.created, self.created_by, self.type, self.section_id, self.name, self.id))
 	        cursor.execute(update)
-	
+
 	cnx.commit()
 	cursor.close()
 	cnx.close()
-    
-    def active(self, bool):
+
+    def activate(self, bool):
     	cnx = mysql.connector.connect(**getConfig())
 	cursor = cnx.cursor()
-	
+
+        self.active = int(bool)
 	active = ("UPDATE courses SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
 	cursor.execute(active)
@@ -139,9 +144,9 @@ class Course:
         else:
             query = ("SELECT * FROM course WHERE id=%s" % (id))
         cursor.execute(query)
-        for (id, created, created_by, course_code, name) in cursor:
-            user = user.get(created_by)
-            returnList.append(Course(id, created, user, course_code, name))
+        for (id, created, created_by, course_code, name, active) in cursor:
+            user = User.get(created_by)[0]
+            returnList.append(Course(id, created, user, course_code, name, active))
 
         cnx.commit()
         cursor.close()
