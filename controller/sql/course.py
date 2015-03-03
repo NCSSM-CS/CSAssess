@@ -161,12 +161,12 @@ class Course:
         return returnList
 
     def toJson(self):
-        data = [{
+        data = {
         "id"            :     self.id,
         "created"       : str(self.created),
         "cread_by"      :     self.created_by,
         "course_code"   :     self.course_code,
         "name"          :     self.name
-        }]
+        }
         return json.dumps(data)
 
