@@ -120,16 +120,16 @@ class Course(object):
 
     def activate(self, bool):
     	cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
+    	cursor = cnx.cursor()
 
-        self.active = int(bool)
-	active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
+        if self.id is not None:
+            self.active = int(bool)
+        	active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
+        	cursor.execute(active)
 
-	cursor.execute(active)
-
-	cnx.commit()
-	cursor.close()
-	cnx.close()
+    	cnx.commit()
+    	cursor.close()
+	    cnx.close()
 
 
     @classmethod
