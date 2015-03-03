@@ -156,7 +156,7 @@ class User:
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
         return string
     def toJson(self):
-        data = [{
+        data = {
         "id"                :     self.id,
         "created"           : str(self.created),
         "created by"        :     self.created_by,
@@ -178,5 +178,5 @@ class User:
         "view test case"    :     self.view_test_case,
         "view question"     :     self.view_question,
         "view all question" :     self.view_all_question
-        }]
+        }
         return json.dumps(data)
