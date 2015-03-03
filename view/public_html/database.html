@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/sidebar.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css"> 
+        <script src="js/vendor/jquery-1.11.1.js"></script>
+        <script src="js/generateDatabaseHTML.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/database.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CS Assess</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-text navbar-right">
+                <p>Testy Jones</p>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    <div id="wrapper">
+        <!-- The navbar on the right side -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">Navigation</a></li>
+                <li><a href="#">Class 1</a></li>
+                  <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+                <li><a href="#">Class 2</a></li>
+                    <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+                <li><a href="#">Class 3</a></li>
+              <ul>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Assignments</a></li>
+                  </ul>
+              <li><a href="practice.html">Practice</a></li>
+            </ul>
+            
+        </div>
+        <div class="row pageContentHeader">
+            View The Database
+        </div>
+        <div class="row practiceContent">
+            <form class="praticeForm" method="POST" enctype="multipart/form-data" >
+                <div class="row practiceContent" id="praciteLabel">Sort by any or all of these </div>
+                   <div class="row">
+                      <div class="col-md-6 col-md-offset-3">
+                	      <!--TODO: get the list of topics from the database!-->
+                          <!-- validation must ensure that the topic exists before sorting by that !-->
+                          <select class="practiceElement" id="topicSelect" name="topicSelect">
+                                <option value="" selected="selected">Topic</option>
+                                <option value="Recursion">Recursion</option>
+                                <option value="loops">Loops</option>
+                                <option value="database">Database</option>
+                                <option value="search">Search</option>
+                          </select>
+                          <!-- validation must ensure that the topic exists !-->
+                          <select class="practiceElement" id="difficulty" name="difficultySelect">
+                         	 <option value="default" selected="selected">Difficulty</option>
+                             <option value="1">1</option>
+                             <option value="2">2</option>
+                        	 <option value="3">3</option>
+                             <option value="4">4</option>
+                             <option value="5">5</option>
+                             <option value="6">6</option>
+                             <option value="7">7</option>
+                             <option value="8">8</option>
+                        	 <option value="9">9</option>
+                             <option value="10">10</option>
+                    	 </select>
+                         <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
+                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', submitQuery)">
+                         <div id="database_container"></div>
+                     </div>
+                 </div>
+            </form>
+        </div>
+      </div> 
+      <footer>
+        <p>&copy; NCSSM CS 2015</p>
+      </footer>
+    </div>
+    </body>
+</html>

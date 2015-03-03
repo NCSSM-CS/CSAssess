@@ -119,16 +119,16 @@ class Question:
         return string
     def toJson(self):
         data = [{
-        "id"			: self.id,
-        "created"		: self.created,
-        "created by"		: self.created_by,
-        "language"		: self.language,
-        "type"			: self.type,
-        "difficulty"		: self.difficulty,
-        "previous question id"	: self.prev_question_id,
-        "version number"	: self.version_number,
-        "last given"		: self.last_given,
-        "content"		: self.content,
-        "topics"		: self.topic_list
-	}]
-		return json.dumps(data)
+        "id"            : self.id,
+        "created"       : self.created,
+        "created by"        : self.created_by,
+        "language"      : self.language, 
+        "type"          : self.type,
+        "difficulty"        : self.difficulty,
+        "previous question id"  : self.prev_question_id,
+        "version number"    : self.version_number,
+        "last given"        : self.last_given,
+        "content"       : self.content,
+        "topics"        : self.topic_list
+    }]
+        return json.dumps(data)
