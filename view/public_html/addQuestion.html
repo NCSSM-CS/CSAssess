@@ -63,6 +63,24 @@
         </div>
         <div class="row practiceContent">
             <textarea rows="10" cols="150" id="questionSubmit" placeholder="Text of the question you want to add. "></textarea></br>
+            <input type="text" placeholder="language" id="language">
+            <input type="text" placeholder="topic" id="topic">
+            <select class="practiceElement" id="difficulty" name="difficultySelect">
+                <option value="default" selected="selected">Difficulty</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+                <input type="checkbox" id="quiz" value="quiz">Quiz
+                <input type="checkbox" id="test" value="test">Test
+                <input type="checkbox" id="practice" value="practice">Practice
             <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
         </div>
       </div> 
