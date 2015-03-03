@@ -21,7 +21,7 @@
 		<script src="codemirror/mode/python/python.js"></script>
 		<script src="codemirror/mode/clike/clike.js"></script>
 		<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-		<script src="js/mode.js"></script>
+		<script src="js/admin.js"></script>
 		
 		<style>
 			body {
@@ -31,6 +31,13 @@
 		</style>
 			 
 	</head>
+	<div id="sidebar-wrapper">
+				<ul class="sidebar-nav">
+					<li class="sidebar-brand"><a href="#"> Home </a></li>
+					<li><a href="#"> Manage Courses </a></li>
+					<li><a href="#"> Manage Users </a></li>
+				</ul>
+			</div>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -48,59 +55,42 @@
     </nav>
 
     <div id="wrapper">
-        <!-- The navbar on the right side -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Navigation</a></li>
-                <li><a href="#">Class 1</a></li>
-                  <ul>
-                    <li><a href="#">Grades</a></li>
-                    <li><a href="#">Assignments</a></li>
-                  </ul>
-                <li><a href="#">Class 2</a></li>
-                    <ul>
-                    <li><a href="#">Grades</a></li>
-                    <li><a href="#">Assignments</a></li>
-                  </ul>
-                <li><a href="#">Class 3</a></li>
-					<ul>
-						<li><a href="#">Grades</a></li>
-						<li><a href="#">Assignments</a></li>
-                    </ul>
-                <li><a href="#">Practice</a></li>
-            </ul>  
-		</div>
-		
         <!-- Home Page -->
         <div id="page-content-wrapper">
-            <h1>Problem 1.1</h1>
-            <ul>
-				<h3>This is the question of this problem. You should answer it.</h3>
-				<li><h3>Preconditions:</h3></li>
-					<ul>
-						<li>Param1: A variable</li>
-						<li>Param2: Another variable</li>
-					</ul>
-				<li><h3>Postconditions:</h3></li>
-					<ul>
-						<li>Returns a solution</li>
-					</ul>
-			</ul>
-		  
-			<textarea id="codingArea" cols="125" rows="20"></textarea>
-          
+            <h1>Welcome to CSAssess!</h1>
+			<h3>Add a Course to the Catalog</h3>
+			<h4>Course Name</h4>
+			<textarea id="courseNameArea" cols="100" rows="1"></textarea>
+			<h4>Course ID</h4>
+			<textarea id="courseNameArea" cols="100" rows="1"></textarea>
+			<h4>Topics</h4>
 		    <div>
-				<button type="button" onclick="submitSubmission()">Submit</button>
-				<button type="button">View Test Cases</button>
-				<button type="button">Run Test Cases</button>
-				<select id="languageSelect" onChange="returnValues(this.value)">
-					<option value="null">Select a Language</option>
-					<option value="Python">Python 3</option>
-					<option value="Java">Java</option>
-					<option value="C">C</option>
-					<option value="C++">C++</option>
-				</select>
+				<input type="checkbox" name="topics" value="Data Structures">Data Structures<br> 				
+				<input type="checkbox" name="topics" value="File I/O">File I/O<br> 
+				<input type="checkbox" name="topics" value="blue">Strings<br>
 			</div> 
+			<div>
+				<button type="button" onclick="submitSubmission()">Submit</button>
+			</div>
+			<div>
+				<h3>Add a User</h3>
+				<h4>Username</h4>
+				<textarea id="usernameField" cols="100" rows="1"></textarea>
+				<h4>Password</h4>
+				<textarea id="passwordField" cols="100" rows="1"></textarea>
+				<h4>Name</h4>
+				<textarea id="nameField" cols="100" rows="1"></textarea>
+				<h4>Role(s)</h4>
+				<div>
+					<input type="checkbox" name="roleField" value="Student">Student<br> 				
+					<input type="checkbox" name="roleField" value="Teacher">Teacher<br> 
+					<input type="checkbox" name="roleField" value="TA">TA<br>
+					<input type="checkbox" name="roleField" value="Admin">Admin<br>
+				</div> 
+				<div>
+					<button type="button" onclick="submitSubmission()">Submit</button>
+				</div>
+			</div>
         </div>
     </div> 
 
