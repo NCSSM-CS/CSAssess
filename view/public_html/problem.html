@@ -99,7 +99,8 @@
             Run Test Cases
           </button>
           <select id="languageSelect" onChange="returnValues(this.value)">
-              <option value="Python" selected>Python 3</option>
+              <option value="null">Select a Language</option>
+              <option value="Python">Python 3</option>
               <option value="Java">Java</option>
               <option value="C">C</option>
               <option value="C++">C++</option>
@@ -115,18 +116,12 @@
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-     <!-- /container -->        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.js"><\/script>')</script>-->
+     <!-- /container -->       
 
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
-        <script>
-          var editor = CodeMirror(function(elt) {
-            document.getElementById('codingArea').parentNode.replaceChild(
-              elt, document.getElementById('codingArea'));
-          }, languageArgs);
-        </script>
+
         
     </body>
 </html>
