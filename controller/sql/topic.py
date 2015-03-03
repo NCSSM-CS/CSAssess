@@ -9,12 +9,15 @@ last_modified date: 3/2/2015
 
 # imports
 import constants
+import mysql.connector
+from user import User
+from mysql_connect_config import getConfig
 
 # classes
 class Topic:
     'Assessment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, name):
+    def __init__(self, id, created, created_by, name, active):
         """
         self       - the topic in question
         id         - the id number of the topic 'self' in the database
@@ -28,9 +31,10 @@ class Topic:
         self.created    = created
         self.created_by = created_by
         self.name       = name
+        self.active     = active
 
     @classmethod
-    def noID(cls, created, created_by, name):
+    def noID(self, created, created_by, name, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -40,7 +44,46 @@ class Topic:
         this function acts as a second constructor where you have created a
         topic that has not yet been assigned an id from the database
         """
-        return cls(None, created, created_by, name)
+        return self(None, created, created_by, name, active)
+
+    @classmethod
+    def get(self, search="all", testActive=1):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        returnList = []
+        query = ""
+        if search == "all":
+            query = ("SELECT * FROM topic")
+        elif type(search) is int:
+            query = ("SELECT * FROM topic WHERE id=%s" % (search))
+        elif type(search) is str:
+            query = ("SELECT * FROM topic WHERE (name LIKE '%%s%%')" % (search))
+        elif type(search) is User:
+            query = ("SELECT * FROM topic WHERE created_by=%s" % (search.id))
+        elif type(search) is Question:
+            query = ("SELECT t.* FROM question_topic AS qt "
+                     "INNER JOIN topic AS t ON qt.topic_id=t.id "
+                     "WHERE qt.question_id=%s"
+                     % (search.id))
+        elif type(search) is Assessment:
+            query = ("SELECT t.* FROM assessment_topic AS at "
+                     "INNER JOIN topic AS t ON at.topic_id=t.id "
+                     "WHERE at.assessment_id=%s"
+                     % (search.id))
+
+        query += " AND active=%s;" % (testActive)
+
+        cursor.execute(query)
+        for (id, created, created_by, name, active) in cursor:
+            user = User.get(created_by)
+            returnList.append(Topic(id, created, user, name, active))
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+        return returnList
 
     def __eq__(self, other):
         """
@@ -58,17 +101,8 @@ class Topic:
         self.id         == other.id         and
         self.created    == other.created    and
         self.created_by == other.created_by and
-        self.name       == other.name)
-
-    def setID(self, id):
-        """
-        self - the topic in question
-        id   - the id for the topc from the database
-
-        this function allows you to assign an id to the topic
-        after inserting it into the database
-        """
-        self.id = id
+        self.name       == other.name       and
+        self.active     == other.active)
 
     def __str__(self):
         """
@@ -83,14 +117,15 @@ class Topic:
         string += "id: "         + str(self.id)         + "\n"
         string += "created: "    + str(self.created)    + "\n"
         string += "created by: " + str(self.created_by) + "\n"
+        string += "active: "     + str(bool(active))    + "\n"
         string += "name: "       +     self.name        + "\n"
         return string
     def toJson(self):
-        data = [{
+        data = {
         "id"        : self.id,
         "created"   : self.created,
         "created by": self.created_by,
         "name"      : self.name
-        }]
+        }
         return json.dumps(data)
 

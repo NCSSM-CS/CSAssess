@@ -203,7 +203,7 @@ class User(object):
 
         return returnList
 
-    def edit(self):
+    def update(self):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
