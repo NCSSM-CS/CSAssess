@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/database.js"></script>
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <style>
             body {
                 padding-top: 50px;
@@ -52,55 +52,23 @@
 					<li><a href="#"> AS305 - Miller </a></li>
                                         <li><a href="#"> Question Database </a></li> 
                                         <ul>
-                                            <li><a href="#">View Question </a></li>
-                                            <li><a href="addQuestion.html"> Add Question </a></li>
+                                            <li><a href="database.html">View Question </a></li>
+                                            <li><a href="#"> Add Question </a></li>
                                         </ul>
                                         <li><a href="#"> Practice </a></li>
 				</ul>
 			</div>
         <div class="row pageContentHeader">
-            View The Database
+            Add a Question To The Database
         </div>
         <div class="row practiceContent">
-            <form class="praticeForm" method="POST" enctype="multipart/form-data" >
-                <div class="row practiceContent" id="praciteLabel">Sort by any or all of these </div>
-                   <div class="row">
-                      <div class="col-md-6 col-md-offset-3">
-                	      <!--TODO: get the list of topics from the database!-->
-                          <!-- validation must ensure that the topic exists before sorting by that !-->
-                          <select class="practiceElement" id="topicSelect" name="topicSelect">
-                                <option value="" selected="selected">Topic</option>
-                                <option value="Recursion">Recursion</option>
-                                <option value="loops">Loops</option>
-                                <option value="database">Database</option>
-                                <option value="search">Search</option>
-                          </select>
-                          <!-- validation must ensure that the topic exists !-->
-                          <select class="practiceElement" id="difficulty" name="difficultySelect">
-                         	 <option value="default" selected="selected">Difficulty</option>
-                             <option value="1">1</option>
-                             <option value="2">2</option>
-                        	 <option value="3">3</option>
-                             <option value="4">4</option>
-                             <option value="5">5</option>
-                             <option value="6">6</option>
-                             <option value="7">7</option>
-                             <option value="8">8</option>
-                        	 <option value="9">9</option>
-                             <option value="10">10</option>
-                    	 </select>
-                         <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
-                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', searchDatabase)">
-                         <div id="database_container"></div>
-                     </div>
-                 </div>
-            </form>
+            <textarea rows="10" cols="150" id="questionSubmit" placeholder="Text of the question you want to add. "></textarea></br>
+            <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
         </div>
       </div> 
       <footer>
         <p>&copy; Company 2014</p>
-      </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+      </footer><!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

@@ -119,3 +119,16 @@ function submitQuery(e)
 		return false;
 	}
 }
+function submitQuestion() {
+    var dataToSubmit = $("#questionSubmit").val();
+    if(dataToSubmit === "") {
+        alert("Please enter a question");
+        return false;
+    }
+    var keepGoing = prompt("Is this the question you want to add? \n\Type yes to submit it.");
+    if(keepGoing.toUpperCase() !== "YES") return false;
+    var dataDef = {requestType:"addQuestion"};
+    var urlDef = "/cgi-bin/request.py";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    $.post(urlDef, dataDef);
+}

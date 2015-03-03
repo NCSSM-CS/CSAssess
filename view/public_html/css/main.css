@@ -61,6 +61,9 @@
 #praciteLabel {
     font-size: 30px;
 }
+textarea {
+    resize: none;
+}
 
 a:link {text-decoration: none; color:white;} //the original link with no underline
 a:visited {text-decoration: none;} //the visited link with no underline
