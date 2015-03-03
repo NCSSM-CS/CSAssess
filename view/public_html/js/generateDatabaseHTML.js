@@ -18,7 +18,7 @@ function doOnLoad() {
 //        data: dataDef,
 //        dataType: dataTypeDef,
 //        success: getTopics
-    }); 
+   // }); 
 }
 
 /*  this function takes the list of topics from the ajax call and uses that
