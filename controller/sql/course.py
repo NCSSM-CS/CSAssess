@@ -123,7 +123,7 @@ class Course:
 	cursor = cnx.cursor()
 
         self.active = int(bool)
-	active = ("UPDATE courses SET active=%s WHERE id=%s;" % (int(bool), self.id))
+	active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
 	cursor.execute(active)
 
@@ -133,16 +133,18 @@ class Course:
 
 
     @classmethod
-    def get(self, id="all"):
+    def get(self, id="all", testActive=1):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
         query = ""
         if id == "all":
-            query = "SELECT * FROM course;"
+            query = "SELECT * FROM course"
         else:
             query = ("SELECT * FROM course WHERE id=%s" % (id))
+
+        query += " AND active=%s;" % (testActive)
         cursor.execute(query)
         for (id, created, created_by, course_code, name, active) in cursor:
             user = User.get(created_by)[0]
