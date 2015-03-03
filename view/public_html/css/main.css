@@ -66,7 +66,11 @@ a:link {text-decoration: none; color:white;} //the original link with no underli
 a:visited {text-decoration: none;} //the visited link with no underline
 a:hover {text-decoration: none; font-weight: 800; } //mouseover link and an underline appears
 
-
+#error{
+	color: red;
+	text-align: center;
+	width: 100%;
+}
 
 
 
