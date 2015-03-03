@@ -76,7 +76,7 @@ class Topic:
 
         cursor.execute(query)
         for (id, created, created_by, name, active) in cursor:
-            user = User.get(created_by)
+            user = User.get(created_by)[0]
             returnList.append(Topic(id, created, user, name, active))
 
         cnx.commit()
