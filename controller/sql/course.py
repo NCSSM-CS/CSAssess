@@ -10,7 +10,8 @@ last_modified date: 3/2/2015
 # imports
 import constants
 import json
-
+import mysql.connector
+from mysql_connect_config import get Config
 
 # classes
 class Course:
@@ -93,8 +94,26 @@ class Course:
         return string
 
     @classmethod
-    def get(id="all")
-        
+    def get(self, id="all")
+        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cursor = cnx.cursor()
+
+        returnList = []
+        query = ""
+        if id == "all":
+            query = "SELECT * FROM course;"
+        else:
+            query = ("SELECT * FROM course WHERE id=%s" % (id))
+        cursor.execute(query)
+        for (id, created, created_by, course_code, name) in cursor:
+            user = user.get(created_by)
+            returnList.append(Course(id, created, user, course_code, name))
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+        return returnList
 
     def toJson(self):
         data = [{

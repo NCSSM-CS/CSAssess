@@ -155,6 +155,37 @@ class User:
         string += "\tview question: "      + str(bool(self.view_question))     + "\n"
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
         return string
+
+    @classfunction
+    def get(search="all"):
+        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cursor = cnx.cursor()
+
+        returnList = []
+        query = ""
+        if search == "all":
+            query = "SELECT * FROM user;"
+        elif type(search) is str:
+            query = ("SELECT * FROM user WHERE first_name LIKE '%s%%' OR last_name LIKE '%s%%';" % (search, search))
+        elif type(search) is Section:
+            query = ("SELECT * FROM user WHERE section_id='%s';" % (search.id))
+        elif type(search) is Assessment:
+            query = ("SELECT u.* FROM user_assessment AS ua "
+                     "INNER JOIN user AS u ON ua.user_id=u.id "
+                     "WHERE ua.assessment.id=%s;"
+                     % (search.id))
+
+        cursor.execute(query)
+        for (u.id, u.created, u.created_by, u.last_login, u.username, u.password, u.first_name, u.last_name, u.role, u.add_assessment, u.edit_user, u.edit_question, u.edit_answer, u.edit_test_case, u.edit_permission, u.view_student_info, u.view_teacher_info, u.view_answer, u.view_test_case, u.view_question, u.view_all_question) in cursor:
+            user = user.get(u.created_by)
+            returnList.append(User(u.id, u.created, user, u.last_login, u.username, u.password, u.first_name, u.last_name, u.role, u.add_assessment, u.edit_user, u.edit_question, u.edit_answer, u.edit_test_case, u.edit_permission, u.view_student_info, u.view_teacher_info, u.view_answer, u.view_test_case, u.view_question, u.view_all_question))
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+        return returnList
+
     def toJson(self):
         data = [{
         "id"                :     self.id,
