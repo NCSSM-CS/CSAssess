@@ -189,7 +189,30 @@ class Assessment(object):
         cnx.commit()
         cursor.close()
         cnx.close()
-    def update(self)
+    def update(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+        
+        if self.id is not None:
+            update = ("UPDATE user SET created='%s', created_by=%s, type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.created, self.created_by.id, self.type, self.section.id))
+            cursor.execute(update)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    def activate(self, bool):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+        
+        if self.id is not None:
+            self.active = int(bool)
+            active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
+            curosr.execute(active)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     def toJson(self):
         data = {
