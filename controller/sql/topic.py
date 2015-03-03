@@ -153,11 +153,11 @@ class Topic(object):
         a human-readable string for viewing the information in it
         """
         string = ""
-        string += "id: "         + str(self.id)         + "\n"
-        string += "created: "    + str(self.created)    + "\n"
-        string += "created by: " + str(self.created_by) + "\n"
-        string += "active: "     + str(bool(active))    + "\n"
-        string += "name: "       +     self.name        + "\n"
+        string += "id: "         +      str(self.id)         + "\n"
+        string += "created: "    +      str(self.created)    + "\n"
+        string += "created by: " +      str(self.created_by) + "\n"
+        string += "active: "     + str(bool(self.active))    + "\n"
+        string += "name: "       +          self.name        + "\n"
         return string
     def toJson(self):
         data = {

@@ -26,7 +26,7 @@ class Section:
         term       - the term that the section 'self' took place in
         period     - the period that the section 'self' took place in
 	active     - bit specifying whether job is active or inactive
-	
+
         this function acts as the constructor to define a new section object
         """
         self.id         = id
@@ -95,12 +95,12 @@ class Section:
         return string
 
     def add(self):
-        
+
 	if self.id is not None:
 	    return
-	
+
 	cnx = mysql.connector.connect(**getConfig())
-        cursor = cnx.cursor)
+        cursor = cnx.cursor()
 
 	insert = ("INSERT INTO section (id, created, created_by, course, year, term, period, active) VALUES (%s, '%s', %s, %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
 
@@ -136,7 +136,7 @@ class Section:
 	    active = ("UPDATE section SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
 	    cursor.execute()
-	
+
 	cnx.commit()
 	cursor.close()
 	cnx.close()
