@@ -11,6 +11,8 @@ last_modified date: 3/3/2015
 import constants
 import json
 import mysql.connector
+from section import Section
+from assessment import Assessment
 from mysql_connect_config import getConfig
 
 # classes
@@ -131,6 +133,7 @@ class User:
         string += "created: "              +      str(self.created)            + "\n"
         string += "created by: "           +      str(self.created_by)         + "\n"
         string += "last login: "           +      str(self.last_login)         + "\n"
+        string += "active: "               + str(bool(self.active))            + "\n"
         string += "username: "             +          self.username            + "\n"
         string += "password: "             +          self.password            + "\n"
         string += "first name: "           +          self.first_name          + "\n"
@@ -149,14 +152,13 @@ class User:
         string += "\tview test case: "     + str(bool(self.view_test_case))    + "\n"
         string += "\tview question: "      + str(bool(self.view_question))     + "\n"
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
-        string += "\tactive: "             + str(bool(self.active))            + "\n"
         return string
 
     def add(self):
-        cnx = mysql.connector.connect(**getConfig(""))
+        cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        if id is None:
+        if self.id is None:
             insert = ("INSERT INTO user (created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID()" % (self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
             cursor.execute(insert)
             for (id) in cursor:
@@ -167,28 +169,33 @@ class User:
         cnx.close()
 
     @classmethod
-    def get(self, search="all"):
+    def get(self, search="all", testActive="1"):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
         query = ""
         if search == "all":
-            query = "SELECT * FROM user;"
+            query = "SELECT * FROM user"
+        elif type(search) is int:
+            query = ("SELECT * FROM user WHERE id=%s" % (search))
         elif type(search) is str:
-            query = ("SELECT * FROM user WHERE first_name LIKE '%s%%' OR last_name LIKE '%s%%';" % (search, search))
+            query = ("SELECT * FROM user WHERE (first_name LIKE '%s%%' OR last_name LIKE '%s%%')" % (search, search))
         elif type(search) is Section:
-            query = ("SELECT * FROM user WHERE section_id='%s';" % (search.id))
+            query = ("SELECT * FROM user WHERE section_id='%s'" % (search.id))
         elif type(search) is Assessment:
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
-                     "WHERE ua.assessment.id=%s;"
+                     "WHERE ua.assessment.id=%s"
                      % (search.id))
 
+        query += " AND active=%s;" % (testActive)
+
+
         cursor.execute(query)
-        for (u.id, u.created, u.created_by, u.last_login, u.username, u.password, u.first_name, u.last_name, u.role, u.add_assessment, u.edit_user, u.edit_question, u.edit_answer, u.edit_test_case, u.edit_permission, u.view_student_info, u.view_teacher_info, u.view_answer, u.view_test_case, u.view_question, u.view_all_question) in cursor:
-            user = user.get(u.created_by)
-            returnList.append(User(u.id, u.created, user, u.last_login, u.username, u.password, u.first_name, u.last_name, u.role, u.add_assessment, u.edit_user, u.edit_question, u.edit_answer, u.edit_test_case, u.edit_permission, u.view_student_info, u.view_teacher_info, u.view_answer, u.view_test_case, u.view_question, u.view_all_question))
+        for (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) in cursor:
+            user = username if created_by == id else User.get(created_by)
+            returnList.append(User(id, created, user, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active))
 
         cnx.commit()
         cursor.close()
@@ -208,7 +215,7 @@ class User:
         cursor.close()
         cnx.close()
 
-    def active(self, bool):
+    def activate(self, bool):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -221,11 +228,12 @@ class User:
         cnx.close()
 
     def toJson(self):
-        data = [{
+        data = {
         "id"                :     self.id,
         "created"           : str(self.created),
         "created by"        :     self.created_by,
         "last login"        : str(self.last_login),
+        "active"            :     self.active,
         "username"          :     self.username,
         "password"          :     self.password,
         "first name"        :     self.first_name,
@@ -242,7 +250,6 @@ class User:
         "view answer"       :     self.view_answer,
         "view test case"    :     self.view_test_case,
         "view question"     :     self.view_question,
-        "view all question" :     self.view_all_question,
-        "active"            :     self.active
-        }]
+        "view all question" :     self.view_all_question
+        }
         return json.dumps(data)
