@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   John Fang
-last_modified date: 3/2/2015
+last_modified_by:   EZ
+last_modified date: 3/3/2015
 """
 
 # imports
@@ -156,6 +156,15 @@ class User:
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
         return string
 
+    def add(self):
+        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cursor = cnx.cursor()
+        insert = ("INSERT INTO user (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question) VALUES (%s, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);" % (self.id, self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
+        cursor.execute(insert)
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
     @classfunction
     def get(search="all"):
         cnx = mysql.connector.connect(**getConfig("csassess"))
@@ -185,6 +194,8 @@ class User:
         cnx.close()
 
         return returnList
+
+    
 
     def toJson(self):
         data = [{
