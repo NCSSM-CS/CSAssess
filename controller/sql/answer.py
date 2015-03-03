@@ -3,14 +3,16 @@
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
-last_modified_by:   Aninda Manocha
-last_modified date: 3/2/2015
+last_modified_by:   Matthew Bent (Bear)
+last_modified date: 3/3/2015
 """
 
 # imports
 import constants
 import json
-
+import mysql.connector
+from user import User
+from mysql_connect_config import getConfig
 # classes
 class Answer:
     'Question object to hold attributes and functions for a question'
@@ -34,7 +36,66 @@ class Answer:
         self.score            = score
         self.answer_text      = answer_text
 
+    def add(self):
+        if self.id is not None:
+            return
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by, self.question_id, self.score, self.content, self.active))
+        cursor.execute(insert)
+        for (id) in cursor:
+            self.id=id
+
+        cnx.commit()
+        cursor.close()
+        cnx.close
+
+    def edit(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by, self.question_id, self.score, self.content, self.id))
+            cursor.execute(update)
+        
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    def active(self, bool):
+        cnx = mysql.connector.connecto(**getCongif())
+        cursor = cnx.cursor()
+        
+        self.active = int(bool)
+        active = ("UPDATE courses SET active = %s WHERE id = %s;" % (int(bool), self.id))
+        
+        cursor.execute(active)
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
     @classmethod
+    def get(self, id="all"):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        returnList = []
+        query = ""
+        if id == "all":
+            query = "SELECT * FROM answer;"
+        else:
+            query = ("SELECT * FROM answer WHERE id=%s" % (id))
+        cursor.execute(query)
+        for (id, created, created_by, question_id, score, content, active) in cursor:
+            user = User.get(created_by)[0]
+            returnList.append(Answer(id, created, user, question_id, score, content, active ))
+        
+	    cnx.commit()
+        cursor.close()
+        cnx.close
+
+        return returnList
+
     def noID(self, id, created, created_by, question, score, answer_text):
         """
         the parameters correspond with the parameters in the constructor above
