@@ -10,6 +10,8 @@ last_modified date: 3/3/2015
 # imports
 import constants
 import json
+import mysql.connector
+from mysql_connect_config import getConfig
 
 # classes
 class User:
@@ -112,16 +114,6 @@ class User:
         self.view_question     == other.view_question      and
         self.view_all_question == other.view_all_question)
 
-    def setID(self, id):
-        """
-        self - the user in question
-        id   - the id for the user from the database
-
-        this function allows you to assign an id to the user after
-        inserting it into the database
-        """
-        self.id = id
-
     def __str__(self):
         """
         self - the user in question
@@ -157,17 +149,22 @@ class User:
         return string
 
     def add(self):
-        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cnx = mysql.connector.connect(**getConfig(""))
         cursor = cnx.cursor()
-        insert = ("INSERT INTO user (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question) VALUES (%s, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);" % (self.id, self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
-        cursor.execute(insert)
+
+        if id is None:
+            insert = ("INSERT INTO user (created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID()" % (self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id = id
+
         cnx.commit()
         cursor.close()
         cnx.close()
 
     @classfunction
     def get(search="all"):
-        cnx = mysql.connector.connect(**getConfig("csassess"))
+        cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
@@ -195,7 +192,17 @@ class User:
 
         return returnList
 
-    
+    def edit(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            update = ("UPDATE user SET created='%s', created_by=%s, last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.created, self.created_by, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
+            cursor.execute(update)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     def toJson(self):
         data = [{
@@ -213,7 +220,7 @@ class User:
         "edit question"     :     self.edit_question,
         "edit answer"       :     self.edit_answer,
         "edit test case"    :     self.edit_test_case,
-        "edit eprmission"   :     self.edit_permission,
+        "edit permission"   :     self.edit_permission,
         "view student info" :     self.view_student_info,
         "view teacher info" :     self.view_teacher_info,
         "view answer"       :     self.view_answer,
