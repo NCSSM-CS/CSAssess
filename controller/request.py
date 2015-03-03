@@ -8,4 +8,6 @@ last_modified_date: 3/3/2015
 """
 
 #imports
-import requests
+#import requests
+#r = requests.get("http://website.com")
+#r.json()
