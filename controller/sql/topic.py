@@ -85,6 +85,45 @@ class Topic:
 
         return returnList
 
+    def add(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is None:
+            insert = ("INSERT INTO topic (created, created_by, name, active) VALUES ('%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.name, self.active))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id = id
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    def update(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            update = ("UPDATE topic SET created='%s', created_by=%s, name='%s', active=%s" % (self.created, self.created_by.id, self.name, self.active))
+            cursor.execute(update)
+
+        cnx.commit()
+        cursor.cloes()
+        cnx.close()
+
+    def activate(self, bool):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            self.active = int(bool)
+            update = ("UPDATE topic SET active=%s WHERE id=%s" % (int(bool), self.id))
+            cursor.execute(update)
+
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+
     def __eq__(self, other):
         """
         self  - the topic in question
