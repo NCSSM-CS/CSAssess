@@ -161,15 +161,15 @@ class Job:
 	    elif searchTakenBy is not None:
 	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy))
 	    elif type(search) is int:
-	    	query = ("SELECT * FROM job WHERE id=%s" % (search))
+	    	query = ("SELECT * FROM job WHERE id = %s" % (search))
 	    elif type(search) is user:
-	    	query = ("SELECT * FROM job WHERE created_by=%s" % (search.id))
+	    	query = ("SELECT * FROM job WHERE created_by = %s" % (search.id))
 	    elif type(search) is section:
-	        query = ("SELECT * FROM job WHERE section_id=%s" % (search.id))
+	        query = ("SELECT * FROM job WHERE section_id = %s" % (search.id))
 	    elif type(search) is str:
-	        query = ("SELECT * FROM job WHERE type='%s'" % (search))
+	        query = ("SELECT * FROM job WHERE type = '%s'" % (search))
 
-	    query += "AND active=%s;" % (testActive)
+	    query += " AND active=%s;" % (testActive)
 	    cursor.execute(query)
 
 	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:

@@ -3,7 +3,7 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   EZ
+last_modified_by:   LZ
 last_modified date: 3/3/2015
 """
 
@@ -142,8 +142,46 @@ class Section:
 	cnx.close()
 
     @classmethod
-    def get(self, search, active):
-        pass
+    def get(self, search="all", searchYear=None, searchTerm=None, testActive="1"):
+        """
+
+	"""
+	cnx = mysql.connector.connect(**getConfig())
+	cursor = cnx.cursor()
+
+	returnList = []
+	query = ""
+	if search == "all" and searchYear is None and searchTerm is None:
+	    query = "SELECT * FROM section"
+	elif searchYear is not None:
+	    query = ("SELECT * FROM section WHERE year = %s" % (searchYear))
+	elif searchTerm is not None:
+	    query = ("SELECT * FROM section WHERE term = '%s'" % (searchTerm))
+	elif type(search) is int:
+	    query = ("SELECT * FROM section WHERE id = %s" % (search))
+	elif type(search) is user:
+	    query = ("SELECT * FROM section WHERE created_by = %s" % (search.id))
+	elif type(search) is course:
+	    query = ("SELECT * FROM section WHERE course_id = %s" % (search.id))
+	elif type(search) is str:
+	    query = ("SELECT * FROM section WHERE period = '%s'" % (search))
+	query += " AND active = %s;" % (testActive)
+	cursor.execute(query)
+
+	for(id, created, created_by, course_id, year, term, period, active) in cursor:
+	    
+	    user = User.get(created_by)[0]
+	    course = Course.get(course_id)[0]
+	    newSection = Section(id, created, user, course, year, term, active)
+
+	    if newSection not in returnList:
+	        returnList.append(newSection)
+	    
+	    cnx.commit()
+	    cursor.close()
+	    cnx.close()
+
+	    return returnList
 
     def toJson(self):
         data = [{
