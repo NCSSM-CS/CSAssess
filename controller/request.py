@@ -7,42 +7,74 @@ last_modified_by: Samuel Murray
 last_modified_date: 3/4/2015
 """
 
-"""
-TODO:
-    -Add all "requestType" use cases.
-"""
 #imports
 import cgi
 import cgitb
 import json
-import viewTopic
+import sys
 import constants
+#import addTopic
+#import getTopic
+#import updateTopic
+#import activateTopic
+#import getUser
+#import addUser
+#import updateUser
+#import activateUser
+#import getAssignment
+#import addAssignment
+#import updateAssignment
+#import activateAssignment
+import getQuestion
+import addQuestion
+#import updateQuestion
+#import activateQuestion
 
-#cgitb.enable()
+cgitb.enable()
 
-#Next Line is a test case for toFile generation
-form = {"requestType" : "viewTopic", "id" : "all"}
-
-#form = cgi.FieldStorage()
+unprocessedForm = cgi.FieldStorage()
 toFile = ""
 #toFile is a file that we will eventually pass the JSON into
-toFile = form["requestType"]
+toFile = unprocessedForm["requestType"]
 if constants.DEBUG > 0:
     print(toFile)
-# viewTopic request handling
-if toFile == "viewTopic":
-    if form["id"] != "all":
-        if len(form["id"] > 1):
-            topicList = form["id"]
-            for topic in topicList:
-                print("Content-Type: text/html; charset=utf-8")
-                print()
-                print(viewTopic.byID(topic))
-        else:
-            print("Content-Type: text/html; charset=utf-8")
-            print()
-            print(viewTopic.byID(form["id"]))
-    else:
-        print("Content-Type: text/html; charset=utf-8")
-        print()
-        print(viewTopic.all())
+# Add Topic requestTypes
+#if toFile == "getTopic":
+#    processedForm = getTopic.iChooseU(unprocessedForm)
+#elif toFile == "addTopic":
+#    processedForm = addTopic.iChooseU(unprocessedForm)
+#elif toFile == "updateTopic":
+#    processedForm = updateTopic.iChooseU(unprocessedForm)
+#elif toFile == "activateTopic":
+#    processedForm = activateTopic.iChooseU(unprocessedForm)
+# Add User requestTypes
+#elif toFile == "getUser":
+#    processedForm = getUser.iChooseUunprocessedForm)
+#elif toFile == "addUser":
+#    processedForm = addUser.iChooseU(unprocessedForm)
+#elif toFile == "updateUser":
+#    processedForm = updateUser.iChooseU(unprocessedForm)
+#elif toFile == "activateUser":
+#    processedForm = activateUser.iChooseU(unprocessedForm)
+# Add Assignemnt requestTypes
+#elif toFile == "getAssignment":
+#    processedForm = getAssignment.iChooseU(unprocessedForm)
+#elif toFile == "addAssignment":
+#    processedForm = addAssignment.iCChooseU(unprocessedForm)
+#elif toFile == "updateAssignment":
+#    processedForm = updateAssignment.iChooseU(unprocessedForm)
+#elif toFile == "activateAssignment":
+#    processedForm = activateAssignment.iChooseU(unprocessedForm)
+# Add Question requestTypes
+elif toFile == "getQuestion":
+    processedForm = getQuestion.iChooseU(unprocessedForm)
+elif toFile == "addQuestion":
+    processedForm = addQuestion.iChooseU(unprocessedForm)
+#elif toFile == "updateQuestion":
+#    processedForm = updateQuestion.iChooseU(unprocessedForm)
+#elif toFile == "activateQuestion":
+#    processedForm = activateQuestion.iChooseU(unprocessedForm)
+
+print("Content-Type: application/json; charset=utf-8")
+print()
+print(processedForm)

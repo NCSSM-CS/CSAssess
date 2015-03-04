@@ -12,7 +12,7 @@ function submitUser()
 	{
 		if(roles[i].checked)
 		{
-			role+=","+roles[i].value);
+			role+=","+roles[i].value;
 		}
 	}
 	name = name.split(" ");
@@ -28,7 +28,7 @@ function submitUser()
 		throw new Error("Passwords do not match");
 	}
 	role=role.substring(1);
-	var toSend = {"username": username, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
+	var toSend = {"username": username, , "session": token, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
 	//todo in later versions: add actual validation w/ tokens
 	toSend.token = "token-standin";
 	toSend.requestType = "addUser";

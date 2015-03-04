@@ -40,4 +40,9 @@ Student Section View
     JS to fill in course and teacher name
     Creating table for current assignments
     Creating table for returned assignments
+Database
+    Have requests send a session token. 
+Add question
+    Have requests add a session token. 
 #--- CONTROLLER ---#
+fill out functions from Requests on API google doc
