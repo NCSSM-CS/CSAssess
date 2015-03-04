@@ -68,6 +68,7 @@ function submitQuery()
 	var topic = document.getElementById("topicSelect").value;
 	//var keyword = document.getElementById("practiceKeyword").value;
 	var toSend = {};
+	topic = [topic];
 	if (difficulty != "")
 	{
 		toSend.difficulty = difficulty;
