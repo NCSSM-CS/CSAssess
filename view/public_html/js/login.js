@@ -15,9 +15,9 @@ function loginFunction(data)
 {
 	if (data.success == true)
 	{
-		setCookie("username", document.getElementById("username").value);
-		setCookie("token", data.session);
-		window.location.replace("login.html");
+		addCookie("username", document.getElementById("username").value);
+		addCookie("token", data.session);
+		window.location.replace("index.html");
 	}
-	
+	document.getElementById("error").textContent = "Invalid login!";
 }
