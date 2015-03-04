@@ -127,7 +127,7 @@ class Question:
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO question (id, created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', %s, '%s', '%s', '%s', %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question_id, self.versioin_number, self.last_given, self.content, self.active))
+        insert = ("INSERT INTO question (created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', %s, '%s', '%s', '%s', %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question_id, self.versioin_number, self.last_given, self.content, self.active))
 
         cursor.execute(insert)
 
@@ -139,32 +139,29 @@ class Question:
         cnx.close()
 
     @classmethod
-    def get(self, search="all", searchCreatedBy= None, searchLanguage = "None", searchType = "None", searchDifficulty = "None", searchContent = "None", testActive = "1"):
+    def get(self, id=0, search="all", testActive=1):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         returnList = []
         query = ""
-        if search == "all" and searchCreatedBy is None and searchLanguage == "None" and searchType == "None" and searchDifficulty == "None" and searchContent == "None":
+
+        if id is 0 and search is "all":
             query = "SELECT * FROM question"
-        elif searchCreatedBy is not None:
-            query = ("SELECT * FROM question WHERE created_by = %s" % (searchCreatedBy))
-        elif searchLanguage != "None":
-            query = ("SELECT * FROM question WHERE language = '%s'" % (searchLanguage))
-        elif searchType != "None":
-            query = ("SELECT * FROM question WHERE type = '%s'" % (searchType))
-        elif searchDifficulty != "None":
-            query = ("SELECT * FROM question WHERE difficulty = '%s'" % (searchDifficulty))
-        elif searchContent != "None":
-            query = ("SELECT * FROM question WHERE content LIKE '%%%s%%'" % (searchContent))
-
+        if id is not 0:
+            query = "SELECT * FROM question WHERE id=%s" % (id)
+        if type(search) is User:
+            query = "SELECT * FROM question WHERE created_by=%s" % (search.id)
+        if type(search) is str:
+            query = "SELECT * FROM question WHERE language='%s' OR type='%s'" % (search, search)
+        if type(search) is int:
+            query = "SELECT * FROM question WHERE difficulty=%s" % (search)
         query += " AND active=%s;" % (testActive)
-        cursor.execute(query)
 
+        cursor.execute(query)
         for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
             user = User.get(created_by)[0]
             newQuestion = Question(id, created, user, language, atype, difficulty, prev_question_id, version_number, last_given, content, active)
-
             if newQuestion not in returnList:
                 returnList.append(newJob)
         cnx.commit()

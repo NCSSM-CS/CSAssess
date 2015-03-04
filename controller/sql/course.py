@@ -147,8 +147,7 @@ class Course(object):
         for (id, created, created_by, course_code, name, active) in cursor:
             user = User.get(created_by)[0]
             newCourse = Course(id, created, user, course_code, name, active)
-            if newCourse not in returnList:
-                returnList.append(newCourse)
+            returnList.append(newCourse)
 
         cnx.commit()
         cursor.close()
