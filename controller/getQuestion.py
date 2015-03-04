@@ -23,8 +23,13 @@ from sql.question import Question
 
 def iChooseU(json):
     ## This will work later - EC
-    thisUser = User.get(1)[0]
-    print(thisUser)
+    
+    ipAddress = self.client_address[0]
+    session = Session.get(json["session"], ipAddress)[0]
+    thisUser = User.get(session[0])[0]
+    if DEBUG > 1:
+        print(thisUser)
+    
     qByType = []
     for i in range(len(json["topics"])):
         theseQuestions = Question.get(0, json["topics"][i])
