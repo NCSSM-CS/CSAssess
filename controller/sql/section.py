@@ -142,7 +142,7 @@ class Section:
 	cnx.close()
 
     @classmethod
-    def get(self, search="all", searchYear=None, searchTerm=None, testActive="1"):
+    def get(self, search="all", searchYear=None, searchTerm=None, searchUser=None, testActive="1"):
         """
 
 	"""
@@ -151,12 +151,14 @@ class Section:
 
 	returnList = []
 	query = ""
-	if search == "all" and searchYear is None and searchTerm is None:
+	if search == "all" and searchYear is None and searchTerm is None and searchUser is None:
 	    query = "SELECT * FROM section"
 	elif searchYear is not None:
 	    query = ("SELECT * FROM section WHERE year = %s" % (searchYear))
 	elif searchTerm is not None:
 	    query = ("SELECT * FROM section WHERE term = '%s'" % (searchTerm))
+	elif searchUser is not None:
+	    query = 
 	elif type(search) is int:
 	    query = ("SELECT * FROM section WHERE id = %s" % (search))
 	elif type(search) is user:
