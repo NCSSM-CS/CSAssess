@@ -3,7 +3,7 @@
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
-last_modified_by:   Micah Halter
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -14,6 +14,7 @@ import mysql.connector
 from user import User
 from question import Question
 from mysql_connect_config import getConfig
+
 # classes
 class Answer(object):
     'Answer object to hold attributes and functions for a answer'
@@ -48,6 +49,7 @@ class Answer(object):
         if self.id is None:
             insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
             cursor.execute(insert)
+
             for (id) in cursor:
                 self.id=id
 
@@ -94,9 +96,9 @@ class Answer(object):
             query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
         elif type(search) is User:
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
-        cursor.execute(query)
 
-        query += " AND active=%s" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s") % (testActive)
+        cursor.execute(query)
 
         returnList = []
         for (id, created, created_by, question_id, score, content, solution, active) in cursor:
@@ -138,23 +140,12 @@ class Answer(object):
         self.id         == other.id         and
         self.created    == other.created    and
         self.created_by == other.created_by and
-        self.activate   == other.activate   and
         self.question   == other.question   and
         self.score      == other.score      and
         self.content    == other.content    and
         self.solution   == other.solution   and
         self.active     == other.active
         )
-
-    def setID(self, id):
-        """
-        self - the answer in answer
-        id   - the id for the answer from the database
-
-        this function allows you to assign an id to the answer
-        after inserting it into the database
-        """
-        self.id = id
 
     def __str__(self):
         """
@@ -166,23 +157,25 @@ class Answer(object):
         a human-readable string for viewing the information in it
         """
         string  = ""
-        string += "id: "          + str(self.id)             + "\n"
-        string += "created: "     + str(self.created)        + "\n"
-        string += "created by: "  + str(self.created_by)     + "\n"
-        string += "activate: "    + str(bool(self.activate)) + "\n"
-        string += "solution: "    + str(bool(self.solution)) + "\n"
-        string += "question: "    + str(question)            + "\n"
-        string += "score: "       + str(score)               + "\n"
-        string += "answer text: " + str(content)             + "\n"
+        string += "id: "          +      str(self.id)         + "\n"
+        string += "created: "     +      str(self.created)    + "\n"
+        string += "created by: "  +      str(self.created_by) + "\n"
+        string += "active: "      + str(bool(self.active))    + "\n"
+        string += "solution: "    + str(bool(self.solution))  + "\n"
+        string += "question: "    +      str(self.question)   + "\n"
+        string += "score: "       +      str(self.score)      + "\n"
+        string += "answer text: " +      str(self.content)    + "\n"
 
         return string
     def toJson(self):
         data = {
-        "id"         :     self.id,
-        "created"    : str(self.created),
-        "created by" :     self.created_by,
-        "question"   :     self.question_id,
-        "score"      :     self.score,
-        "content"    :     self.content
-        }
+                "id"         : self.id,
+                "created"    : self.created
+                "created_by" : self.created_by,
+                "active"     : self.active
+                "solution"   : self.solution
+                "question"   : self.question,
+                "score"      : self.score,
+                "content"    : self.content
+                }
         return json.dumps(data)
