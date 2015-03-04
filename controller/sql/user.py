@@ -69,7 +69,7 @@ class User(object):
         self.active            = active
 
     @classmethod
-    def noID(cls, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
+    def noID(self, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -79,7 +79,7 @@ class User(object):
         this function acts as a second constructor where you have created a
         user that has not yet been assigned an id from the database
         """
-        return cls(None, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active)
+        return self(None, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active)
 
     def __eq__(self, other):
         """
@@ -233,27 +233,27 @@ class User(object):
 
     def toJson(self):
         data = {
-        "id"                :     self.id,
-        "created"           : str(self.created),
-        "created by"        :     self.created_by,
-        "last login"        : str(self.last_login),
-        "active"            :     self.active,
-        "username"          :     self.username,
-        "password"          :     self.password,
-        "first name"        :     self.first_name,
-        "last name"         :     self.last_name,
-        "role"              :     self.role,
-        "add assessment"    :     self.add_assessment,
-        "edit user"         :     self.edit_user,
-        "edit question"     :     self.edit_question,
-        "edit answer"       :     self.edit_answer,
-        "edit test case"    :     self.edit_test_case,
-        "edit permission"   :     self.edit_permission,
-        "view student info" :     self.view_student_info,
-        "view teacher info" :     self.view_teacher_info,
-        "view answer"       :     self.view_answer,
-        "view test case"    :     self.view_test_case,
-        "view question"     :     self.view_question,
-        "view all question" :     self.view_all_question
-        }
+                "id"                :     self.id,
+                "created"           : str(self.created),
+                "created by"        :     self.created_by,
+                "last login"        : str(self.last_login),
+                "active"            :     self.active,
+                "username"          :     self.username,
+                "password"          :     self.password,
+                "first name"        :     self.first_name,
+                "last name"         :     self.last_name,
+                "role"              :     self.role,
+                "add assessment"    :     self.add_assessment,
+                "edit user"         :     self.edit_user,
+                "edit question"     :     self.edit_question,
+                "edit answer"       :     self.edit_answer,
+                "edit test case"    :     self.edit_test_case,
+                "edit permission"   :     self.edit_permission,
+                "view student info" :     self.view_student_info,
+                "view teacher info" :     self.view_teacher_info,
+                "view answer"       :     self.view_answer,
+                "view test case"    :     self.view_test_case,
+                "view question"     :     self.view_question,
+                "view all question" :     self.view_all_question
+                }
         return json.dumps(data)

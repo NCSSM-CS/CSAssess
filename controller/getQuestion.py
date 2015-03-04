@@ -8,12 +8,9 @@ last_modified date: 3/4/2015
 """
 
 # imports
-import cgi
-import cgitb
 from sql.user import User
 from sql.question import Question
 
-cgitb.enable()
 
 # TODO: Session things (and IP address) - EC
 #       Wait for Micah to finish objects (specifically questions) - EC
@@ -28,9 +25,8 @@ def iChooseU(json):
     ## This will work later - EC
     thisUser = User.get(1)[0]
     print(thisUser)
-    form = cgi.FieldStorage()
-    qByType = Question.get(0, form["topic"])
-    qByDiff = Question.get(0, form["difficulty"])
+    qByType = Question.get(0, json["topic"])
+    qByDiff = Question.get(0, json["difficulty"])
     intersect = [];
     for q in qByType:
         if q in qByDiff:
