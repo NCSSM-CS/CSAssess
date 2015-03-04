@@ -12,7 +12,7 @@ import constants
 import json
 import mysql.connector
 from user import User
-from mysql_connecto_config import getConfig
+from mysql_connect_config import getConfig
 # classes
 class Comment(object):
     'Comment object to hold attributes and functions for an assessment'
@@ -57,7 +57,7 @@ class Comment(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE comment SET created = '%s', created_by = %s, answer_id = %s,  content = '%s' WHERE id = %s;" % (self.created, self.created_by.id, self.asnwer_id, self.content, self.id))
+            update = ("UPDATE comment SET answer_id = %s,  content = '%s' WHERE id = %s;" % (self.asnwer_id, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()

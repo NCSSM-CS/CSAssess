@@ -3,15 +3,15 @@
 """
 created_by:         Keshav Patel
 created_date:       3/2/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/2/2015
+last_modified_by:   EZ
+last_modified date: 3/3/2015
 """
 
 # imports
 import constants
 
 # classes
-class Test_Case:
+class Test_Case(object):
     'test_case object to hold attributes and functions for a test_case'
 
     def __init__(self, id, created, created_by, question_id, weight, content):
@@ -66,16 +66,6 @@ class Test_Case:
         self.weight        == other.weight        and
         self.content       == other.content)
 
-    def setID(self, id):
-        """
-        self - the test_case in question
-        id   - the id for the test_case from the database
-
-        this function allows you to assign an id to the test_case after
-        inserting it into the database
-        """
-        self.id = id
-
     def __str__(self):
         """
         self - the test_case in question
@@ -93,3 +83,66 @@ class Test_Case:
         string += "weight "      + str(self.weight)     + "\n"
         string += "content "     + self.content         + "\n"
         return string
+
+    def add(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is None:
+            insert = ("INSERT INTO test_case (created, created_by, question_id, weight, content) VALUES ('%s', %s, %s, %s, '%s'); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.question.id, self.weight, self.content))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id = id
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    @classmethod
+    def get(self, search="all", testActive=1):
+        returnList = []
+        query = ""
+        if search == "all":
+            query = "SELECT * FROM test_cases"
+        elif type(search) is int:
+            query = "SELECT * FROM test_cases WHERE id=%s" % (search.id)
+        elif type(search) is User:
+            query = "SELECT * FROM test_cases WHERE created_by=%s" % (search.id)
+        elif type(search) is Question:
+            query = "SELECT * FROM test_cases WHERE question_id=%s" % (search.id)
+        query += " AND active=%s;" % (testActive)
+
+        cursor.execute(query)
+        for (id, created, created_by, question_id, weight, content, active) in cursor:
+            user = User.get(created_by)[0]
+            question = Question.get(question_id)[0]
+            returnList.append(Test_Case(id, created, user, question, weight, content, active))
+
+        return returnList
+
+    def update(self):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            update = "UPDATE test_case SET question_id=%s, weight=%s, content='%s' WHERE id=%s;" % (self.question.id, self.weight, self.content, self.id)
+            cursor.execute(update)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    def activate(self, bool):
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
+
+        if self.id is not None:
+            update = "UPDATE test_case SET active=%s WHERE id=%s;" % (int(bool), self.id)
+            cursor.execute(update)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+    def toJson(self):
+        pass

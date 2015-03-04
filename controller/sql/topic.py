@@ -104,7 +104,7 @@ class Topic(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE topic SET created='%s', created_by=%s, name='%s', active=%s" % (self.created, self.created_by.id, self.name, self.active))
+            update = ("UPDATE topic SET name='%s', active=%s" % (self.name, self.active))
             cursor.execute(update)
 
         cnx.commit()
@@ -153,11 +153,11 @@ class Topic(object):
         a human-readable string for viewing the information in it
         """
         string = ""
-        string += "id: "         + str(self.id)         + "\n"
-        string += "created: "    + str(self.created)    + "\n"
-        string += "created by: " + str(self.created_by) + "\n"
-        string += "active: "     + str(bool(active))    + "\n"
-        string += "name: "       +     self.name        + "\n"
+        string += "id: "         +      str(self.id)         + "\n"
+        string += "created: "    +      str(self.created)    + "\n"
+        string += "created by: " +      str(self.created_by) + "\n"
+        string += "active: "     + str(bool(self.active))    + "\n"
+        string += "name: "       +          self.name        + "\n"
         return string
     def toJson(self):
         data = {

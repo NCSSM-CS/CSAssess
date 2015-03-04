@@ -17,12 +17,10 @@
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="codemirror/lib/codemirror.css">
 		
-		<script src="codemirror/lib/codemirror.js"></script>
-		<script src="codemirror/mode/python/python.js"></script>
-		<script src="codemirror/mode/clike/clike.js"></script>
 		<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script src="js/vendor/jquery-1.11.1.js"></script>
 		<script src="js/addUser.js"></script>
+		<script src="js/addCourse.js"></script>
 		
 		<style>
 			body {
@@ -63,15 +61,15 @@
 			<h4>Course Name</h4>
 			<textarea id="courseNameArea" cols="100" rows="1"></textarea>
 			<h4>Course ID</h4>
-			<textarea id="courseNameArea" cols="100" rows="1"></textarea>
+			<textarea id="courseIDArea" cols="100" rows="1"></textarea>
 			<h4>Topics</h4>
 		    <div>
 				<input type="checkbox" name="topics" value="Data Structures">Data Structures<br> 				
 				<input type="checkbox" name="topics" value="File I/O">File I/O<br> 
-				<input type="checkbox" name="topics" value="blue">Strings<br>
+				<input type="checkbox" name="topics" value="Strings">Strings<br>
 			</div> 
 			<div>
-				<button type="button" onclick="submitSubmission()">Submit</button>
+				<button type="button" onclick="submitCourse()">Submit</button>
 			</div>
 			<div>
 				<h3>Add a User</h3>

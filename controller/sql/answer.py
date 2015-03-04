@@ -38,15 +38,14 @@ class Answer(object):
         self.active           = active
 
     def add(self):
-        if self.id is not None:
-            return
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.active))
-        cursor.execute(insert)
-        for (id) in cursor:
-            self.id=id
+        if self.id is None:
+            insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.active))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id=id
 
         cnx.commit()
         cursor.close()
@@ -57,7 +56,7 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE answer SET created '%s', created_by = %s, question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.created, self.created_by.id, self.question.id, self.score, self.content, self.id))
+            update = ("UPDATE answer SET question_id = %s, score = %s, content = '%s' WHERE id = %s" % (self.question.id, self.score, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -88,11 +87,12 @@ class Answer(object):
             query = "SELECT * FROM answer;"
         elif type(search) is int:
             query = ("SELECT * FROM answer WHERE id=%s" % (search))
-        cursor.execute(query)
         elif type(search) is Question:
             query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
         elif type(search) is User:
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
+        cursor.execute(query)
+
         for (id, created, created_by, question_id, score, content, active) in cursor:
             user = User.get(created_by)[0]
             returnList.append(Answer(id, created, user, question_id, score, content, active ))

@@ -11,8 +11,6 @@ last_modified date: 3/3/2015
 import constants
 import json
 import mysql.connector
-from section import Section
-from assessment import Assessment
 from mysql_connect_config import getConfig
 
 # classes
@@ -208,7 +206,7 @@ class User(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE user SET created='%s', created_by=%s, last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.created, self.created_by.id, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
+            update = ("UPDATE user SET last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question))
             cursor.execute(update)
 
         cnx.commit()

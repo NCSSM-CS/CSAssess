@@ -10,16 +10,18 @@ last_modified date: 3/3/2015
 # imports
 import json
 import constants
-from user import User
 from section import Section
-from course import Course
 from question import Question
+from user import User
+from course import Course
+import mysql.connector
+from mysql_connect_config import getConfig
 
 # classes
 class Assessment(object):
     'Assessment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, type, section, name, question_list, topic_list):
+    def __init__(self, id, created, created_by, atype, section, name, question_list, topic_list, active):
         """
         self          - the assessment in question
         id            - the id number of the assessment 'self' in the database
@@ -36,14 +38,15 @@ class Assessment(object):
         self.id            = id
         self.created       = created
         self.created_by    = created_by
-        self.type          = type
+        self.atype          = atype
         self.section       = section
         self.name          = name
         self.question_list = question_list
         self.topic_list    = topic_list
+        self.active        = active
 
     @classmethod
-    def noID(self, created, created_by, type, section, name, question_list, topic_list):
+    def noID(self, created, created_by, atype, section, name, question_list, topic_list, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -53,7 +56,7 @@ class Assessment(object):
         this function acts as a second constructor where you have created an
         assessment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, type, section, name, question_list, topic_list)
+        return self(None, created, created_by, atype, section, name, question_list, topic_list, active)
 
     def __eq__(self, other):
         """
@@ -71,52 +74,12 @@ class Assessment(object):
         self.id            == other.id            and
         self.created       == other.created       and
         self.created_by    == other.created_by    and
-        self.type          == other.type          and
+        self.atype         == other.atype         and
         self.section_id    == other.section_id    and
         self.name          == other.name          and
         self.question_list == other.question_list and
-        self.topic_list    == other.topic_list)
-
-    # sort question list by difficulty
-    def sortByDifficulty(self, reverseOpt = False):
-        """
-        self       - the assessment in question
-        reverseOpt - a boolean deciding a descending ascending order
-
-        returns a sorted assessment object based on the difficulty
-        of the questions
-
-        this function allows for easy sorting of assessment questions
-        by difficulty
-        """
-        self.question_list.sort(key=lambda i: i.difficulty, reverse = reverseOpt)
-        return self
-
-    # sort question list by topic
-    def sortByTopic(self, reverseOpt = False):
-        """
-        self       - the assessment in question
-        reverseOpt - a boolean deciding a descending ascending order
-
-        returns a sorted assessment object based on the topics of each question
-
-        this function allows for easy sorting of assessment questions by topic
-        """
-        self.question_list.sort(key=lambda i: i.topic_list, reverse = reverseOpt)
-        return self
-
-    # sort question list by type
-    def sortByType(self, reverseOpt = False):
-        """
-        self       - the assessment in question
-        reverseOpt - a boolean deciding a descending ascending order
-
-        returns a sorted assessment object based on the type of each question
-
-        this function allows for easy sorting of assessment questions by type
-        """
-        self.question_list.sort(key=lambda i: i.type, reverse = reverseOpt)
-        return self
+        self.topic_list    == other.topic_list    and
+        self.active        == other.active)
 
     def __str__(self):
         """
@@ -128,12 +91,13 @@ class Assessment(object):
         a human-readable string for viewing the information in it
         """
         string = ""
-        string += "id: "         + str(self.id)         + "\n"
-        string += "created: "    + str(self.created)    + "\n"
-        string += "created by: " + str(self.created_by) + "\n"
-        string += "type: "       +     self.type        + "\n"
-        string += "section: " + str(self.section)    + "\n"
-        string += "name: "       +     self.name
+        string += "id: "         +      str(self.id)         + "\n"
+        string += "created: "    +      str(self.created)    + "\n"
+        string += "created by: " +      str(self.created_by) + "\n"
+        string += "active: "     + str(bool(self.active))    + "\n"
+        string += "type: "       +          self.atype       + "\n"
+        string += "section: "    +      str(self.section)    + "\n"
+        string += "name: "       +          self.name
 
         string += "\nTopics:\n"
         for i in self.topic_list:
@@ -150,7 +114,7 @@ class Assessment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO assessment (created, created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.type, self.section.id, self.name, self.active))
+        insert = ("INSERT INTO assessment (created, created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.atype, self.section.id, self.name, self.active))
         course.execute(insert)
         for (id) in cursor:
             self.id = id
@@ -186,15 +150,40 @@ class Assessment(object):
                      "INNER JOIN assessment AS a ON aq.assessment_id=a.id "
                      "WHERE aq.question_id=%s" % (search.id))
 
+        query += " AND active=%s;" % (testActive)
+
+        cursor.execute(query)
+
+        for (id, created, created_by, atype, section_id, name, active) in cursor:
+            getQuestions = ("SELECT q.id FROM assessment_question as aq "
+                            "INNER JOIN question AS q ON aq.question_id=q.id "
+                            "WHERE aq.assessment_id=%s;" % (id))
+            cursor.execute(getQuestions)
+            qList = []
+            for (id) in cursor:
+                qList.append(Question.get(id)[0])
+            getTopics = ("SELECT t.id FROM assessment_topic AS at "
+                         "INNER JOIN topic AS t ON at.topic_id=t.id "
+                         "WHERE at.assessment_id=%s;" % (id))
+            cursor.execute(getTopics)
+            tList = []
+            for (id) in cursor:
+                tList.append(Topic.get(id)[0])
+            user = User.get(created_by)[0]
+            section = Section.get(section_id)[0]
+            returnList.append(Assessment(id, created, user, atype, section, name, qList, tList, active))
+
         cnx.commit()
         cursor.close()
         cnx.close()
+
+        return returnList
     def update(self):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
-        
+
         if self.id is not None:
-            update = ("UPDATE user SET created='%s', created_by=%s, type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.created, self.created_by.id, self.type, self.section.id))
+            update = ("UPDATE user SET type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.atype, self.section.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -204,7 +193,7 @@ class Assessment(object):
     def activate(self, bool):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
-        
+
         if self.id is not None:
             self.active = int(bool)
             active = ("UPDATE course SET active=%s WHERE id=%s;" % (int(bool), self.id))
@@ -219,7 +208,8 @@ class Assessment(object):
         "id"        :     self.id,
         "created"   : str(self.created),
         "created by":     self.created_by,
-        "type"      :     self.type,
+        "active"    :     self.active,
+        "type"      :     self.atype,
         "section id":     self.section,
         "name"      :     self.name
         }
