@@ -9,6 +9,7 @@ last_modified date: 3/4/2015
 
 # imports
 import constants
+import json
 from sql.user import User
 from sql.question import Question
 from sql.topic import Topic
@@ -60,4 +61,4 @@ def iChooseU(json):
 
     successJson = {"success":True, "session": session.toJson()}
 
-    return successJson
+    return json.dumps(successJson)
