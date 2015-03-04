@@ -15,8 +15,6 @@ from sql.topic import Topic
 from sql.session import Session
 
 #Format of answer
-#created: TIME_STAMP
-#created_by: int
 #name: "string"
 #active: boolean 
 
