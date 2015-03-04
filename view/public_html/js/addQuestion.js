@@ -114,7 +114,13 @@ function newTopicSelect(e)
 {
     if (e.keyCode == 13) 
     {
-        numTopics.push(document.getElementById("topic").value);
+        //Gets the value of the question.
+        var text = document.getElementById("topic").value;
+        if(text=="") 
+        {
+           return false;
+        }
+        numTopics.push(text);
         var span = document.createElement("span");
         span.className = "addTopic";
         //Takes the old text area and makes it so that enter won't do anything anymore.
