@@ -1,4 +1,4 @@
-#!/usr/bin/python2.6
+#!/usr/bin/python3
 
 """
 created_by:         Ebube Chuba
@@ -11,8 +11,9 @@ last_modified date: 3/3/2015
 import cgi
 import cgitb
 import time
+import constants
 from user import User
-#from sql.question import Question
+from sql.question import Question
 
 cgitb.enable()
 
@@ -50,5 +51,5 @@ for field in list(form.keys()):
     if field == "topics":
         topics = form[field]
 
-#newQuestion = Question.noID(time.strftime("%Y-%m-%d %H:%M:%S"), None, language, qType, difficulty, 1, 1, None, content, topics)
+newQuestion = Question.noID(time.strftime("%Y-%m-%d %H:%M:%S"), None, language, qType, difficulty, 1, 1, None, content, topics)
 #newQuestion.add()

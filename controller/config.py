@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3
 import os, sys
 
 abspath = lambda *p: os.path.abspath(os.path.join(*p))
