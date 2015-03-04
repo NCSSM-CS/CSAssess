@@ -115,7 +115,7 @@ INSERT INTO user
         'chuba15e',
         MD5('chuba15eebbedcuba'),
         'Ebube',
-        'Chuba'
+        'Chuba',
         'student',
         0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0,
         1
