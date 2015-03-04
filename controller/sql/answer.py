@@ -169,13 +169,13 @@ class Answer(object):
         return string
     def toJson(self):
         data = {
-        "id"         :     self.id,
-        "created"    : str(self.created),
-        "created by" :     self.created_by,
-        "active"     :     self.active
-        "solution"   :     self.solution
-        "question"   :     self.question,
-        "score"      :     self.score,
-        "content"    :     self.content
-        }
+                "id"         : self.id,
+                "created"    : self.created
+                "created_by" : self.created_by,
+                "active"     : self.active
+                "solution"   : self.solution
+                "question"   : self.question,
+                "score"      : self.score,
+                "content"    : self.content
+                }
         return json.dumps(data)
