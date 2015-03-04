@@ -68,12 +68,12 @@ class Session(object):
             insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
             
-	    for (id) in cursor:
+        for (id) in cursor:
                 self.id = id
             
-	    select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
+        select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
             
-	    cursor.execute(select)
+        cursor.execute(select)
             for (timestamp) in cursor:
                 self.timestamp = timestamp
 
