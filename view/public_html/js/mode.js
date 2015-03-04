@@ -1,6 +1,7 @@
 //CEW 
 var isCalled=false;
 var editor;
+
 function returnValues(val)
 {
   //val - value of dropdown menu containing languages
@@ -53,7 +54,7 @@ function returnValues(val)
   
   return;
 }
-
+//CEW
 function submitSubmission(){
   //result - Gets metadata and puts it into a JSON or list. Not sure yet
   var submitData;
@@ -61,7 +62,7 @@ function submitSubmission(){
     language: document.getElementById('languageSelect').value,
     time: Date(),
     problem: "1.1",
-    code: document.getElementById('codingArea').value
+    code: editor.getValue()
   };
 
   console.log(submitData);

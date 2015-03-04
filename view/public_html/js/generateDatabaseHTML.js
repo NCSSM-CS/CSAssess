@@ -25,7 +25,7 @@ function doOnLoad() {
  */
 function getTopics(topics) {
     //This is the dumb way to get the keys of the JSON
-    keys = Object.keys(topics);
+    var keys = Object.keys(topics);
 
     // using this style of for loop, i is the index of each key in keys 
     for(var i in keys)

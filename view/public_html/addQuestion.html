@@ -66,7 +66,6 @@
             <textarea rows="10" cols="150" id="answerSubmit" placeholder="Text of the answer to the question you want to add. "></textarea></br>
             <input type="text" placeholder="language" id="language">
             <!--TODO: better way to handle multiple topics !-->
-            <input type="text" placeholder="topics (dashes-to-seperate-topics)" size="30" id="topics">
             <select class="practiceElement" id="difficulty" name="difficultySelect">
                 <option value="default" selected="selected">Difficulty</option>
                 <option value="1">1</option>
@@ -83,6 +82,11 @@
                 <input type="checkbox" id="quiz" value="quiz">Quiz
                 <input type="checkbox" id="test" value="test">Test
                 <input type="checkbox" id="practice" value="practice">Practice
+                <div class="row" id="topicSelect">
+                    <span class="addtopic">Current topics: </span>
+                    <span class="addtopic"><input type="checkbox" class="addtopic" id="searching" value="searching"> Searching</span>    
+                    <span class="addtopic"><input type="text" class="addtopic" placeholder="Add new topic." id="topic"></span>
+                </div>
             <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
         </div>
       </div> 
