@@ -8,6 +8,7 @@ last_modified date: 3/4/2015
 """
 
 # imports
+import json
 from sql.user import User
 from sql.question import Question
 
@@ -45,4 +46,4 @@ def iChooseU(json):
     out = {};
     for num in range(len(intersect)):
         out[num] = intersect[num]
-    return out
+    return json.dumps(out)
