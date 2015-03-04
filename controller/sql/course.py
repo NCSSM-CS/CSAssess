@@ -3,7 +3,7 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   LZ
+last_modified_by:   Micah Halter
 last_modified date: 3/4/2015
 """
 
@@ -93,7 +93,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO course (created, created_by, course_code, name, active) VALUES ('%s', %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.course_code, self.name, self.active))
+            insert = ("INSERT INTO course (created_by, course_code, name, active) VALUES ('%s', %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.course_code, self.name, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id
@@ -108,7 +108,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-                update = ("UPDATE course SET (course_code, name, active) VALUES (%s, '%s', %s);" % (self.course_code, self.name, self.active))
+                update = ("UPDATE course SET (course_code, name, active) VALUES (%s, '%s', %s) WHERE id=%s;" % (self.course_code, self.name, self.active, self.id))
                 cursor.execute(update)
 
         cnx.commit()
@@ -134,7 +134,6 @@ class Course(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        returnList = []
         query = ""
         if search == "all":
             query = "SELECT * FROM course"
@@ -145,6 +144,8 @@ class Course(object):
 
         query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
         cursor.execute(query)
+
+        returnList = []
         for (id, created, created_by, course_code, name, active) in cursor:
             user = User.get(created_by)[0]
             newCourse = Course(id, created, user, course_code, name, active)
@@ -161,9 +162,9 @@ class Course(object):
         "id"            :     self.id,
         "created"       : str(self.created),
         "created_by"    :     self.created_by,
+        "active"        :     self.active,
         "course_code"   :     self.course_code,
         "name"          :     self.name
-        "active"        :     self.active
         }
         return json.dumps(data)
 
