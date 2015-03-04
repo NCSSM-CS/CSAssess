@@ -88,11 +88,12 @@ class Answer(object):
             query = "SELECT * FROM answer;"
         elif type(search) is int:
             query = ("SELECT * FROM answer WHERE id=%s" % (search))
-        cursor.execute(query)
         elif type(search) is Question:
             query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
         elif type(search) is User:
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
+        cursor.execute(query)
+
         for (id, created, created_by, question_id, score, content, active) in cursor:
             user = User.get(created_by)[0]
             returnList.append(Answer(id, created, user, question_id, score, content, active ))
