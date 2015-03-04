@@ -9,5 +9,33 @@ change \#! from python2.6 to python3
 
 #--- VIEW ---#
 
+Announcements Page
+    JS Function that generates table for 'new assignment'/jobs
+    JS Function that generate table for 'return assignments' (that haven't yet been viewed)
+    Fix AJAX to switch in other pages (IMPORTANT)
 
+Sidebar
+    Get user sections and print to left
+    Generates table for user's classes / sections
+
+Problem.html
+    Fix default tabbing issue in some languages
+    Assessment-view (many problems)
+    Progress/navigation on right side
+    Generating the assessments based off of given questions
+
+User Profile
+    JS Function that generates current sections table
+    JS Function that generates past sections table
+    JS Function that gets user information and fills in
+
+Teacher Section View
+    JS Function that generates roster on left
+    Page for creating a new assessment
+    Reviewing grades/adding comments
+
+Student Section View
+    JS to fill in course and teacher name
+    Creating table for current assignments
+    Creating table for returned assignments
 #--- CONTROLLER ---#
