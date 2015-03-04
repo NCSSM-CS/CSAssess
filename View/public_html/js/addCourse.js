@@ -7,16 +7,16 @@ function submitCourse()
 		alert("Please fill in all the fields!");
 	}
         var token = checkCookie("token");
+<<<<<<< HEAD
 	var toSend = {"name": name, "courseCode": id, "session": token};
 	toSend.requestType = "addUser";
+=======
+	var toSend = {"name": name, "ID": id, "topics": topics, "session": token};
+	toSend.requestType = "addCourse";
+>>>>>>> origin/master
 	console.log(toSend);
-	$.post(
-	{                                                 
-        url:"/cgi-bin/request.py",                                                 
-        data: toSend,
-        dataType: "json",
-        success: console.log("Success!")
-	});
+        //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+        $.post("/cgi-bin/request.py", toSend, console.log("done"), "json");
 }
 
 function showSelectedValues()

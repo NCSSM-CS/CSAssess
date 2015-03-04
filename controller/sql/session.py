@@ -74,8 +74,8 @@ class Session(object):
         select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
             
         cursor.execute(select)
-            for (timestamp) in cursor:
-                self.timestamp = timestamp
+        for (timestamp) in cursor:
+            self.timestamp = timestamp
 
         cnx.commit()
         cursor.close()

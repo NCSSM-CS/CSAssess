@@ -11,6 +11,7 @@ last_modified date: 3/4/2015
 from sql.user import User
 from sql.question import Question
 from sql.answer import Answer
+from sql.session import Session
 
 #Format of JSON -AM
 #requestType: getAnswer

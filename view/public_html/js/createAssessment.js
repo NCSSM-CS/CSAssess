@@ -8,7 +8,7 @@ function assessmentOnLoad() {
     generateSectionCheckboxes();
 }
 
-}
+
 function success() {
     alert("Your assessment was assigned.");
 }
@@ -19,7 +19,8 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
-    var dataDef = {requestType:"getTopics"};
+    var token = checkCookie("token");
+    var dataDef = {"requestType":"getTopics", "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)

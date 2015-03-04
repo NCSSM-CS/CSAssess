@@ -14,6 +14,7 @@ from sql.user import User
 from sql.question import Question
 from sql.answer import Answer
 from sql.topic import Topic
+from sql.session import Session
 
 #Format of answer -KP
 #requestType: answer
@@ -36,7 +37,7 @@ def iChooseU(json):
     term = json["term"]
     period = json["period"]
 
-    newCourse = Course.noID(TIME_STAMP, thisUser, course, year, term, period, ACTIVE)
+    newCourse = Course.noID(TIME_STAMP, thisUser.id, course, year, term, period, ACTIVE)
     newCourse.add()
 
     successJson = json.dumps({"success":True, "session":session.toJson()})

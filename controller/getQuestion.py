@@ -11,6 +11,7 @@ last_modified date: 3/4/2015
 import json
 from sql.user import User
 from sql.question import Question
+from sql.session import Session
 
 
 # TODO: Session things (and IP address) - EC

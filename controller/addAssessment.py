@@ -10,32 +10,31 @@ last_modified date: 3/4/2015
 # imports
 import constants
 import json
-from sql.user import User
-from sql.question import Question
-from sql.answer import Answer
-from sql.topic import Topic
 from sql.session import Session
 
-#Format of answer -AM
-#requestType: answer
-#question: question.id (Integer)
-#content: "string"
-#isSolution: boolean
+#Format of assessment -AM
+#requestType: assessment
+#atype: "string" 
+#section: section.id (Integer)
+#name: "string"
+#question_list: list of questions
+#topic_list: list of topics
 
 def iChooseU(json):
-    #from Ebube
     ipAddress = self.client_address[0]
     session = Session.get(json["session"], ipAddress)[0]
     thisUser = User.get(session[0])[0]
     if DEBUG > 1:
         print(thisUser)
 
-    question = json["question"]
-    content = json["content"]
-    isSolution = True 
+    atype = json["type"]
+    section = json["section"]
+    name = json["name"]
+    question_list = json["questions"]
+    topic_list = json["topics"]
 
-    newAnswer = Answer.noID(TIME_STAMP, thisUser.id, question, None, content, isSolution, ACTIVE)
-    newAnswer.add()
+    newAssessment = Assessment.noID(TIME_STAMP, thisUser, atype, section, name, question_list, topic_list, 1)
+    newAssessment.add()
 
     successJson = json.dumps({"success":True, "session":session.toJson()})
-    return successJson 
+    return successJson
