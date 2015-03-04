@@ -1,4 +1,4 @@
-#!/usr/bin/env pyhton2.6
+#!/usr/bin/env pyhton3
 
 """
 created_by: Samuel Murray
