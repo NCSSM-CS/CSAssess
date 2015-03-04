@@ -43,7 +43,7 @@ def iChooseU(json):
     for q in qByType:
         if q in qByDiff:
             intersect.append(q.toJson())
-    out = {};
+    out = {}
     for num in range(len(intersect)):
         out[num] = intersect[num]
     return json.dumps(out)
