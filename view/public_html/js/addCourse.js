@@ -18,15 +18,10 @@ function submitCourse()
 	}
         var token = checkCookie("token");
 	var toSend = {"name": name, "ID": id, "topics": topics, "session": token};
-	toSend.requestType = "addUser";
+	toSend.requestType = "addCourse";
 	console.log(toSend);
-	$.post(
-	{                                                 
-        url:"/cgi-bin/request.py",                                                 
-        data: toSend,
-        dataType: "json",
-        success: console.log("Success!")
-	});
+        //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+        $.post("/cgi-bin/request.py", toSend, console.log("done"), "json");
 }
 
 function showSelectedValues()

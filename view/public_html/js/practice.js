@@ -1,11 +1,16 @@
 /* 
+ * This is javascript to get the topics for the practice page for students and
+ * get questions to display one by one for the user. 
+ */
+
+/* 
  *This is a javascript file for setting the HTML content of the topic dropdown
  *on the database view page
  */ 
 
 //Run by an onload event in the body tag. 
 function doOnLoad() {
-    var token = checkCookie("token");
+    var token = checkCookie("token")
     var dataDef = {"requestType":"getTopics", "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
@@ -42,4 +47,3 @@ function getTopics(topics) {
         }
     }
 }
-
