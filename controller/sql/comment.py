@@ -12,7 +12,7 @@ import constants
 import json
 import mysql.connector
 from user import User
-from mysql_connecto_config import getConfig
+from mysql_connect_config import getConfig
 # classes
 class Comment(object):
     'Comment object to hold attributes and functions for an assessment'
