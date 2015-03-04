@@ -169,7 +169,7 @@ class Job:
 	    elif type(search) is str:
 	        query = ("SELECT * FROM job WHERE type = '%s'" % (search))
 
-	    query += " AND active=%s;" % (testActive)
+	    query += (" WHERE active=%s;" if search == "all" else " AND active=%s;") % (testActive)
 	    cursor.execute(query)
 
 	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:
