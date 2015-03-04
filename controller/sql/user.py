@@ -3,7 +3,7 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   Bear
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -69,7 +69,7 @@ class User(object):
         self.active            = active
 
     @classmethod
-    def noID(cls, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question):
+    def noID(cls, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -79,7 +79,7 @@ class User(object):
         this function acts as a second constructor where you have created a
         user that has not yet been assigned an id from the database
         """
-        return cls(None, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question)
+        return cls(None, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active)
 
     def __eq__(self, other):
         """
@@ -150,6 +150,7 @@ class User(object):
         string += "\tview test case: "     + str(bool(self.view_test_case))    + "\n"
         string += "\tview question: "      + str(bool(self.view_question))     + "\n"
         string += "\tview all questions: " + str(bool(self.view_all_question)) + "\n"
+
         return string
 
     def add(self):
@@ -187,13 +188,15 @@ class User(object):
                      "WHERE ua.assessment_id=%s"
                      % (search.id))
 
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
 
 
         cursor.execute(query)
         for (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) in cursor:
             user = username if created_by == id else User.get(created_by)
             returnList.append(User(id, created, user, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active))
+
+#WARNING: Potential bug if username (str) is passed: If user==username and string is passed, then attempting to pull user.id from this object will throw an error. No fix currently known, hopefully no one will attempt to return the god user in a search made by god user?
 
         cnx.commit()
         cursor.close()
@@ -206,7 +209,7 @@ class User(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE user SET last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s WHERE id=%s;" % (self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.id))
+            update = ("UPDATE user SET last_login='%s', username='%s', password='%s', first_name='%s', last_name='%s', role='%s', add_assessment=%s, edit_user=%s, edit_question=%s, edit_answer=%s, edit_test_case=%s, edit_permission=%s, view_student_info=%s, view_teacher_info=%s, view_answer=%s, view_test_case=%s, view_question=%s, view_all_question=%s, active=%s WHERE id=%s;" % (self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.active, self.id))
             cursor.execute(update)
 
         cnx.commit()
