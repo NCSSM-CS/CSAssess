@@ -9,6 +9,8 @@ last_modified date: 3/2/2015
 
 # imports
 import constants
+import mysql.connector
+from mysql_connect_config import getConfig
 
 # classes
 class Question:
@@ -42,7 +44,7 @@ class Question:
         self.last_given       = last_given
         self.content          = content
         self.topic_list       = topic_list
-	
+
 	def add(self):
 
 		if self.id is not None:
@@ -61,24 +63,24 @@ class Question:
 		cnx.commit()
 		cursor.close()
 		cnx.close()
-	
+
 	def update(self):
 		cnx = mysql.connector.connect(**getConfig())
 		cursor = cnx.cursor()
-		
+
 		if self.id is not None:
 			update = ("UPDATE question SET created = '%s', created_by = %s, language = '%s', type ='%s', difficulty = '%s', prev_question_id = %s, version_number = %s, last_given = '%s', content = '%s';" % (self.created, self.created_by.id, self.language, self.type, self. difficulty, self.prev_question_id, self.version_number, self.last_given, self.content))
 			cursor.execute(update)
 		cnx.commit()
 		cursor.close()
 		cnx.close()
-	
+
 	def activate(self, bool):
 		cnx = mysql.connector.connect(**getConfig())
 		cursor = cnx.cursor()
 
 		if self.active is not None:
-			
+
 			self.active = int(bool)
 			active = ("UPDATE question SET active =%s WHERE id =%s;" % (int(bool), self.id))
 
@@ -90,7 +92,7 @@ class Question:
 
 
     @classmethod
-    def get(self, search="all", searchCreatedBy= None, searchLanguage = "None", searchType = "None", searchDifficulty = "None", searchContent = "None", testActive = "1"):	
+    def get(self, search="all", searchCreatedBy= None, searchLanguage = "None", searchType = "None", searchDifficulty = "None", searchContent = "None", testActive = "1"):
 		cnx = mysql.connector.connect(**getConfig())
 		cursor = cnx.cursor()
 
@@ -107,21 +109,21 @@ class Question:
 		elif searchDifficulty != "None":
 			query = ("SELECT * FROM question WHERE difficulty = '%s'" % (searchDifficulty))
 		elif searchContent != "None":
-			query = ("SELECT * FROM question WHERE content LIKE '%%s%'" % (searchContent))
+			query = ("SELECT * FROM question WHERE content LIKE '%%%s%%'" % (searchContent))
 
-		query += "AND active = %s;" % (testActive)
+		query += " AND active=%s;" % (testActive)
 		cursor.execute(query)
 
 		for (id, created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
 			user = User.get(created_by)[0]
 			newQuestion = Question(id, created, user, language, type, difficulty, prev_question_id, version_number, last_given, content, active)
-			
+
 			if newQuestion not in returnList:
 				returnList.append(newJob)
 		cnx.commit()
 		cursor.close()
 		cnx.close()
-	
+
     def noID(cls, created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, topic_list):
         """
         the parameters correspond with the parameters in the constructor above

@@ -38,15 +38,14 @@ class Answer(object):
         self.active           = active
 
     def add(self):
-        if self.id is not None:
-            return
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.active))
-        cursor.execute(insert)
-        for (id) in cursor:
-            self.id=id
+        if self.id is None:
+            insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content) VALUES (%s, '%s', %s, %s, %s, '%s', %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.active))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id=id
 
         cnx.commit()
         cursor.close()
