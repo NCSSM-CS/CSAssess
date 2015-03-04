@@ -88,22 +88,48 @@ function submitQuery()
 	});
 }
 function submitQuestion() {
-    var dataToSubmit = $("#questionSubmit").val();
-    if(dataToSubmit === "") {
+    //Gets the content of the input fields
+    var questionContent = $("#questionSubmit").val();
+    var language = $("#language").val();
+    var topics = $("#topics").val();
+    var difficulty = $("#difficulty").val();
+    var answerContent = $("#answerSubmit").val();
+    //Adds types if they are selected.
+    var types = "";
+    if($('#test').prop('checked')) types += "test" + " ";
+    if($('#quiz').prop('checked')) types += "quiz" + " ";
+    if($('#practice').prop('checked')) types += "quiz" + " ";
+    console.log(types);
+    //Defines the JSON to be returned
+    var dataDef = {requestType:"addQuestion", language: language, topic: topics, difficulty: difficulty, answer: answerContent };
+    //Checks to see if they typed a question
+    if(questionContent == "") {
         alert("Please enter a question");
         return false;
     }
+    //Since deleting a question can't be done, it makes sure they want to add the question. 
     var keepGoing = prompt("Is this the question you want to add? \n\Type yes to submit it.");
     if(keepGoing.toUpperCase() !== "YES") 
     {
         alert("Your question was not added to the database.");
         return false;
     }
-    var dataDef = {requestType:"addQuestion", data: dataToSubmit};
     var urlDef = "/cgi-bin/request.py";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
-    $.post(urlDef, dataDef, successs);
+   // $.post(urlDef, dataDef, success);
+    //TODO: Need to make sure this works, figure out how validation is going to be done.
+    $.ajax({
+        type: "POST",
+        url: urlDef,
+        data: dataDef,
+        success: success,
+        error: error
+    }); 
 }
-function successs() {
+function success() {
     alert("Your question has been added to the database.");
+}
+
+function error() {
+    alert("There was an error. Your question was not added");
 }

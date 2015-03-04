@@ -11,13 +11,13 @@ function doOnLoad() {
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
     $.post(urlDef, dataDef, getTopics, dataTypeDef);
 
-//  $.ajax({
-//        type: "POST",
-//        url: urlDef,
-//        data: dataDef,
-//        dataType: dataTypeDef,
-//        success: getTopics
-   // }); 
+  //$.ajax({
+    //    type: "POST",
+      //  url: urlDef,
+        //data: dataDef,
+        //dataType: dataTypeDef,
+        //success: getTopics
+    //}); 
 }
 
 /*  this function takes the list of topics from the ajax call and uses that
