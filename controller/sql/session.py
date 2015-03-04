@@ -92,9 +92,9 @@ class Session(object):
             update = ("UPDATE session SET active=%s WHERE id=%s" % (int(bool), self.id))
             cursor.execute(update)
 
-            cnx.commit()
-            cursor.close()
-            cnx.close()
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     def __eq__(self, other):
         """
@@ -135,12 +135,12 @@ class Session(object):
         return string
     def toJson(self):
         data = {
-        "id"        : self.id,
-        "timestamp" : self.timestamp,
-        "token"     : self.token,
-        "ip"        : self.ip,
-        "user"      : self.user,
-        "active"    : self.active
-        }
+                "id"        : self.id,
+                "timestamp" : self.timestamp,
+                "token"     : self.token,
+                "ip"        : self.ip,
+                "user"      : self.user,
+                "active"    : self.active
+                }
         return json.dumps(data)
 
