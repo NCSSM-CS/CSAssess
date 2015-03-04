@@ -106,7 +106,7 @@ class Job:
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
 
-	    insert = ("INSERT INTO job (id, created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.type, self.assessment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    insert = ("INSERT INTO job (created, created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.atype, self.assessment.id, self.assigned_to.id, self.content, self.taken_by_user.id, self.active))
 
 	    cursor.execute(insert)
 
@@ -136,9 +136,9 @@ class Job:
 	    if self.active is not None:
 
 	        self.active = int(bool)
-	        active = ("UPDATE job SET active=%s WHERE id=%s;" % (int(bool), self.id))
+	        update = ("UPDATE job SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
-	        cursor.execute()
+	        cursor.execute(update)
 
 	    cnx.commit()
 	    cursor.close()
@@ -162,9 +162,9 @@ class Job:
 	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy))
 	    elif type(search) is int:
 	    	query = ("SELECT * FROM job WHERE id = %s" % (search))
-	    elif type(search) is user:
+	    elif type(search) is User:
 	    	query = ("SELECT * FROM job WHERE created_by = %s" % (search.id))
-	    elif type(search) is section:
+	    elif type(search) is Section:
 	        query = ("SELECT * FROM job WHERE section_id = %s" % (search.id))
 	    elif type(search) is str:
 	        query = ("SELECT * FROM job WHERE type = '%s'" % (search))
@@ -172,10 +172,10 @@ class Job:
 	    query += (" WHERE active=%s;" if search == "all" else " AND active=%s;") % (testActive)
 	    cursor.execute(query)
 
-	    for (id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active) in cursor:
+	    for (id, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active) in cursor:
 
 		user = User.get(created_by)[0]
-		newJob = Job(id, created, user, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
+		newJob = Job(id, created, user, section, atype, assessment, assigned_to, content, taken_by_user, active)
 
 		if newJob not in returnList:
 		    returnList.append(newJob)
