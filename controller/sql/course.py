@@ -92,7 +92,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO course (created, created_by, type, section_id, name, active) VALUES ('%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.type, self.section_id, self.name, self.active))
+            insert = ("INSERT INTO course (created, created_by, type, section_id, name, active) VALUES ('%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.atype, self.section.id, self.name, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id
@@ -107,7 +107,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-                update = ("UPDATE courses SET type = '%s', section_id = %s, name = '%s' WHERE id = %s;" % (self.type, self.section_id, self.name, self.id))
+                update = ("UPDATE courses SET type = '%s', section_id = %s, name = '%s' WHERE id = %s;" % (self.atype, self.section.id, self.name, self.id))
                 cursor.execute(update)
 
         cnx.commit()

@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       2/28/2015
-last_modified_by:   John Fang
-last_modified date: 3/2/2015
+last_modified_by:   Micah Halter
+last_modified date: 3/4/2015
 """
 
 # imports
@@ -24,6 +24,7 @@ class Topic(object):
         created    - the date when the topic 'self' was created
         created_by - the user that created the topic 'self'
         name       - the name of the topic 'self'
+        active     - a bit specifying whether the topic is active
 
         this function acts as the constructor to define a new topic object
         """
@@ -72,7 +73,7 @@ class Topic(object):
                      "WHERE at.assessment_id=%s"
                      % (search.id))
 
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search == "all" else " AND active=%s;") % (testActive)
 
         cursor.execute(query)
         for (id, created, created_by, name, active) in cursor:
@@ -158,13 +159,16 @@ class Topic(object):
         string += "created by: " +      str(self.created_by) + "\n"
         string += "active: "     + str(bool(self.active))    + "\n"
         string += "name: "       +          self.name        + "\n"
+        string += "active: "       +    str(self.active)     + "\n"
+
         return string
     def toJson(self):
         data = {
         "id"        : self.id,
         "created"   : self.created,
         "created by": self.created_by,
-        "name"      : self.name
+        "name"      : self.name,
+        "active"    : self.active
         }
         return json.dumps(data)
 

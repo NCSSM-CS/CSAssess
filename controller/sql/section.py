@@ -1,18 +1,19 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   LZ
-last_modified date: 3/3/2015
+last_modified_by:   Micah Halter
+last_modified date: 3/4/2015
 """
 
 # imports
 import constants
+from user import User
 import json
 
 # classes
-class Section:
+class Section(object):
     'Section object to hold attributes and functions for a section'
 
     def __init__(self, id, created, created_by, course, year, term, period, active):
@@ -25,7 +26,7 @@ class Section:
         year       - the year that the section 'self' took place in
         term       - the term that the section 'self' took place in
         period     - the period that the section 'self' took place in
-	active     - bit specifying whether job is active or inactive
+        active     - bit specifying whether job is active or inactive
 
         this function acts as the constructor to define a new section object
         """
@@ -36,10 +37,10 @@ class Section:
         self.year       = year
         self.term       = term
         self.period     = period
-	self.active     = active
+        self.active     = active
 
     @classmethod
-    def noID(cls, created, created_by, course, year, term, period, active):
+    def noID(self, created, created_by, course, year, term, period, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -49,7 +50,7 @@ class Section:
         this function acts as a second constructor where you have created an
         assessment that has not yet been assigned an id from the database
         """
-        return cls(None, created, created_by, course, year, term, period, active)
+        return self(None, created, created_by, course, year, term, period, active)
 
     def __eq__(self, other):
         """
@@ -71,7 +72,7 @@ class Section:
         self.year       == other.year       and
         self.term       == other.term       and
         self.period     == other.period     and
-	self.active     == other.active)
+        self.active     == other.active)
 
     def __str__(self):
         """
@@ -86,28 +87,25 @@ class Section:
         string += "id: "         + str(self.id)         + "\n"
         string += "created: "    + str(self.created)    + "\n"
         string += "created by: " + str(self.created_by) + "\n"
+        string += "active: "     + str(self.active)     + "\n"
         string += "course: "   + str(self.course)     + "\n"
         string += "year: "       + str(self.year)       + "\n"
         string += "term: "       +     self.term        + "\n"
         string += "period: "     +     self.period      + "\n"
-	string += "active: "     + str(self.active)     + "\n"
 
         return string
 
     def add(self):
-
-	if self.id is not None:
-	    return
-
-	cnx = mysql.connector.connect(**getConfig())
+        cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-	insert = ("INSERT INTO section (id, created, created_by, course, year, term, period, active) VALUES (%s, '%s', %s, %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
+        if self.id is None:
+            insert = ("INSERT INTO section (id, created, created_by, course, year, term, period, active) VALUES (%s, '%s', %s, %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.id, self.created, self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
 
-	cursor.execute(insert)
+            cursor.execute(insert)
 
-	for(id) in cursor:
-	    self.id=id
+            for(id) in cursor:
+                self.id=id
 
         cnx.commit()
         cursor.close()
@@ -115,84 +113,84 @@ class Section:
 
     def update(self):
         cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
+        cursor = cnx.cursor()
 
-	if self.id is not None:
-	    update = ("UPDATE job SET course = %s, year = %s, term = '%s', period = '%s', active = %s;" % (self.course.id, self.year, self.term, self.period, self.active))
+        if self.id is not None:
+            update = ("UPDATE job SET course = %s, year = %s, term = '%s', period = '%s', active = %s;" % (self.course.id, self.year, self.term, self.period, self.active))
 
-	    cursor.execute(update)
+            cursor.execute(update)
 
-	cnx.commit()
-	cursor.close()
-	cnx.close()
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     def activate(self, bool):
         cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
+        cursor = cnx.cursor()
 
-	if self.active is not None:
+        if self.active is not None:
 
-	    self.active = int(bool)
-	    active = ("UPDATE section SET active=%s WHERE id=%s;" % (int(bool), self.id))
+            self.active = int(bool)
+            active = ("UPDATE section SET active=%s WHERE id=%s;" % (int(bool), self.id))
 
-	    cursor.execute()
+            cursor.execute()
 
-	cnx.commit()
-	cursor.close()
-	cnx.close()
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     @classmethod
     def get(self, search="all", searchYear=None, searchTerm=None, searchUser=None, testActive="1"):
         """
 
-	"""
-	cnx = mysql.connector.connect(**getConfig())
-	cursor = cnx.cursor()
+        """
+        cnx = mysql.connector.connect(**getConfig())
+        cursor = cnx.cursor()
 
-	returnList = []
-	query = ""
-	if search == "all" and searchYear is None and searchTerm is None and searchUser is None:
-	    query = "SELECT * FROM section"
-	elif searchYear is not None:
-	    query = ("SELECT * FROM section WHERE year = %s" % (searchYear))
-	elif searchTerm is not None:
-	    query = ("SELECT * FROM section WHERE term = '%s'" % (searchTerm))
-	elif searchUser is not None:
-	    query = 
-	elif type(search) is int:
-	    query = ("SELECT * FROM section WHERE id = %s" % (search))
-	elif type(search) is user:
-	    query = ("SELECT * FROM section WHERE created_by = %s" % (search.id))
-	elif type(search) is course:
-	    query = ("SELECT * FROM section WHERE course_id = %s" % (search.id))
-	elif type(search) is str:
-	    query = ("SELECT * FROM section WHERE period = '%s'" % (search))
-	query += " AND active = %s;" % (testActive)
-	cursor.execute(query)
+        returnList = []
+        query = ""
+        if search == "all" and searchYear is None and searchTerm is None and searchUser is None:
+            query = "SELECT * FROM section"
+        elif searchYear is not None:
+            query = ("SELECT * FROM section WHERE year = %s" % (searchYear))
+        elif searchTerm is not None:
+            query = ("SELECT * FROM section WHERE term = '%s'" % (searchTerm))
+        elif searchUser is not None:
+            query = ("SELECT s.* FROM section_user AS su "
+                     "INNER JOIN section AS s ON su.section_id=s.id "
+                     "WHERE su.user_id=%s" % (search.id))
+        elif type(search) is int:
+            query = ("SELECT * FROM section WHERE id = %s" % (search))
+        elif type(search) is user:
+            query = ("SELECT * FROM section WHERE created_by = %s" % (search.id))
+        elif type(search) is course:
+            query = ("SELECT * FROM section WHERE course_id = %s" % (search.id))
+        elif type(search) is str:
+            query = ("SELECT * FROM section WHERE period = '%s'" % (search))
+        query += (" WHERE active = %s;" if search == "all" else " AND active = %s;") % (testActive)
+        cursor.execute(query)
 
-	for(id, created, created_by, course_id, year, term, period, active) in cursor:
-	    
-	    user = User.get(created_by)[0]
-	    course = Course.get(course_id)[0]
-	    newSection = Section(id, created, user, course, year, term, active)
+        for(id, created, created_by, course_id, year, term, period, active) in cursor:
 
-	    if newSection not in returnList:
-	        returnList.append(newSection)
-	    
-	    cnx.commit()
-	    cursor.close()
-	    cnx.close()
+            user = User.get(created_by)[0]
+            course = Course.get(course_id)[0]
+            returnList.append(Section(id, created, user, course, year, term, active))
 
-	    return returnList
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+
+        return returnList
 
     def toJson(self):
-        data = [{
+        data = {
         "id"            :     self.id,
         "created"       : str(self.created),
         "created by"    :     self.created_by,
+        "active"        :     self.active,
         "course"        :     self.course,
         "year"          :     self.year,
         "term"          :     self.term,
         "period"        :     self.period
-        }]
+        }
         return json.dumps(data)

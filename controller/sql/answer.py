@@ -3,7 +3,7 @@
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
-last_modified_by:   Micah Halter
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -97,7 +97,7 @@ class Answer(object):
         elif type(search) is User:
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
 
-        query += " AND active=%s" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s") % (testActive)
         cursor.execute(query)
 
         returnList = []
