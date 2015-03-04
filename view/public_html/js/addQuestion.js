@@ -19,7 +19,7 @@ function submitQuestion() {
     var topics = getTopics();
     
     //Gets the token cookie, where the session data is stored. 
-    var token = checkCookie("token");
+    var token = getCookie("token");
     //Defines the JSON to be returned
     var dataDef = {"requestType":"addQuestion", "session": token, "language": language, "topic": topics, "difficulty": difficulty, "answer": answerContent };
     //Checks to see if they typed a question, language, difficulty, topic
@@ -31,7 +31,6 @@ function submitQuestion() {
         alert("Please enter a language");
         return false;
     }
-    alert(difficulty);
     if(difficulty == "default") {
         alert("Please enter a difficulty");
         return false;
@@ -69,7 +68,7 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
-    var token = checkCookie("token");
+    var token = getCookie("token");
     var dataDef = {"requestType":"getTopics" , "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
