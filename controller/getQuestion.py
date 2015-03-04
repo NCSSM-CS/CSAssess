@@ -25,7 +25,13 @@ def iChooseU(json):
     ## This will work later - EC
     thisUser = User.get(1)[0]
     print(thisUser)
-    qByType = Question.get(0, json["topic"])
+    qByType = []
+    for i in range(len(json["topics"])):
+        theseQuestions = Question.get(0, json["topics"][i])
+        for j in range(len(theseQuestions)):
+            thisQuestion = theseQuestions[j]
+            if not thisQuestion in qByType:
+                qByType.append(thisQuestion)
     qByDiff = Question.get(0, json["difficulty"])
     intersect = [];
     for q in qByType:
