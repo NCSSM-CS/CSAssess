@@ -1,9 +1,6 @@
 #=== TODO ===#
 #--- GENERAL ---#
-change #! from python2.6 to python3
-everyone install mysql-connector-python if you are interested in running locally
-    from github, get zip at mysql/mysql-connector-python 
-    unzip, run sudo python3 setup.py install
+change \#! from python2.6 to python3
 
 
 
