@@ -121,18 +121,14 @@ class Question:
 
     def add(self):
 
-        if self.id is not None:
-            return
+        if self.id is None:
+            cnx = mysql.connector.connect(**getConfig())
+            cursor = cnx.cursor()
 
-        cnx = mysql.connector.connect(**getConfig())
-        cursor = cnx.cursor()
-
-        insert = ("INSERT INTO question (created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', %s, '%s', '%s', '%s', %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question_id, self.versioin_number, self.last_given, self.content, self.active))
-
-        cursor.execute(insert)
-
-        for (id) in cursor:
-            self.id=id
+            insert = ("INSERT INTO question (created, created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', %s, '%s', '%s', '%s', %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question_id, self.versioin_number, self.last_given, self.content, self.active))
+            cursor.execute(insert)
+            for (id) in cursor:
+                self.id=id
 
         cnx.commit()
         cursor.close()
@@ -172,14 +168,13 @@ class Question:
             query = ("SELECT q.* FROM assessment_question AS aq "
                      "INNER JOIN question AS q ON aq.question_id=q.id "
                      "WHERE aq.assessment_id=%s" % (search.id))
-        query += " active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if id is 0 and search is "all" else " AND active=%s;" % (testActive))
 
         cursor.execute(query)
         for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
             user = User.get(created_by)[0]
             newQuestion = Question(id, created, user, language, atype, difficulty, prev_question_id, version_number, last_given, content, active)
-            if newQuestion not in returnList:
-                returnList.append(newJob)
+            returnList.append(newJob)
         cnx.commit()
         cursor.close()
         cnx.close()
@@ -189,8 +184,9 @@ class Question:
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE question SET created = '%s', created_by = %s, language = '%s', type ='%s', difficulty = '%s', prev_question_id = %s, version_number = %s, last_given = '%s', content = '%s';" % (self.created, self.created_by.id, self.language, self.atype, self. difficulty, self.prev_question_id, self.version_number, self.last_given, self.content))
+            update = ("UPDATE question language = '%s', type ='%s', difficulty = '%s', prev_question_id = %s, version_number = %s, last_given = '%s', content = '%s' WHERE id=%s;" % (self.language, self.atype, self. difficulty, self.prev_question_id, self.version_number, self.last_given, self.content, self.id))
             cursor.execute(update)
+
         cnx.commit()
         cursor.close()
         cnx.close()
@@ -200,10 +196,8 @@ class Question:
         cursor = cnx.cursor()
 
         if self.active is not None:
-
             self.active = int(bool)
-            active = ("UPDATE question SET active =%s WHERE id =%s;" % (int(bool), self.id))
-
+            active = ("UPDATE question SET active=%s WHERE id=%s;" % (int(bool), self.id))
             cursor.execute(active)
 
         cnx.commit()
