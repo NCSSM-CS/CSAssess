@@ -7,3 +7,5 @@ import time
 
 DEBUG = 0
 TIME_STAMP = time.strftime("%Y-%m-%d %H:%M:%S") 
+ACTIVE = 1
+INACTIVE = 0

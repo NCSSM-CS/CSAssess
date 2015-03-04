@@ -9,38 +9,41 @@ last_modified_date: 3/2/2015
 
 #imports
 import constants
+from user import User
+from section import Section
+from assessment import Assessment
 import json
 
 class Job:
     'Job object to hold attributes and functions for a job.'
-    def __init__(self, id, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active):
+    def __init__(self, id, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active):
         """
         self               - the job in question
         id                 - the id number of the job 'self' in the database
         created            - the date when the job 'self' was created
         created_by         - the user that created the job 'self'
         type               - the type of job 'self' is
-        assignment_id      - the assignment to which the job 'self' is referring
-        assigned_to_id     - the user that job 'self' was assigned to
+        assignment         - the assignment to which the job 'self' is referring
+        assigned_to        - the user that job 'self' was assigned to
         content            - the content of the job 'self'
-        taken_by_user_id   - the id of the user taking job 'self'
+        taken_by_user      - the id of the user taking job 'self'
 	active             - bit specifying whether job is active or inactive
 
         this function acts as the constructor to define a new job object
         """
-        self.id               = id
-        self.created          = created
-        self.created_by       = created_by
-        self.section_id       = section_id
-        self.type             = type
-        self.assessment_id    = assessment_id
-        self.assigned_to_id   = assigned_to_id
-        self.content          = content
-        self.taken_by_user_id = taken_by_user_id
-	self.active           = active
+        self.id            = id
+        self.created       = created
+        self.created_by    = created_by
+        self.section       = section
+        self.atype         = atype
+        self.assessment    = assessment
+        self.assigned_to   = assigned_to
+        self.content       = content
+        self.taken_by_user = taken_by_user
+	self.active        = active
 
         @classmethod
-        def noID(self, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active):
+        def noID(self, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active):
             """
             the parameters correspond with the parameters in the constructor above
 
@@ -50,7 +53,8 @@ class Job:
             this function acts as a second constructor where you have created a
             job that has not yet been assigned an id from the database
             """
-            return self(None, created, created_by, section_id, type, assessment_id, assigned_to_id, content, taken_by_user_id, active)
+            return self(None, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active)
+
         def __eq__(self, other):
             """
             self  - the job in question
@@ -67,12 +71,12 @@ class Job:
             self.id                == other.id                and
             self.created           == other.created           and
             self.created_by        == other.created_by        and
-            self.section_id        == other.section_id        and
-            self.type              == other.type              and
-            self.assessment_id     == other.assessment_id     and
-            self.assigned_to_id    == other.assigned_to_id    and
+            self.section           == other.section           and
+            self.atype              == other.atype              and
+            self.assessment        == other.assessment        and
+            self.assigned_to       == other.assigned_to       and
             self.content           == other.content           and
-            self.taken_by_user_id  == other.taken_by_user_id  and
+            self.taken_by_user     == other.taken_by_user     and
 	    self.active            == other.active)
 
         def __str__(self):
@@ -88,12 +92,12 @@ class Job:
             string += "id: "             + str(self.id)              + "\n"
             string += "created: "        + str(self.created)         + "\n"
             string += "created by: "     + str(self.created_by)      + "\n"
-            string += "\nsection id: "   + str(self.section_id)      + "\n"
-            string += "type: "           + str(self.type)            + "\n"
-            string += "assessment id: "  + self.assessment_id        + "\n"
-            string += "assigned to id: " + self.assigned_to_id       + "\n"
+            string += "\nsection: "      + str(self.section)         + "\n"
+            string += "type: "           + str(self.atype)            + "\n"
+            string += "assessment: "     + self.assessment           + "\n"
+            string += "assigned to: "    + self.assigned             + "\n"
             string += "content: "        + self.content              + "\n"
-            string += "taken by user:"   + self.taken_by_user_id     + "\n"
+            string += "taken by user:"   + self.taken_by_user        + "\n"
 	    string += "active: "         + str(self.active)          + "\n"
 
 	    return string
@@ -122,7 +126,7 @@ class Job:
 	    cursor = cnx.cursor()
 
 	    if self.id is not None:
-	    	update = ("UPDATE job SET type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.type, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
+	    	update = ("UPDATE job SET type = '%s', assignment_id = %s, assigned_to_id = %s, content = '%s', taken_by_user_id = %s, active = %s;" % (self.atype, self.assignment_id, self.assigned_to_id, self.content, self.taken_by_user_id, self.active))
 		cursor.execute(update)
 
 	    cnx.commit()
@@ -145,7 +149,7 @@ class Job:
 	    cnx.close()
 
 	@classmethod
-	def get(self, search="all", searchAssignedTo=None, searchTakenBy="None", testActive="1"):
+	def get(self, search="all", searchAssignedTo=None, searchTakenBy=None, testActive="1"):
 	    """
 
 	    """
@@ -157,9 +161,9 @@ class Job:
 	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
 	    	query = "SELECT * FROM job"
 	    elif searchAssignedTo is not None:
-	        query = ("SELECT * FROM job WHERE assigned_to_id = %s" % (searchAssignedTo))
+	        query = ("SELECT * FROM job WHERE assigned_to_id = %s" % (searchAssignedTo.id))
 	    elif searchTakenBy is not None:
-	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy))
+	        query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy.id))
 	    elif type(search) is int:
 	    	query = ("SELECT * FROM job WHERE id = %s" % (search))
 	    elif type(search) is User:
@@ -172,13 +176,14 @@ class Job:
 	    query += (" WHERE active=%s;" if search == "all" else " AND active=%s;") % (testActive)
 	    cursor.execute(query)
 
-	    for (id, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active) in cursor:
+	    for (id, created, created_by, section_id, atype, assessment_id, assigned_to, content, taken_by, active) in cursor:
 
 		user = User.get(created_by)[0]
-		newJob = Job(id, created, user, section, atype, assessment, assigned_to, content, taken_by_user, active)
-
-		if newJob not in returnList:
-		    returnList.append(newJob)
+                section = Section.get(section_id)[0]
+                assessment = Assessment.get(assessment_id)[0]
+                assignedTo = User.get(assigned_to)[0]
+                takenBy = User.get(taken_by)[0]
+		returnList.append(Job(id, created, user, section, atype, assessment, assignedTo, content, takenBy, active))
 
 	    cnx.commit()
 	    cursor.close()
@@ -188,15 +193,15 @@ class Job:
 
 
         def toJson(self):
-            data = [{
-            "id"                :     self.id,
-            "created"           : str(self.created),
-            "created_by"        :     self.created_by,
-            "section_id"        :     self.section_id,
-	    "type"              :     self.type,
-            "assessment id"     :     self.assessment_id,
-            "assigned to id"    :     self.assigned_to_id,
-            "content"           :     self.content,
-            "taken by user id"  :     self.taken_by_user_id
-            }]
+            data = {
+            "id"          :     self.id,
+            "created"     : str(self.created),
+            "created_by"  :     self.created_by,
+            "section"     :     self.section,
+	    "type"        :     self.atype,
+            "assessment"  :     self.assessment,
+            "assigned_to" :     self.assigned_to,
+            "content"     :     self.content,
+            "taken_by"    :     self.taken_by_user
+            }
             return json.dumps(data)

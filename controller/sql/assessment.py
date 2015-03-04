@@ -10,10 +10,10 @@ last_modified date: 3/3/2015
 # imports
 import json
 import constants
+from user import User
 from section import Section
 from question import Question
-from user import User
-from course import Course
+from topic import Topic
 import mysql.connector
 from mysql_connect_config import getConfig
 
@@ -75,7 +75,7 @@ class Assessment(object):
         self.created       == other.created       and
         self.created_by    == other.created_by    and
         self.atype         == other.atype         and
-        self.section_id    == other.section_id    and
+        self.section       == other.section       and
         self.name          == other.name          and
         self.question_list == other.question_list and
         self.topic_list    == other.topic_list    and
@@ -159,16 +159,20 @@ class Assessment(object):
                             "INNER JOIN question AS q ON aq.question_id=q.id "
                             "WHERE aq.assessment_id=%s;" % (id))
             cursor.execute(getQuestions)
+
             qList = []
             for (id) in cursor:
                 qList.append(Question.get(id)[0])
+
             getTopics = ("SELECT t.id FROM assessment_topic AS at "
                          "INNER JOIN topic AS t ON at.topic_id=t.id "
                          "WHERE at.assessment_id=%s;" % (id))
             cursor.execute(getTopics)
+
             tList = []
             for (id) in cursor:
                 tList.append(Topic.get(id)[0])
+
             user = User.get(created_by)[0]
             section = Section.get(section_id)[0]
             returnList.append(Assessment(id, created, user, atype, section, name, qList, tList, active))
@@ -178,12 +182,13 @@ class Assessment(object):
         cnx.close()
 
         return returnList
+
     def update(self):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE user SET type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.atype, self.section.id))
+            update = ("UPDATE user SET type='%s', section_id=%s, name='%s' WHERE id=%s;" % (self.atype, self.section.id, self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -205,12 +210,12 @@ class Assessment(object):
 
     def toJson(self):
         data = {
-        "id"        :     self.id,
-        "created"   : str(self.created),
-        "created by":     self.created_by,
-        "active"    :     self.active,
-        "type"      :     self.atype,
-        "section id":     self.section,
-        "name"      :     self.name
-        }
+                "id"        :     self.id,
+                "created"   : str(self.created),
+                "created by":     self.created_by,
+                "active"    :     self.active,
+                "type"      :     self.atype,
+                "section id":     self.section,
+                "name"      :     self.name
+                }
         return json.dumps(data)
