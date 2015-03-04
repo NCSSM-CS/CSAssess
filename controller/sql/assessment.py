@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       2/28/2015
-last_modified_by:   EZ
-last_modified date: 3/3/2015
+last_modified_by:   LZ
+last_modified date: 3/4/2015
 """
 
 # imports
@@ -32,6 +32,7 @@ class Assessment(object):
         name          - the name of the assessment 'self'
         question_list - a list of questions that make up the assessment 'self'
         topic_list    - a list of topics that apply to the assessment 'self'
+        active        - a bit specifying whether the assessment is active
 
         this function acts as the constructor to define a new assessment object
         """
@@ -114,7 +115,7 @@ class Assessment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO assessment (created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.section.id, self.name, self.active))
+        insert = ("INSERT INTO assessment (created_by, type, section_id, name, active) VALUES (%s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.section.id, self.name, self.active))
         course.execute(insert)
         for (id) in cursor:
             self.id = id
@@ -150,28 +151,35 @@ class Assessment(object):
                      "INNER JOIN assessment AS a ON aq.assessment_id=a.id "
                      "WHERE aq.question_id=%s" % (search.id))
 
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
 
         cursor.execute(query)
 
         for (id, created, created_by, atype, section_id, name, active) in cursor:
+
+            newCNX = mysql.connector.connect(**getConfig())
+            newCursor = newCNX.cursor()
+
             getQuestions = ("SELECT q.id FROM assessment_question as aq "
                             "INNER JOIN question AS q ON aq.question_id=q.id "
                             "WHERE aq.assessment_id=%s;" % (id))
-            cursor.execute(getQuestions)
-
+            newCursor.execute(getQuestions)
             qList = []
-            for (id) in cursor:
-                qList.append(Question.get(id)[0])
+            for (newid) in newCursor:
+                qList.append(Question.get(newid)[0])
 
             getTopics = ("SELECT t.id FROM assessment_topic AS at "
                          "INNER JOIN topic AS t ON at.topic_id=t.id "
                          "WHERE at.assessment_id=%s;" % (id))
-            cursor.execute(getTopics)
+            newCursor.execute(getTopics)
 
             tList = []
-            for (id) in cursor:
-                tList.append(Topic.get(id)[0])
+            for (newid) in newCursor:
+                tList.append(Topic.get(newid[0])[0])
+
+            newCNX.commit()
+            newCursor.close()
+            newCNX.close()
 
             user = User.get(created_by)[0]
             section = Section.get(section_id)[0]

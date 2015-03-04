@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       3/3/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/3/2015
+last_modified_by:   LZ
+last_modified date: 3/4/2015
 """
 
 # imports
@@ -18,13 +18,8 @@ class Session(object):
 
     def __init__(self, id, timestamp, token, ip, user, active):
         """
-        self       - the topic in question
-        id         - the id number of the topic 'self' in the database
-        created    - the date when the topic 'self' was created
-        created_by - the user that created the topic 'self'
-        name       - the name of the topic 'self'
-
-        this function acts as the constructor to define a new topic object
+        
+        this function acts as the constructor to define a new session object
         """
         self.id         = id
         self.timestamp  = timestamp
@@ -57,7 +52,7 @@ class Session(object):
 
         for (id, timestamp, token, ip, user_id, active) in cursor:
             user = User.get(user_id)[0]
-            returnList.append(Topic(id, timestamp, token, ip, user, active))
+            returnList.append(Session(id, timestamp, token, ip, user, active))
 
         cnx.commit()
         cursor.close()
@@ -72,10 +67,13 @@ class Session(object):
         if self.id is None:
             insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
-            for (id) in cursor:
+            
+	    for (id) in cursor:
                 self.id = id
-            select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
-            cursor.execute(select)
+            
+	    select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
+            
+	    cursor.execute(select)
             for (timestamp) in cursor:
                 self.timestamp = timestamp
 
@@ -129,9 +127,9 @@ class Session(object):
         string += "id: "        + str(self.id)        + "\n"
         string += "timestamp: " + str(self.timestamp) + "\n"
         string += "token: "     + str(self.token)     + "\n"
-        string += "ip: "        + str(bool(self.ip))  + "\n"
+        string += "ip: "        +     self.ip         + "\n"
         string += "user: "      +     self.user       + "\n"
-        string += "active: "    +     self.active     + "\n"
+        string += "active: "    + str(self.active)    + "\n"
         return string
     def toJson(self):
         data = {

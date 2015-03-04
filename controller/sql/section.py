@@ -10,7 +10,10 @@ last_modified date: 3/4/2015
 # imports
 import constants
 from user import User
+from course import Course
 import json
+import mysql.connector
+from mysql_connect_config import getConfig
 
 # classes
 class Section(object):
@@ -174,7 +177,7 @@ class Section(object):
 
             user = User.get(created_by)[0]
             course = Course.get(course_id)[0]
-            returnList.append(Section(id, created, user, course, year, term, active))
+            returnList.append(Section(id, created, user, course, year, term, period, active))
 
         cnx.commit()
         cursor.close()
