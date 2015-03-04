@@ -1,6 +1,7 @@
 //CEW 
 var isCalled=false;
 var editor;
+var completed = false;
 
 function returnValues(val)
 {
@@ -57,6 +58,11 @@ function returnValues(val)
 //CEW
 function submitSubmission(){
   //result - Gets metadata and puts it into a JSON or list. Not sure yet
+  if (!completed){
+	if (!confirm("You have not completed all problems. Are you sure that you want to submit?")){
+		return;
+	}
+  }
   var submitData;
   submitData = {
     language: document.getElementById('languageSelect').value,
