@@ -3,7 +3,7 @@
 """
 created_by:         John Fang
 created_date:       3/2/2015
-last_modified_by:   Micah Halter
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -35,6 +35,7 @@ class Comment(object):
         self.answer     = answer
         self.content    = content
         self.active     = active
+    
     def add(self):
 
         if self.id is not None:
@@ -43,7 +44,7 @@ class Comment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES ('%s', %s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created, self.created_by.id, self.answer.id, self.content, self.active))
+        insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES (%s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created_by.id, self.answer.id, self.content, self.active))
         cursor.execute(insert)
 
         for (id) in cursor:
@@ -59,7 +60,7 @@ class Comment(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE comment SET answer_id = %s,  content = '%s', active = %s WHERE id = %s;" % (self.asnwer.id, self.content, self.active, self.id))
+            update = ("UPDATE comment SET answer_id = %s,  content = '%s', active = %s WHERE id = %s;" % (self.answer.id, self.content, self.active, self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -72,7 +73,7 @@ class Comment(object):
 
         if self.id is not None:
             self.active = int(bool)
-            update = ("UPDATE comment SET active=%s WHERE id=%S;" % (int(bool), self.id))
+            update = ("UPDATE comment SET active=%s WHERE id=%s;" % (int(bool), self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -95,7 +96,7 @@ class Comment(object):
         elif type(search) is Answer:
             query = ("SELECT * FROM comment WHERE answer_id=%s" % (search.id))
 
-        query += (" WHERE active=%s" if search == "all" else " AND active =%s;") % (testActive)
+        query += (" WHERE active=%s;" if search == "all" else " AND active =%s;") % (testActive)
         cursor.execute(query)
         for (id, created, created_by, answer_id, content, active) in cursor:
             user = User.get(created_by)[0]
@@ -155,8 +156,10 @@ class Comment(object):
         string += "created by: " +      str(self.created_by) + "\n"
         string += "active: "     + str(bool(self.active))    + "\n"
         string += "answer: "     +      str(self.answer)     + "\n"
-        string += "content: "    +      self.content         + "\n"
+        string += "content: "    +          self.content     + "\n"    
+
         return string
+
     def toJson(self):
         data = {
         "id"        : self.id,
