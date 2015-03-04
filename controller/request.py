@@ -63,7 +63,7 @@ if constants.DEBUG > 0:
 #    processedForm = addAssessment.iCChooseU(unprocessedForm)
 #elif toFile == "updateAssessment":
 #    processedForm = updateAssessment.iChooseU(unprocessedForm)
-#elif toFile == "activateAssignment":
+#elif toFile == "activateAssessment":
 #    processedForm = activateAssessment.iChooseU(unprocessedForm)
 # Add Question requestTypes
 elif toFile == "getQuestion":
