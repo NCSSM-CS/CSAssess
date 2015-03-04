@@ -94,7 +94,7 @@ class Test_Case(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO test_case (created, created_by, question_id, weight, content, active) VALUES ('%s', %s, %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.question.id, self.weight, self.content, self.active))
+            insert = ("INSERT INTO test_case (created_by, question_id, weight, content, active) VALUES ('%s', %s, %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.question.id, self.weight, self.content, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id

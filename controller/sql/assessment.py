@@ -114,7 +114,7 @@ class Assessment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO assessment (created, created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.atype, self.section.id, self.name, self.active))
+        insert = ("INSERT INTO assessment (created_by, type, section_id, name, active) VALUES ('%s', %s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.section.id, self.name, self.active))
         course.execute(insert)
         for (id) in cursor:
             self.id = id
