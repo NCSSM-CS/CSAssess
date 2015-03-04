@@ -13,7 +13,7 @@ from user import User
 import json
 
 # classes
-class Section:
+class Section(object):
     'Section object to hold attributes and functions for a section'
 
     def __init__(self, id, created, created_by, course, year, term, period, active):
