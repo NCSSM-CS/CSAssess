@@ -57,6 +57,34 @@ function setTopics(topics) {
     }
  }
  
+//Called by an onload event in the body
+function generateSectionCheckboxes() {
+    var dataDef = {requestType:"getSections","session":checkCookie("token"),"username":checkCookie("username")};
+    var urlDef = "/cgi-bin/request.py";
+    var dataTypeDef = "json";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    $.post(urlDef, dataDef, setSections, dataTypeDef);
+}
+//Will store the topics. Declared here so other functions can see it. 
+var numSections = [];
+function setSections(sections) {
+   //Create and append a new option to the option element.
+    var sectionContainer = document.getElementByID("sectionSelect")
+    for(i=0, i<Object.keys(sections).length, i++)
+    {   
+        var sectionName = sections[i].name;
+        var newCheckbox = document.createElement('input');
+        newCheckbox.type = "checkbox";
+        newCheckbox.name = sectionName;
+        newCheckbox.value = sectionName;
+        newCheckbox.id = sectionName;
+        var label = document.createElement('label');
+        label.htmlFor = sectionName;
+        label.appendChild(document.createTextNode(sectionName));
+    }
+ }
+
+
 function reload() {
     location.reload();
 }
