@@ -170,10 +170,10 @@ class Answer(object):
     def toJson(self):
         data = {
                 "id"         : self.id,
-                "created"    : self.created
+                "created"    : self.created,
                 "created_by" : self.created_by,
-                "active"     : self.active
-                "solution"   : self.solution
+                "active"     : self.active,
+                "solution"   : self.solution,
                 "question"   : self.question,
                 "score"      : self.score,
                 "content"    : self.content
