@@ -25,7 +25,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="doOnLoad()">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -77,10 +77,10 @@
                           </select>
                           <!-- validation must ensure that the topic exists !-->
                           <select class="practiceElement" id="difficulty" name="difficultySelect">
-                         	 <option value="default" selected="selected">Difficulty</option>
+                             <option value="default" selected="selected">Difficulty</option>
                              <option value="1">1</option>
                              <option value="2">2</option>
-                        	 <option value="3">3</option>
+                             <option value="3">3</option>
                              <option value="4">4</option>
                              <option value="5">5</option>
                              <option value="6">6</option>
