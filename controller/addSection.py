@@ -11,13 +11,12 @@ last_modified date: 3/4/2015
 import constants
 import json
 from sql.user import User
-from sql.question import Question
-from sql.answer import Answer
-from sql.topic import Topic
+from sql.section import Section
+from sql.course import Course
 
 #Format of answer -KP
 #requestType: answer
-#course: "string"
+#section: "string"
 #year: "string"
 #term: "string"
 #period: "string"
@@ -31,13 +30,13 @@ def iChooseU(json):
     if DEBUG > 1:
         print(thisUser)
 
-    course = json["course"]
+    section = json["section"]
     year = json["year"]
     term = json["term"]
     period = json["period"]
 
-    newCourse = Course.noID(TIME_STAMP, thisUser, course, year, term, period, ACTIVE)
-    newCourse.add()
+    newSection = Section.noID(TIME_STAMP, thisUser, course, year, term, period, ACTIVE)
+    newSection.add()
 
     successJson = json.dumps({"success":True, "session":session.toJson()})
     return successJson 
