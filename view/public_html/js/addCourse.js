@@ -2,22 +2,12 @@ function submitCourse()
 {
 	var name = document.getElementById("courseNameArea").value;
 	var id = document.getElementById("courseIDArea").value;
-	var topicList = document.getElementsByName("topics");
-	var topics = "";
-	for (var i=0; i<topicList.length; i++)
-	{
-		if(topicList[i].checked)
-		{
-			topics+=","+topicList[i].value;
-		}
-	}
-	topics=topics.substring(1)
-	if (name == "" || name == null || id == "" || id == null || topics == "")
+	if (name == "" || name == null || id == "" || id == null)
 	{
 		alert("Please fill in all the fields!");
 	}
         var token = checkCookie("token");
-	var toSend = {"name": name, "ID": id, "topics": topics, "session": token};
+	var toSend = {"name": name, "courseCode": id, "session": token};
 	toSend.requestType = "addUser";
 	console.log(toSend);
 	$.post(
