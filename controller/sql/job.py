@@ -3,8 +3,8 @@
 """
 created_by: Samuel Murray
 create_date: 3/2/2015
-last_modified_by: John Fang
-last_modified_date: 3/2/2015
+last_modified_by: LZ
+last_modified_date: 3/4/2015
 """
 
 #imports
@@ -72,7 +72,7 @@ class Job:
             self.created           == other.created           and
             self.created_by        == other.created_by        and
             self.section           == other.section           and
-            self.atype              == other.atype              and
+            self.atype             == other.atype             and
             self.assessment        == other.assessment        and
             self.assigned_to       == other.assigned_to       and
             self.content           == other.content           and
@@ -92,30 +92,27 @@ class Job:
             string += "id: "             + str(self.id)              + "\n"
             string += "created: "        + str(self.created)         + "\n"
             string += "created by: "     + str(self.created_by)      + "\n"
-            string += "\nsection: "      + str(self.section)         + "\n"
-            string += "type: "           + str(self.atype)            + "\n"
+	    string += "active: "         + str(self.active)          + "\n"
+            string += "section: "        + str(self.section)         + "\n"
+            string += "type: "           + str(self.atype)           + "\n"
             string += "assessment: "     + self.assessment           + "\n"
             string += "assigned to: "    + self.assigned             + "\n"
             string += "content: "        + self.content              + "\n"
             string += "taken by user:"   + self.taken_by_user        + "\n"
-	    string += "active: "         + str(self.active)          + "\n"
 
 	    return string
 
 	def add(self):
 
-	    if self.id is not None:
-	        return
-
 	    cnx = mysql.connector.connect(**getConfig())
 	    cursor = cnx.cursor()
 
-	    insert = ("INSERT INTO job (created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.assessment.id, self.assigned_to.id, self.content, self.taken_by_user.id, self.active))
+	    if self.id is None:
+	    	insert = ("INSERT INTO job (created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.assessment.id, self.assigned_to.id, self.content, self.taken_by_user.id, self.active))
+	    	cursor.execute(insert)
 
-	    cursor.execute(insert)
-
-	    for(id) in cursor:
-	        self.id=id
+	    	for(id) in cursor:
+	       	    self.id=id
 
 	    cnx.commit()
 	    cursor.close()
@@ -158,7 +155,7 @@ class Job:
 
 	    returnList = []
 	    query = ""
-	    if search == "all" and searchAssignedTo is None and searchTakenBy is None:
+	    if search == "all":
 	    	query = "SELECT * FROM job"
 	    elif searchAssignedTo is not None:
 	        query = ("SELECT * FROM job WHERE assigned_to_id = %s" % (searchAssignedTo.id))
@@ -197,6 +194,7 @@ class Job:
             "id"          :     self.id,
             "created"     : str(self.created),
             "created_by"  :     self.created_by,
+            "active"      :     self.active,
             "section"     :     self.section,
 	    "type"        :     self.atype,
             "assessment"  :     self.assessment,
