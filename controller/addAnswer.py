@@ -14,6 +14,7 @@ from sql.user import User
 from sql.question import Question
 from sql.answer import Answer
 from sql.topic import Topic
+from sql.session import Session
 
 #Format of answer -AM
 #requestType: answer
@@ -33,7 +34,7 @@ def iChooseU(json):
     content = json["content"]
     isSolution = True 
 
-    newAnswer = Answer.noID(TIME_STAMP, thisUser, question, None, content, isSolution, ACTIVE)
+    newAnswer = Answer.noID(TIME_STAMP, thisUser.id, question, None, content, isSolution, ACTIVE)
     newAnswer.add()
 
     successJson = json.dumps({"success":True, "session":session.toJson()})

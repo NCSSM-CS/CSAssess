@@ -13,6 +13,7 @@ import json
 from sql.user import User
 from sql.question import Question
 from sql.topic import Topic
+from sql.session import Session
 
 # TODO: Session things (and IP address) - EC
 #       Wait for Micah to finish objects (specifically questions) - EC
@@ -56,7 +57,7 @@ def iChooseU(json):
                     newTopic.add()
             topics = json[field]
 
-    newQuestion = Question.noID(TIME_STAMP, thisUser, language, qType, difficulty, 1, 1, None, content, topics)
+    newQuestion = Question.noID(TIME_STAMP, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
 
     successJson = {"success":True, "session": session.toJson()}

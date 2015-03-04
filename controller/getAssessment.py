@@ -10,6 +10,7 @@ last_modified_date: 3/4/2014
 # imports
 from sql.user import User
 from sql.assessment import Assessment
+from sql.session import Session
 import json
 
 def iChooseU(json):
