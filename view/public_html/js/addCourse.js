@@ -16,9 +16,8 @@ function submitCourse()
 	{
 		alert("Please fill in all the fields!");
 	}
-	var toSend = {"name": name, "ID": id, "topics": topics};
-	//todo in later versions: add actual validation w/ tokens
-	toSend.token = "token-standin";
+        var token = checkCookie("token");
+	var toSend = {"name": name, "ID": id, "topics": topics, "session": token};
 	toSend.requestType = "addUser";
 	console.log(toSend);
 	$.post(

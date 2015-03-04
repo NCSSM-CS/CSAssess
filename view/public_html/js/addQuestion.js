@@ -50,7 +50,7 @@ function submitQuestion() {
     var urlDef = "/cgi-bin/request.py";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
   //$.post(urlDef, dataDef, success);
-    //TODO: Need to make sure this works, figure out how validation is going to be done.
+    //Gives the question information to the database. 
     $.ajax({
         type: "POST",
         url: urlDef,
@@ -69,6 +69,7 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
+    var token = checkCookie("token");
     var dataDef = {"requestType":"getTopics" , "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
