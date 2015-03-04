@@ -24,7 +24,8 @@ class Topic(object):
         created    - the date when the topic 'self' was created
         created_by - the user that created the topic 'self'
         name       - the name of the topic 'self'
-
+	active     - a bit specifying whether the topic is active
+	
         this function acts as the constructor to define a new topic object
         """
         self.id         = id
@@ -158,13 +159,16 @@ class Topic(object):
         string += "created by: " +      str(self.created_by) + "\n"
         string += "active: "     + str(bool(self.active))    + "\n"
         string += "name: "       +          self.name        + "\n"
-        return string
+        string += "active: "       +    str(self.active)     + "\n"
+	
+	return string
     def toJson(self):
         data = {
         "id"        : self.id,
         "created"   : self.created,
         "created by": self.created_by,
         "name"      : self.name
+	"active"    : self.active
         }
         return json.dumps(data)
 
