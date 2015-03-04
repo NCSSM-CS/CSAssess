@@ -17,11 +17,25 @@ function submitQuestion() {
     if($('#quiz').prop('checked')) types += "quiz" + " ";
     if($('#practice').prop('checked')) types += "quiz" + " ";
     var topics = getTopics();
+    //Checks to see if the content is fully filled out. 
     //Defines the JSON to be returned
     var dataDef = {requestType:"addQuestion", language: language, topic: topics, difficulty: difficulty, answer: answerContent };
-    //Checks to see if they typed a question
+    //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
+        return false;
+    }
+     if(language == "") {
+        alert("Please enter a language");
+        return false;
+    }
+    alert(difficulty);
+    if(difficulty == "default") {
+        alert("Please enter a difficulty");
+        return false;
+    }
+    if(types == "") {
+        alert("Please enter a type");
         return false;
     }
     //Since deleting a question can't be done, it makes sure they want to add the question. 
@@ -82,14 +96,15 @@ function setTopics(topics) {
             numTopics.push(topics[keys[i]]);
         }
     }
-    function getTopics() {
+ }
+ 
+ function getTopics() {
         topics = "";
         for(var i = 0; i < numTopics.length; i++) {
             if($('#'+numTopics[i]).prop('checked')) topics += numTopics[i] + " ";
         }
         return topics;
     }
- }
  
 function newTopicSelect(e)
 {
