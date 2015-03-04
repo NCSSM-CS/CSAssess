@@ -172,17 +172,17 @@ class Question:
             query = ("SELECT q.* FROM assessment_question AS aq "
                      "INNER JOIN question AS q ON aq.question_id=q.id "
                      "WHERE aq.assessment_id=%s" % (search.id))
-        
-	query += (" WHERE active=%s;" if id is 0 and search is "all" else " AND active=%s;" % (testActive))
+
+        query += (" WHERE active=%s;" if id is 0 and search is "all" else " AND active=%s;" % (testActive))
 
         cursor.execute(query)
-        
-	for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
+
+        for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
             user = User.get(created_by)[0]
             newQuestion = Question(id, created, user, language, atype, difficulty, prev_question_id, version_number, last_given, content, active)
             returnList.append(newQuestion)
-        
-	cnx.commit()
+
+        cnx.commit()
         cursor.close()
         cnx.close()
 
@@ -224,6 +224,6 @@ class Question:
         "last given"        : self.last_given,
         "content"       : self.content,
         "topics"        : self.topic_list,
-	"active"        : self.active
+        "active"        : self.active
         }
         return json.dumps(data)
