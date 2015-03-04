@@ -175,7 +175,7 @@ class Assessment(object):
 
             tList = []
             for (newid) in newCursor:
-                tList.append(Topic.get(newid)[0])
+                tList.append(Topic.get(newid[0])[0])
 
             newCNX.commit()
             newCursor.close()
