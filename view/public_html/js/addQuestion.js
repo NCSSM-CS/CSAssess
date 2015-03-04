@@ -21,7 +21,7 @@ function submitQuestion() {
     //Gets the token cookie, where the session data is stored. 
     var token = checkCookie("token");
     //Defines the JSON to be returned
-    var dataDef = {"requestType":"addQuestion", "session": token, "language": language, "topic": topics, "difficulty": difficulty, "answer": answerContent };
+    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent };
     //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
@@ -95,6 +95,7 @@ function setTopics(topics) {
             //gets the topic
             input.id = topics[keys[i]];
             input.innerHTML = topics[keys[i]];
+            input.setAttribute("type","checkbox");
             span.appendChild(input);
             document.getElementById("topicSelect").appendChild(span);
             numTopics.push(topics[keys[i]]);

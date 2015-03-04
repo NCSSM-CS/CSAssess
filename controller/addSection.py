@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 """
-created_by:         Aninda Manocha
+created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
+last_modified_by:   Keshav Patel
 last_modified date: 3/4/2015
 """
 
@@ -11,16 +11,17 @@ last_modified date: 3/4/2015
 import constants
 import json
 from sql.user import User
-from sql.question import Question
-from sql.answer import Answer
-from sql.topic import Topic
+from sql.section import Section
+from sql.course import Course
 from sql.session import Session
 
-#Format of answer -AM
+#Format of answer -KP
 #requestType: answer
-#question: question.id (Integer)
-#content: "string"
-#isSolution: boolean
+#section: "string"
+#year: "string"
+#term: "string"
+#period: "string"
+
 
 def iChooseU(json):
     #from Ebube
@@ -30,12 +31,13 @@ def iChooseU(json):
     if DEBUG > 1:
         print(thisUser)
 
-    question = json["question"]
-    content = json["content"]
-    isSolution = True 
+    section = json["section"]
+    year = json["year"]
+    term = json["term"]
+    period = json["period"]
 
-    newAnswer = Answer.noID(TIME_STAMP, thisUser.id, question, None, content, isSolution, ACTIVE)
-    newAnswer.add()
+    newSection = Section.noID(TIME_STAMP, thisUser.id, course, year, term, period, ACTIVE)
+    newSection.add()
 
     successJson = json.dumps({"success":True, "session":session.toJson()})
     return successJson 
