@@ -11,8 +11,6 @@ last_modified date: 3/3/2015
 import constants
 import json
 import mysql.connector
-from section import Section
-from assessment import Assessment
 from mysql_connect_config import getConfig
 
 # classes

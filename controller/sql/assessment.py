@@ -10,10 +10,10 @@ last_modified date: 3/3/2015
 # imports
 import json
 import constants
-from user import User
 from section import Section
-from course import Course
 from question import Question
+from user import User
+from course import Course
 
 # classes
 class Assessment(object):
