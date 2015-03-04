@@ -147,16 +147,32 @@ class Question:
         query = ""
 
         if id is 0 and search is "all":
-            query = "SELECT * FROM question"
+            query = "SELECT * FROM question WHERE"
         if id is not 0:
             query = "SELECT * FROM question WHERE id=%s" % (id)
         if type(search) is User:
             query = "SELECT * FROM question WHERE created_by=%s" % (search.id)
         if type(search) is str:
-            query = "SELECT * FROM question WHERE language='%s' OR type='%s'" % (search, search)
+            query = "SELECT * FROM question WHERE (language='%s' OR type='%s')" % (search, search)
         if type(search) is int:
             query = "SELECT * FROM question WHERE difficulty=%s" % (search)
-        query += " AND active=%s;" % (testActive)
+        if type(search) is Answer:
+            query = ("SELECT q.* FROM answer AS a "
+                     "INNER JOIN question AS q ON a.question_id=q.id "
+                     "WHERE a.question_id=%s" % (search.id))
+        if type(search) is Test_Case:
+            query = ("SELECT q.* FROM test_case AS t "
+                     "INNER JOIN question AS q ON t.question_id=q.id "
+                     "WHERE t.question_id=%s" % (search.id))
+        if type(search) is Topic:
+            query = ("SELECT q.* FROM question_topic AS qt "
+                     "INNER JOIN question AS q ON qt.question_id=q.id "
+                     "WHERE qt.topic_id=%s" % (search.id))
+        if type(search) is Assessment:
+            query = ("SELECT q.* FROM assessment_question AS aq "
+                     "INNER JOIN question AS q ON aq.question_id=q.id "
+                     "WHERE aq.assessment_id=%s" % (search.id))
+        query += " active=%s;" % (testActive)
 
         cursor.execute(query)
         for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
