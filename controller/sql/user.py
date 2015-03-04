@@ -196,9 +196,9 @@ class User(object):
             user = username if created_by == id else User.get(created_by)
             returnList.append(User(id, created, user, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active))
 
-"""
-WARNING: Potential bug if username (str) is passed: If user==username and string is passed, then attempting to pull user.id from this object will throw an error. No fix currently known, hopefully no one will attempt to return the god user in a search made by god user?
-"""
+        """
+        WARNING: Potential bug if username (str) is passed: If user==username and string is passed, then attempting to pull user.id from this object will throw an error. No fix currently known, hopefully no one will attempt to return the god user in a search made by god user?
+        """
 
         cnx.commit()
         cursor.close()

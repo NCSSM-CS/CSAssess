@@ -3,8 +3,8 @@
 """
 created_by:         John Fang
 created_date:       3/2/2015
-last_modified_by:   Matthew Bent (Bear)
-last_modified date: 3/3/2015
+last_modified_by:   Micah Halter
+last_modified date: 3/4/2015
 """
 
 # imports
@@ -18,7 +18,7 @@ from mysql_connect_config import getConfig
 class Comment(object):
     'Comment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, answer, content):
+    def __init__(self, id, created, created_by, answer, content, active):
         """
         self       - the comment in question
         id         - the id number of the comment 'self' in the database
@@ -34,6 +34,7 @@ class Comment(object):
         self.created_by = created_by
         self.answer     = answer
         self.content    = content
+        self.active     = active
     def add(self):
 
         if self.id is not None:
@@ -58,7 +59,7 @@ class Comment(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE comment SET answer_id = %s,  content = '%s' WHERE id = %s;" % (self.asnwer.id, self.content, self.id))
+            update = ("UPDATE comment SET answer_id = %s,  content = '%s', active = %s WHERE id = %s;" % (self.asnwer.id, self.content, self.active, self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -69,10 +70,10 @@ class Comment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-	self.active = int(bool)
-        update = ("UPDATE comment SET active=%s WHERE id=%S;" % (int(bool), self.id))
-
-        cursor.execute(update)
+        if self.id is not None:
+            self.active = int(bool)
+            update = ("UPDATE comment SET active=%s WHERE id=%S;" % (int(bool), self.id))
+            cursor.execute(update)
 
         cnx.commit()
         cursor.close()
@@ -90,17 +91,16 @@ class Comment(object):
         elif type(search) is int:
             query = ("SELECT * FROM comment WHERE id=%s" % (search))
         elif type(search) is User:
-            query = ("SELECT * FROM comment WHERE created_by=%s" % (search))
+            query = ("SELECT * FROM comment WHERE created_by=%s" % (search.id))
         elif type(search) is Answer:
-            query = ("SELECT * FROM comment WHERE answer_id=%s" % (search))
+            query = ("SELECT * FROM comment WHERE answer_id=%s" % (search.id))
 
-        query += " AND active =%s;" % (testActive)
+        query += (" WHERE active=%s" if search == "all" else " AND active =%s;") % (testActive)
         cursor.execute(query)
         for (id, created, created_by, answer_id, content, active) in cursor:
             user = User.get(created_by)[0]
-            newComment = Comment(id, created, user, answer_id, content, active)
-            if newComment not in returnList:
-                returnList.append(newComment)
+            answer = Answer.get(answer_id)[0]
+            returnList.append(Comment(id, created, user, answer, content, active))
 
         cnx.commit()
         cursor.close()
@@ -108,7 +108,7 @@ class Comment(object):
 
         return returnList
 
-    def noID(self, created, created_by, answer, content):
+    def noID(self, created, created_by, answer, content, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -118,7 +118,7 @@ class Comment(object):
         this function acts as a second constructor where you have created a
         comment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, answer, content)
+        return self(None, created, created_by, answer, content, active)
 
     def __eq__(self, other):
         """
@@ -137,17 +137,8 @@ class Comment(object):
         self.created    == other.created    and
         self.created_by == other.created_by and
         self.answer     == other.answer     and
-        self.content    == other.content)
-
-    def setID(self, id):
-        """
-        self - the comment in question
-        id   - the id for the comment from the database
-
-        this function allows you to assign an id to the comment
-        after inserting it into the database
-        """
-        self.id = id
+        self.content    == other.content    and
+        self.active     == other.active)
 
     def __str__(self):
         """
@@ -159,18 +150,20 @@ class Comment(object):
         a human-readable string for viewing the information in it
         """
         string = ""
-        string += "id: "         + str(self.id)         + "\n"
-        string += "created: "    + str(self.created)    + "\n"
-        string += "created by: " + str(self.created_by) + "\n"
-        string += "answer: "     + str(self.answer)     + "\n"
-        string += "content: "    + self.content         + "\n"
+        string += "id: "         +      str(self.id)         + "\n"
+        string += "created: "    +      str(self.created)    + "\n"
+        string += "created by: " +      str(self.created_by) + "\n"
+        string += "active: "     + str(bool(self.active))    + "\n"
+        string += "answer: "     +      str(self.answer)     + "\n"
+        string += "content: "    +      self.content         + "\n"
         return string
     def toJson(self):
-        data = [{
+        data = {
         "id"        : self.id,
         "created"   : self.created,
-        "created by": self.created_by,
+        "created_by": self.created_by,
+        "active"    : self.active,
         "answer"    : self.answer,
         "content"   : self.content
-        }]
+        }
         return json.dumps(data)

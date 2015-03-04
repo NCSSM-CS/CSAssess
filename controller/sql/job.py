@@ -177,8 +177,7 @@ class Job:
 		user = User.get(created_by)[0]
 		newJob = Job(id, created, user, section, atype, assessment, assigned_to, content, taken_by_user, active)
 
-		if newJob not in returnList:
-		    returnList.append(newJob)
+	    returnList.append(newJob)
 
 	    cnx.commit()
 	    cursor.close()
