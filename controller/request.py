@@ -21,10 +21,10 @@ import constants
 #import addUser
 #import updateUser
 #import activateUser
-#import getAssignment
-#import addAssignment
-#import updateAssignment
-#import activateAssignment
+#import getAssessment
+#import addAssessment
+#import updateAssessment
+#import activateAssessment
 import getQuestion
 import addQuestion
 #import updateQuestion
@@ -56,15 +56,15 @@ if constants.DEBUG > 0:
 #    processedForm = updateUser.iChooseU(unprocessedForm)
 #elif toFile == "activateUser":
 #    processedForm = activateUser.iChooseU(unprocessedForm)
-# Add Assignemnt requestTypes
-#elif toFile == "getAssignment":
-#    processedForm = getAssignment.iChooseU(unprocessedForm)
-#elif toFile == "addAssignment":
-#    processedForm = addAssignment.iCChooseU(unprocessedForm)
-#elif toFile == "updateAssignment":
-#    processedForm = updateAssignment.iChooseU(unprocessedForm)
+# Add Assessment requestTypes
+#elif toFile == "getAssessment":
+#    processedForm = getAssessment.iChooseU(unprocessedForm)
+#elif toFile == "addAssessment":
+#    processedForm = addAssessment.iCChooseU(unprocessedForm)
+#elif toFile == "updateAssessment":
+#    processedForm = updateAssessment.iChooseU(unprocessedForm)
 #elif toFile == "activateAssignment":
-#    processedForm = activateAssignment.iChooseU(unprocessedForm)
+#    processedForm = activateAssessment.iChooseU(unprocessedForm)
 # Add Question requestTypes
 elif toFile == "getQuestion":
     processedForm = getQuestion.iChooseU(unprocessedForm)
