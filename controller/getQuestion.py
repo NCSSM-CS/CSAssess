@@ -11,6 +11,7 @@ last_modified date: 3/4/2015
 import json
 from sql.user import User
 from sql.question import Question
+from sql.session import Session
 
 
 # TODO: Session things (and IP address) - EC
@@ -43,7 +44,7 @@ def iChooseU(json):
     for q in qByType:
         if q in qByDiff:
             intersect.append(q.toJson())
-    out = {};
+    out = {}
     for num in range(len(intersect)):
         out[num] = intersect[num]
     return json.dumps(out)
