@@ -91,7 +91,7 @@ class Topic(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO topic (created, created_by, name, active) VALUES ('%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.name, self.active))
+            insert = ("INSERT INTO topic (created_by, name, active) VALUES ('%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.name, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id

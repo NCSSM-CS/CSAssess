@@ -47,7 +47,7 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
+            insert = ("INSERT INTO answer (created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
             cursor.execute(insert)
 
             for (id) in cursor:

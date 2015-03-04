@@ -43,7 +43,7 @@ class Comment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO comment (created, created_by, answer_id, content, active) VALUES ('%s', %s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created, self.created_by.id, self.answer.id, self.content, self.active))
+        insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES ('%s', %s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created, self.created_by.id, self.answer.id, self.content, self.active))
         cursor.execute(insert)
 
         for (id) in cursor:
