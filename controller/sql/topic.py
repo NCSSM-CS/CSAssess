@@ -72,7 +72,7 @@ class Topic(object):
                      "WHERE at.assessment_id=%s"
                      % (search.id))
 
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search == "all" else " AND active=%s;" % (testActive))
 
         cursor.execute(query)
         for (id, created, created_by, name, active) in cursor:
