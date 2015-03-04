@@ -13,10 +13,10 @@ function startLogin()
 }
 function loginFunction(data)
 {
-	if (data.token != "")
+	if (data.success == true)
 	{
 		setCookie("username", document.getElementById("username").value);
-		setCookie("token", data.token);
+		setCookie("token", data.session);
 		window.location.replace("login.html");
 	}
 	
