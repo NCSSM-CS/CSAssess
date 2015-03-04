@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/database.js"></script>
+        <script src="js/addQuestion.js"></script>
 	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <style>
             body {
@@ -85,11 +86,12 @@
                 <input type="checkbox" id="test" value="test">Test
                 <input type="checkbox" id="practice" value="practice">Practice
                 <div class="row" id="topicSelect">
-                    <span class="addtopic">Current topics: </span>
-                    <span class="addtopic"><input type="checkbox" class="addtopic" id="searching" value="searching"> Searching</span>    
-                    <span class="addtopic"><input type="text" class="addtopic" placeholder="Add new topic." id="topic"></span>
+                    <span class="addTopic">Current topics: </span>
+                    <span class="addTopic"><input type="checkbox" class="addTopic" id="searching" value="searching"> Searching</span>    
+                    <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
                 </div>
             <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
+            <input type="button" class="practiceElement" value="Clear Question Entry" onclick="reload()">
         </div>
       </div> 
       <footer>

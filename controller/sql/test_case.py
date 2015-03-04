@@ -3,7 +3,7 @@
 """
 created_by:         Keshav Patel
 created_date:       3/2/2015
-last_modified_by:   Micah Halter
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -115,7 +115,7 @@ class Test_Case(object):
             query = "SELECT * FROM test_cases WHERE created_by=%s" % (search.id)
         elif type(search) is Question:
             query = "SELECT * FROM test_cases WHERE question_id=%s" % (search.id)
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
 
         cursor.execute(query)
         for (id, created, created_by, question_id, weight, content, active) in cursor:

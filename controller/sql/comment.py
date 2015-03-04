@@ -12,6 +12,7 @@ import constants
 import json
 import mysql.connector
 from user import User
+from answer import Answer
 from mysql_connect_config import getConfig
 # classes
 class Comment(object):
@@ -41,7 +42,7 @@ class Comment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO comment (created, created_by, answer_id, content, active) VALUES ('%s', %s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created, self.created_by.id, self.answer_id, self.content, self.active))
+        insert = ("INSERT INTO comment (created, created_by, answer_id, content, active) VALUES ('%s', %s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created, self.created_by.id, self.answer.id, self.content, self.active))
         cursor.execute(insert)
 
         for (id) in cursor:
@@ -57,7 +58,7 @@ class Comment(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-            update = ("UPDATE comment SET answer_id = %s,  content = '%s' WHERE id = %s;" % (self.asnwer_id, self.content, self.id))
+            update = ("UPDATE comment SET answer_id = %s,  content = '%s' WHERE id = %s;" % (self.asnwer.id, self.content, self.id))
             cursor.execute(update)
 
         cnx.commit()
@@ -69,9 +70,9 @@ class Comment(object):
         cursor = cnx.cursor()
 
 	self.active = int(bool)
-        active = ("UPDATE comment SET active=%s WHERE id=%S;" % (int(bool), self.id))
+        update = ("UPDATE comment SET active=%s WHERE id=%S;" % (int(bool), self.id))
 
-        cursor.execute(active)
+        cursor.execute(update)
 
         cnx.commit()
         cursor.close()
