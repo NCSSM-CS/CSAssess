@@ -69,7 +69,7 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
-    var dataDef = {requestType:"getTopics"};
+    var dataDef = {"requestType":"getTopics" , "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)

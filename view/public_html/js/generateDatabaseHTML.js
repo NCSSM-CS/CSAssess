@@ -5,7 +5,8 @@
 
 //Run by an onload event in the body tag. 
 function doOnLoad() {
-    var dataDef = {requestType:"getTopics"};
+    var token = checkCookie("token")
+    var dataDef = {"requestType":"getTopics", "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
