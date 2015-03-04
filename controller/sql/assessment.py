@@ -33,7 +33,7 @@ class Assessment(object):
         question_list - a list of questions that make up the assessment 'self'
         topic_list    - a list of topics that apply to the assessment 'self'
         active        - a bit specifying whether the assessment is active
-        
+
         this function acts as the constructor to define a new assessment object
         """
         self.id            = id
@@ -158,7 +158,7 @@ class Assessment(object):
         for (id, created, created_by, atype, section_id, name, active) in cursor:
 
             newCNX = mysql.connector.connect(**getConfig())
-	    newCursor = newCNX.cursor()
+            newCursor = newCNX.cursor()
 
             getQuestions = ("SELECT q.id FROM assessment_question as aq "
                             "INNER JOIN question AS q ON aq.question_id=q.id "
@@ -175,11 +175,11 @@ class Assessment(object):
 
             tList = []
             for (newid) in newCursor:
-                tList.append(Topic.get(newid)[0])
-	    
-	    newCNX.commit()
-	    newCursor.close()
-	    newCNX.close()
+                tList.append(Topic.get(newid[0])[0])
+
+            newCNX.commit()
+            newCursor.close()
+            newCNX.close()
 
             user = User.get(created_by)[0]
             section = Section.get(section_id)[0]
