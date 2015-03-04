@@ -42,6 +42,7 @@ function setTopics(topics) {
             //<span class="addtopic"><input type="checkbox" id="searching" value="searching"> Searching</span>
             //gets the topic
             input.id = topics[keys[i]];
+            input.setAttribute("type","checkbox");
             input.innerHTML = topics[keys[i]];
             span.appendChild(input);
             document.getElementById("topicSelect").appendChild(span);
@@ -66,21 +67,22 @@ function generateSectionCheckboxes() {
     $.post(urlDef, dataDef, setSections, dataTypeDef);
 }
 //Will store the topics. Declared here so other functions can see it. 
-var numSections = [];
+var sections = [];
 function setSections(sections) {
    //Create and append a new option to the option element.
     var sectionContainer = document.getElementByID("sectionSelect")
     for(i=0, i<Object.keys(sections).length, i++)
-    {   
-        var sectionName = sections[i].name;
-        var newCheckbox = document.createElement('input');
-        newCheckbox.type = "checkbox";
-        newCheckbox.name = sectionName;
-        newCheckbox.value = sectionName;
-        newCheckbox.id = sectionName;
-        var label = document.createElement('label');
-        label.htmlFor = sectionName;
-        label.appendChild(document.createTextNode(sectionName));
+    {
+        var name = sections[i].name;
+        var span = document.createElement("span");
+        span.className("addSection");
+        var input = document.createElement("input");
+        input.setAttribute("type","checkbox");
+        input.id = name;
+        input.innerHTML = name;
+        span.appendChild(input);    
+        document.getElementById("sectionSelect").appendChild(span);
+        sections.push(sections[i]);
     }
  }
 
