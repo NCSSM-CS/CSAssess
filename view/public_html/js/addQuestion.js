@@ -17,9 +17,11 @@ function submitQuestion() {
     if($('#quiz').prop('checked')) types += "quiz" + " ";
     if($('#practice').prop('checked')) types += "quiz" + " ";
     var topics = getTopics();
-    //Checks to see if the content is fully filled out. 
+    
+    //Gets the token cookie, where the session data is stored. 
+    var token = checkCookie("token");
     //Defines the JSON to be returned
-    var dataDef = {requestType:"addQuestion", language: language, topic: topics, difficulty: difficulty, answer: answerContent };
+    var dataDef = {"requestType":"addQuestion", "session": token, "language": language, "topic": topics, "difficulty": difficulty, "answer": answerContent };
     //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
@@ -67,7 +69,7 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
-    var dataDef = {requestType:"getTopics"};
+    var dataDef = {"requestType":"getTopics" , "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
@@ -75,6 +77,7 @@ function generateTopicCheckboxes() {
 }
 //Will store the topics. Declared here so other functions can see it. 
 var numTopics = [];
+//Called once the AJAX call is done. 
 function setTopics(topics) {
     var keys = Object.keys(topics);
     // using this style of for loop, i is the index of each key in keys 
@@ -98,12 +101,11 @@ function setTopics(topics) {
     }
  }
  
+ //I have a function that returns a global variable because the controller
+//kept changing how they want to get the topics, so I am leaving a call to this method
+//for if/when they decide to change their minds again.
  function getTopics() {
-        topics = "";
-        for(var i = 0; i < numTopics.length; i++) {
-            if($('#'+numTopics[i]).prop('checked')) topics += numTopics[i] + " ";
-        }
-        return topics;
+        return numTopics;
     }
  
 function newTopicSelect(e)

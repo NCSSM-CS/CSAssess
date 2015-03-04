@@ -3,7 +3,8 @@ function startLogin()
 	var username = document.getElementById("username").value;
 	var password = document.getElementById("password").value;
 	var md5hash = CryptoJS.MD5(username+password);
-	var loginInfo = {"requestType":"login", "username":username, "password": md5hash};
+        var token = checkCookie("token");
+	var loginInfo = {"requestType":"login", , "session": token, "username":username, "password": md5hash};
 	$.post(
 		"/cgi-bin/request.py",
 		loginInfo,

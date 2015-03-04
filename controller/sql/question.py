@@ -10,6 +10,8 @@ last_modified date: 3/4/2015
 # imports
 import constants
 import mysql.connector
+from user import User
+from topic import Topic
 from mysql_connect_config import getConfig
 
 # classes
@@ -143,48 +145,63 @@ class Question:
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        returnList = []
         query = ""
 
         if id is 0 and search is "all":
-            query = "SELECT * FROM question WHERE"
-        if id is not 0:
+            query = "SELECT * FROM question"
+        elif id is not 0:
             query = "SELECT * FROM question WHERE id=%s" % (id)
-        if type(search) is User:
+        elif type(search) is User:
             query = "SELECT * FROM question WHERE created_by=%s" % (search.id)
-        if type(search) is str:
+        elif type(search) is str:
             query = "SELECT * FROM question WHERE (language='%s' OR type='%s')" % (search, search)
-        if type(search) is int:
+        elif type(search) is int:
             query = "SELECT * FROM question WHERE difficulty=%s" % (search)
-        if type(search) is Answer:
+        elif type(search) is Answer:
             query = ("SELECT q.* FROM answer AS a "
                      "INNER JOIN question AS q ON a.question_id=q.id "
                      "WHERE a.question_id=%s" % (search.id))
-        if type(search) is Test_Case:
+        elif type(search) is Test_Case:
             query = ("SELECT q.* FROM test_case AS t "
                      "INNER JOIN question AS q ON t.question_id=q.id "
                      "WHERE t.question_id=%s" % (search.id))
-        if type(search) is Topic:
+        elif type(search) is Topic:
             query = ("SELECT q.* FROM question_topic AS qt "
                      "INNER JOIN question AS q ON qt.question_id=q.id "
                      "WHERE qt.topic_id=%s" % (search.id))
-        if type(search) is Assessment:
+        elif type(search) is Assessment:
             query = ("SELECT q.* FROM assessment_question AS aq "
                      "INNER JOIN question AS q ON aq.question_id=q.id "
                      "WHERE aq.assessment_id=%s" % (search.id))
 
-        query += (" WHERE active=%s;" if id is 0 and search is "all" else " AND active=%s;" % (testActive))
+        query += (" WHERE active=%s;" if id is 0 and search is "all" else " AND active=%s;") % (testActive)
 
         cursor.execute(query)
 
+        returnList = []
         for (id, created, created_by, language, atype, difficulty, prev_question_id, version_number, last_given, content, active) in cursor:
+            newCNX = mysql.connector.connect(**getConfig())
+            newCursor = newCNX.cursor()
+            getTopics = ("SELECT t.id FROM question_topic AS qt "
+                         "INNER JOIN topic AS t ON qt.topic_id=t.id "
+                         "WHERE qt.question_id=%s;" % (id))
+            newCursor.execute(getTopics)
+            tList = []
+            for (newid) in newCursor:
+                tList.append(Topic.get(newid)[0])
+
+            newCNX.commit()
+            newCursor.close()
+            newCNX.close()
             user = User.get(created_by)[0]
-            prevQuestion = Question.get(prev_question_id)[0]
-            returnList.append(Question(id, created, user, language, atype, difficulty, prevQuestion, version_number, last_given, content, active))
+            prevQuestion = Question.get(prev_question_id)[0] if prev_question_id else None
+            returnList.append(Question(id, created, user, language, atype, difficulty, prevQuestion, version_number, last_given, content, tList, active))
 
         cnx.commit()
         cursor.close()
         cnx.close()
+
+        return returnList
 
     def update(self):
         cnx = mysql.connector.connect(**getConfig())
