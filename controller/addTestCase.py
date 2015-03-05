@@ -11,6 +11,7 @@ last_modified_date: 3/5/2015
 import constants
 import utils
 import json
+from sql.user import User
 from sql.question import Question
 from sql.session import Session
 
