@@ -13,6 +13,10 @@ from sql.assessment import Assessment
 from sql.session import Session
 import json
 
+#Format of JSON -AM
+#requestType: getAssessment
+#
+
 def iChooseU(json):
     ipAddress = self.client_address[0]
     session = Session.get(json["session"], ipAddress[0])

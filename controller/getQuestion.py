@@ -13,10 +13,6 @@ from sql.user import User
 from sql.question import Question
 from sql.session import Session
 
-
-# TODO: Session things (and IP address) - EC
-#       Wait for Micah to finish objects (specifically questions) - EC
-
 # Format of JSON - EC
 # requestType: getQuestion
 # session: sessionID
@@ -24,8 +20,6 @@ from sql.session import Session
 # difficulty: Integer
 
 def iChooseU(json):
-    ## This will work later - EC
-    
     ipAddress = self.client_address[0]
     session = Session.get(json["session"], ipAddress)[0]
     thisUser = User.get(session[0])[0]
