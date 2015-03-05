@@ -27,7 +27,6 @@ function submitUser()
 		alert("Passwords do not match. Please retype your password.");
 		throw new Error("Passwords do not match");
 	}
-	role=role.substring(1);
     var token = getCookie("token");
 	var toSend = {"username": username, "session": token, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
 	//todo in later versions: add actual validation w/ tokens
