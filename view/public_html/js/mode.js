@@ -113,6 +113,7 @@ function submitSubmission(){
   
   isCompleted = true;
   
+  
   //result - Gets metadata and puts it into a JSON
   for (var i =0; i<answers.length;i++){
     if (answers[i] == ""){
@@ -139,24 +140,22 @@ function submitSubmission(){
 function initialPython(){
   var urlDef = "/cgi-bin/CSAssess/controller/request.py";
   var token = getCookie("token");
-  var dataDef = {"requestType":"getAssessment", "session": token};
+  var dataDef = {"requestType":"getAssessment",
+                  "session": token,
+                  "name": "t0",
+                  "user": "",
+                  "section": "",
+                  "course": "",
+                  "question": 1
+                 };
   var dataTypeDef = "json";
-  var name = {"name": "t0"};
-  var user = {"user": ""};
-  var section = {"section": ""};
-  var course = {"course": ""};
-  var question = {"question": 1};
   
+  //Gets assessment
   $.post(
     urlDef,
     dataDef,
     makeTheTestPage,
-    dataTypeDef,
-    name,
-    user,
-    section,
-    course,
-    question      
+    dataTypeDef    
   );
   
   for (var i = 0; i<answers.length;i++){
