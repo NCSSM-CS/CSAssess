@@ -147,6 +147,7 @@ function initialPython(){
     makeTheTestPage,
     dataTypeDef
   );
+  console.log("Hey");
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
   }
