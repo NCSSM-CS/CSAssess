@@ -1,9 +1,4 @@
 -- ---
--- Build the databases.
--- ---
-SOURCE db.sql;
-
--- ---
 -- USER TEST DATA
 -- inserts a god user, an admin user, two teachers, and many students
 -- ---
