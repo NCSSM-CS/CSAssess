@@ -1,10 +1,12 @@
 #!/usr/bin/local/python3
 
+# Author : Caeman + Sam
+
 import cgi
 import cgitb
-import json
+#import json
 import sys
-#import constants
+import constants
 
 def processRequest(unprocessedForm):
     """ Receives cgi.FieldStorage() and returns JSON to be printed"""
@@ -15,7 +17,7 @@ def processRequest(unprocessedForm):
         
     else:
         # received form contains no requestType
-        return '{"success":"failure"}'
+        return '{"success":"failure","mode":"noRequestType"}'
 
 
     objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
@@ -35,13 +37,13 @@ def processRequest(unprocessedForm):
     
     if currVerb == "login":
         #TODO is login handled in this file?
-        processedForm = '{"success":"failure"}'
+        processedForm = '{"success":"failure","mode":"login"}'
     else:
         if currVerb != "" and currObject != "":
             verbObject = currVerb + currObject
             # this is supposed to be emulating "eval('import ' + verbObject)"
-            #                   name      |  add to | add to | import [] from | level?
-            module = __import__(verbObject, globals(), locals(), [], 0)
+            module = __import__(verbObject)
+            #TODO
             processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
         else:
             #TODO malformed tags go here?
