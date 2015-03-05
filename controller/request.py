@@ -21,8 +21,8 @@ import getUser
 import addUser
 #import updateUser
 #import activateUser
-import getAssessment
-import addAssessment
+#import getAssessment
+#import addAssessment
 #import updateAssessment
 #import activateAssessment
 import getQuestion
@@ -34,11 +34,11 @@ import getAnswer
 #import updateAnswer
 #import activateAnswer
 import addCourse
-import getCourse
+#import getCourse
 #import uppdateCourse
 #import activateCourse
 import addSection
-import getSection
+#import getSection
 #import updateSection
 #import activateSection
 
@@ -105,8 +105,8 @@ elif toFile == "addCourse":
 #elif toFile == "activateCourse":
 #    processedForm = activateCourse.iChooseU(unprocessedForm)
 # Add Section requestTypes
-elif toFile == "getSection":
-    processedForm = getSection.iChooseU(unprocessedForm)
+#elif toFile == "getSection":
+#    processedForm = getSection.iChooseU(unprocessedForm)
 elif toFile == "addSection":
     processedForm = addSection.iChooseU(unprocessedForm)
 #elif toFile == "updateSection":
