@@ -35,7 +35,7 @@ for i in objectList:
 
 if currVerb == "login":
     # is login handled here?
-    processedForm = "{success:failure}"
+    processedForm = '{"success":"failure"}'
 else:
     if currVerb != "" and currObject != "":
         verbObject = currVerb + currObject
@@ -43,7 +43,7 @@ else:
         processedForm = eval(verbObject + ".iChooseU(unprocessedForm)")
     else:
         # malformed tags go here?
-        processedForm = "{success:failure}"
+        processedForm = '{"success":"failure"}'
 
 print("Content-Type: application/json; charset=utf-8")
 print()
