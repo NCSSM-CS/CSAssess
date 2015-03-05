@@ -14,6 +14,7 @@ import json
 from sql.user import User
 from sql.question import Question
 from sql.session import Session
+from sql.test_case import Test_Case
 
 #Format of test case -AM
 #requestType: addTestCase
