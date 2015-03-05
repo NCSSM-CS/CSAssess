@@ -1,17 +1,17 @@
-#!/usr/locl/bin/python3
+#!/usr/bin/local/python3
 
 import cgi
 import cgitb
 import json
 import sys
-import constants
+#import constants
 
 def processRequest(unprocessedForm):
     """ Receives cgi.FieldStorage() and returns JSON to be printed"""
     
-    if unprocessedForm.has_key("requestType"):
+    if "requestType" in unprocessedForm:
         requestType = unprocessedForm.getvalue("requestType")
-        return '{"success":"success?"}' # testing
+        #return '{"success":"success?"}' # testing
         
     else:
         # received form contains no requestType
@@ -45,7 +45,7 @@ def processRequest(unprocessedForm):
             processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
         else:
             #TODO malformed tags go here?
-            processedForm = '{"success":"failure"}'
+            processedForm = '{"success":"failure","mode":"malformed"}'
 
 #=== Return JSON ===#
 cgitb.enable()
