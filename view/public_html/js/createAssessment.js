@@ -65,7 +65,7 @@ function setTopics(topics) {
  
 //Called by an onload event in the body
 function generateSectionCheckboxes() {
-    var dataDef = {requestType:"getSections","session":getCookie("token"),"username":getCookie("username")};
+    var dataDef = {"requestType":"getSections","session":getCookie("token"),"username":getCookie("username")};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
@@ -96,9 +96,9 @@ function reload() {
     location.reload();
 }
 
-function submitAssignment()
+function submitAssignment(foo)
 {
-    var dataDef = {requestType:"addAssessment",;
+    var dataDef = foo
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
@@ -107,5 +107,12 @@ function submitAssignment()
 
 function sendAssignment()
 {
-
+    var assessJson = { "requestType":"addAssessment" }
+    assessJson["type"] = Test/quiz;`
+    assessJson["isAuto"] = "1";
+    assessJson["sectionIds"] = list of section Ids
+    assessJson["name"] = name From input;
+    assessJson["topicList"] = list of topics;
+    assessJson["numQuestions"] = integer 
+    submitAssignment(assessJson);
 }
