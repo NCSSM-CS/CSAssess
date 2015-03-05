@@ -83,9 +83,10 @@
                 <input type="checkbox" id="practice" value="practice">Practice
                 <div class="row" id="topicSelect">
                     <span class="addTopic">Current topics: </span>
-                    <span class="addTopic"><input type="checkbox" class="addTopic" id="searching" value="searching"> Searching</span>    
                 </div>
-            <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
+            <div class="row" id="newTopic">
+                <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
+            </div>
             <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
             <input type="button" class="practiceElement" value="Clear Question Entry" onclick="reload()">
         </div>
