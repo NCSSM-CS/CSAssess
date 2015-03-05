@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/locl/bin/python3
 
 import cgi
 import cgitb
@@ -15,8 +15,8 @@ unprocessedForm = cgi.FieldStorage()
 toFile = ""
 #toFile is a file that we will eventually pass the JSON into
 toFile = unprocessedForm["requestType"]
-if constants.DEBUG > 0:
-    print(toFile)
+#if constants.DEBUG > 0:
+#    print(toFile)
 
 objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
 verbList   = [ "add", "get", "update", "activate", "login" ]
@@ -26,23 +26,22 @@ verbList   = [ "add", "get", "update", "activate", "login" ]
 currVerb = ""
 currObject = ""
 for i in verbList:
-    if i in toFile:
+    if i in toFile.value:
         currVerb = i
 
 for i in objectList:
-    if i in toFile:
+    if i in toFile.value:
         currObject = i
 
 if currVerb.equals("login"):
     # is login handled here?
     processedForm = "{success:failure}"
-else
+else:
     if currVerb != "" and currObject != "":
         verbObject = currVerb + currObject
         eval("import " + verbObject)
-        toEval = verbObject + ".iChooseU(unprocessedForm)"
-        processedForm = eval(toEval)
-    else
+        processedForm = eval(verbObject + ".iChooseU(unprocessedForm)")
+    else:
         # malformed tags go here?
         processedForm = "{success:failure}"
 
