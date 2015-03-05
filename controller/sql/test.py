@@ -9,8 +9,3 @@ from question import Question
 from job import Job
 from session import Session
 
-
-y = Session.get()
-
-for i in y:
-    print(i)

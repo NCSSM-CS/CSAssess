@@ -40,7 +40,7 @@ CREATE TABLE `question` (
   `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `language` ENUM('python', 'java', 'none') NOT NULL COMMENT 'c, c++, java...',
-  `type` ENUM('all', 'test', 'quiz', 'practice', 'inactive') NOT NULL DEFAULT 'all' COMMENT 'all, test, quiz, practice, inactive',
+  `type` ENUM('all', 'test', 'quiz', 'practice') NOT NULL DEFAULT 'all' COMMENT 'all, test, quiz, practice, inactive',
   `difficulty` INTEGER NOT NULL COMMENT '1-10',
   `prev_question_id` INTEGER NULL DEFAULT NULL COMMENT 'references previous versions of the question',
   `version_number` INTEGER NOT NULL DEFAULT 1,
