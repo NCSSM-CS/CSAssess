@@ -19,16 +19,11 @@ from sql.session import Session
 #active: boolean 
 
 def iChooseU(json):
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    findUser()
 
     name = json("name")
 
     newTopic = Topic.noID(TIME_STAMP, thisUser.id, name, ACTIVE)
     newTopic.add()
 
-    successJson = json.dumps({"success":True, "session":session.toJson()})
-    return successJson
+    successJson()
