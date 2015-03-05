@@ -39,8 +39,8 @@ if currVerb == "login":
 else:
     if currVerb != "" and currObject != "":
         verbObject = currVerb + currObject
-        __import__(verbObject)
-        processedForm = eval(verbObject + ".iChooseU(unprocessedForm)")
+        module = __import__(verbObject, globals(), locals(), [], -1)
+        processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
     else:
         # malformed tags go here?
         processedForm = '{"success":"failure"}'
