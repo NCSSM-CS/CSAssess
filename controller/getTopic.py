@@ -9,7 +9,7 @@ last_modified date: 3/4/2015
 
 # imports
 from sql.user import User
-from sql.topic imort Topic
+from sql.topic import Topic
 from sql.session import Session
 
 #Format of JSON -KP
