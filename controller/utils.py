@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 # Created by:   Aninda Manocha
 # Created date: 3/5/2014
