@@ -39,7 +39,7 @@ if currVerb == "login":
 else:
     if currVerb != "" and currObject != "":
         verbObject = currVerb + currObject
-        eval("import " + verbObject)
+        __import__(verbObject)
         processedForm = eval(verbObject + ".iChooseU(unprocessedForm)")
     else:
         # malformed tags go here?
