@@ -39,6 +39,7 @@ def iChooseU(json):
         if q in qByDiff:
             intersect.append(q.toJson())
     out = {}
-    for num in range(len(intersect)):
-        out[num] = intersect[num]
+    out["questionList"] = intersect
+    out["sessionID"] = json["session"]
+    
     return json.dumps(out)

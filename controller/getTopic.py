@@ -8,7 +8,7 @@ last_modified date: 3/4/2015
 """
 
 # imports
-from sql.user import User
+ifrom sql.user import User
 from sql.topic import Topic
 from sql.session import Session
 
@@ -32,8 +32,7 @@ def iChooseU(json):
         tByName.append(Topic.get(0, name))
 
     out = {}
-    
-    for num in range(len(tByName)):
-        out[num] = tByName[num].toJson()
+    out["topicList"] = intersect
+    out["sessionID"] = json["session"]
 
     return json.dumps(out)

@@ -45,8 +45,7 @@ def iChooseU(json):
             intersect.append(a.toJson())
     
     out = {}
-    
-    for num in range(len(intersect)):
-        out[num] = intersect[num]
+    out["answerList"] = intersect
+    out["sessionID"] = json["session"]
 
     return json.dumps(out)

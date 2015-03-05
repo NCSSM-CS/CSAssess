@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/4/2015
+last_modified_by:   LZ
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -93,9 +93,14 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO course (created_by, course_code, name, active) VALUES ('%s', %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.course_code, self.name, self.active))
+            insert = ("INSERT INTO course (created_by, course_code, name, active) VALUES (%s, '%s', '%s', %s);" % (self.created_by.id, self.course_code, self.name, self.active))
             cursor.execute(insert)
-            for (id) in cursor:
+            
+	    select = "SELECT LAST_INSERT_ID();"
+
+	    cursor.execute(select)
+
+	    for (id) in cursor:
                 self.id = id
 
         cnx.commit()
