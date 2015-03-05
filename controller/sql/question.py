@@ -85,7 +85,8 @@ class Question:
         self.last_given       == other.last_given       and
         self.content          == other.content          and
         self.topic_list       == other.topic_list       and
-        self.active           == other.active)
+        self.active           == other.active
+        ) if type(other) is Question else False
 
     def setID(self, id):
         """
@@ -134,21 +135,12 @@ class Question:
             insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question.id, self.version_number, self.last_given, self.content, self.active))
             cursor.execute(insert)
 
-<<<<<<< HEAD
             select = "SELECT LAST_INSERT_ID();"
 
             cursor.exectute(select)
 
             for (id) in cursor:
                 self.id=id
-=======
-        select = "SELECT LAST_INSERT_ID();"
-
-        cursor.exectute(select)
-
-        for (id) in cursor:
-            self.id=id
->>>>>>> 4456f96c89a6bd16f1f82910319aabb2a74213f9
 
         cnx.commit()
         cursor.close()
@@ -165,25 +157,25 @@ class Question:
             query = "SELECT * FROM question"
         elif id is not 0:
             query = "SELECT * FROM question WHERE id=%s" % (id)
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'user.User'>":
             query = "SELECT * FROM question WHERE created_by=%s" % (search.id)
         elif type(search) is str:
             query = "SELECT * FROM question WHERE (language='%s' OR type='%s')" % (search, search)
         elif type(search) is int:
             query = "SELECT * FROM question WHERE difficulty=%s" % (search)
-        elif type(search) is Answer:
+        elif str(type(search)) == "<class 'answer.Answer'>":
             query = ("SELECT q.* FROM answer AS a "
                      "INNER JOIN question AS q ON a.question_id=q.id "
                      "WHERE a.question_id=%s" % (search.id))
-        elif type(search) is Test_Case:
+        elif str(type(search)) == "<class 'test_case.Test_Case'>":
             query = ("SELECT q.* FROM test_case AS t "
                      "INNER JOIN question AS q ON t.question_id=q.id "
                      "WHERE t.question_id=%s" % (search.id))
-        elif type(search) is Topic:
+        elif str(type(search)) == "<class 'topic.Topic'>":
             query = ("SELECT q.* FROM question_topic AS qt "
                      "INNER JOIN question AS q ON qt.question_id=q.id "
                      "WHERE qt.topic_id=%s" % (search.id))
-        elif type(search) is Assessment:
+        elif str(type(search)) == "<class 'assessment.Assessment'>":
             query = ("SELECT q.* FROM assessment_question AS aq "
                      "INNER JOIN question AS q ON aq.question_id=q.id "
                      "WHERE aq.assessment_id=%s" % (search.id))

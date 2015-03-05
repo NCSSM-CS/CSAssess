@@ -79,7 +79,8 @@ class Job(object):
         self.assigned_to       == other.assigned_to       and
         self.content           == other.content           and
         self.taken_by_user     == other.taken_by_user     and
-        self.active            == other.active)
+        self.active            == other.active
+        ) if type(other) is Job else False
 
     def __str__(self):
         """

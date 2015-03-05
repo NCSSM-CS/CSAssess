@@ -115,7 +115,8 @@ class User(object):
         self.view_test_case    == other.view_test_case     and
         self.view_question     == other.view_question      and
         self.view_all_question == other.view_all_question  and
-        self.active            == other.active)
+        self.active            == other.active
+        ) if type(other) is User else False
 
     def __str__(self):
         """
@@ -187,9 +188,9 @@ class User(object):
             query = ("SELECT * FROM user WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM user WHERE (first_name LIKE '%s%%' OR last_name LIKE '%s%%')" % (search, search))
-        elif type(search) is Section:
+        elif str(type(search)) == "<class 'section.Section'>":
             query = ("SELECT * FROM user WHERE section_id='%s'" % (search.id))
-        elif type(search) is Assessment:
+        elif str(type(search)) == "<class 'assessment.Assessment'>":
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
                      "WHERE ua.assessment_id=%s"

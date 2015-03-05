@@ -96,9 +96,9 @@ class Answer(object):
             query = "SELECT * FROM answer;"
         elif type(search) is int:
             query = ("SELECT * FROM answer WHERE id=%s" % (search))
-        elif type(search) is Question:
+        elif str(type(search)) == "<class 'question.Question'>":
             query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'user.User'>":
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
 
         query += (" WHERE active=%s;" if search=="all" else " AND active=%s") % (testActive)
@@ -149,7 +149,7 @@ class Answer(object):
         self.content    == other.content    and
         self.solution   == other.solution   and
         self.active     == other.active
-        )
+        ) if type(other) is Answer else False
 
     def __str__(self):
         """

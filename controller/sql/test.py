@@ -9,3 +9,8 @@ from question import Question
 from job import Job
 from session import Session
 
+x = User.get(1)[0]
+
+y = Question.get(1)[0]
+
+z = Topic.get(y)

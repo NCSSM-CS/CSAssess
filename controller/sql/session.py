@@ -10,7 +10,7 @@ last_modified date: 3/5/2015
 # imports
 import constants
 import mysql.connector
-from sql.user import User
+from user import User
 from mysql_connect_config import getConfig
 
 # classes
@@ -122,7 +122,8 @@ class Session(object):
         self.token      == other.token      and
         self.ip         == other.ip         and
         self.user       == other.user       and
-        self.active     == other.active)
+        self.active     == other.active
+        ) if type(other) is Session else False
 
     def __str__(self):
         """

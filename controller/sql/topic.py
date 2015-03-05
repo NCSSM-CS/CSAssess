@@ -62,12 +62,12 @@ class Topic(object):
             query = ("SELECT * FROM topic WHERE (name LIKE '%%s%%')" % (search))
         elif type(search) is User:
             query = ("SELECT * FROM topic WHERE created_by=%s" % (search.id))
-        elif type(search) is Question:
+        elif str(type(search)) == "<class 'question.Question'>":
             query = ("SELECT t.* FROM question_topic AS qt "
                      "INNER JOIN topic AS t ON qt.topic_id=t.id "
                      "WHERE qt.question_id=%s"
                      % (search.id))
-        elif type(search) is Assessment:
+        elif str(type(search)) == "<class 'assessment.Assessment'>":
             query = ("SELECT t.* FROM assessment_topic AS at "
                      "INNER JOIN topic AS t ON at.topic_id=t.id "
                      "WHERE at.assessment_id=%s"
@@ -147,7 +147,8 @@ class Topic(object):
         self.created    == other.created    and
         self.created_by == other.created_by and
         self.name       == other.name       and
-        self.active     == other.active)
+        self.active     == other.active
+        ) if type(other) is Topic else False
 
     def __str__(self):
         """

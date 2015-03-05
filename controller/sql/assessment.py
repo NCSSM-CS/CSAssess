@@ -79,7 +79,8 @@ class Assessment(object):
         self.name          == other.name          and
         self.question_list == other.question_list and
         self.topic_list    == other.topic_list    and
-        self.active        == other.active)
+        self.active        == other.active
+        ) if type(other) is Assessment else False
 
     def __str__(self):
         """
@@ -167,18 +168,18 @@ class Assessment(object):
             query = ("SELECT * FROM assessment WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM assessment WHERE name='%s'" % (search))
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'user.User'>":
             query = ("SELECT * FROM assessment WHERE created_by=%s" % (search.id))
-        elif type(search) is Section:
+        elif str(type(search)) == "<class 'section.Section'>":
             query = ("SELECT * FROM assessment_section AS asec "
                      "INNER JOIN assessment AS a ON asec.assessment_id=a.id "
                      "WHERE section_id=%s" % (search.id))
-        elif type(search) is Course:
+        elif str(type(search)) == "<class 'course.Course'>":
             query = ("SELECT a.*, c.id FROM section AS s "
                      "INNER JOIN assessment AS a ON s.id=a.section_id "
                      "INNER JOIN course AS c ON s.course_id=c.id WHERE c.id=%s"
                      % (search.id))
-        elif type(search) is Question:
+        elif str(type(search)) == "<class 'question.Question'>":
             query = ("SELECT a.* FROM assessment_question as aq "
                      "INNER JOIN assessment AS a ON aq.assessment_id=a.id "
                      "WHERE aq.question_id=%s" % (search.id))
@@ -187,7 +188,7 @@ class Assessment(object):
 
         cursor.execute(query)
 
-        for (id, created, created_by, atype name, active) in cursor:
+        for (id, created, created_by, atype, name, active) in cursor:
 
             newCNX = mysql.connector.connect(**getConfig())
             newCursor = newCNX.cursor()

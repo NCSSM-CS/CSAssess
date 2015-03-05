@@ -66,7 +66,8 @@ class Course(object):
         self.created_by  == other.created_by  and
         self.course_code == other.course_code and
         self.name        == other.name        and
-        self.active      == other.active)
+        self.active      == other.active
+        ) if type(other) is Course else False
 
     def __str__(self):
         """
