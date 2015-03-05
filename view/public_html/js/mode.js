@@ -142,7 +142,7 @@ function initialPython(){
   var dataDef = {"requestType":"getAssessment", "session": token};
   var dataTypeDef = "json";
   var name = {"name": "t0"};
-  var user = {"username": ""};
+  var user = {"user": ""};
   var section = {"section": ""};
   var course = {"course": ""};
   var question = {"question": 1};
