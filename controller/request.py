@@ -1,4 +1,4 @@
-#!/usr/bin/local/python3
+#!/usr/local/bin/python3
 
 # Author : Caeman + Sam
 
