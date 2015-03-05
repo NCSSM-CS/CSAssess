@@ -13,6 +13,7 @@ def findUser(json):
     return thisUser
 
 def successJson(json):
+    ipAddress = os.environ["REMOVE_ADDR"]
     session = Session.get(json["session"], ipAddress)[0]
     successJson = json.dumps({"success":True, "session":session.toJson()})
     return successJson
