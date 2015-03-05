@@ -26,4 +26,4 @@ def iChooseU(json):
     newTopic = Topic.noID(None, thisUser.id, name, ACTIVE)
     newTopic.add()
 
-    successJson()
+    return successJson()

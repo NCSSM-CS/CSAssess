@@ -35,4 +35,4 @@ def iChooseU(json):
     newCourse = Course.noID(None, thisUser.id, course, year, term, period, ACTIVE)
     newCourse.add()
 
-    successJson()
+    return successJson()

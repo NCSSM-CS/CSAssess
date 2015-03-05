@@ -34,4 +34,4 @@ def iChooseU(json):
     newSection = Section.noID(None, thisUser.id, course, year, term, period, ACTIVE)
     newSection.add()
 
-    successJson()
+    return successJson()

@@ -59,4 +59,4 @@ def iChooseU(json):
     newUser = User.noID(None, thisUser, 0, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
     newUser.add()
 
-    successJson()
+    return successJson()

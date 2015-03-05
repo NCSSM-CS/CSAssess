@@ -32,4 +32,4 @@ def iChooseU(json):
     newAnswer = Answer.noID(None, thisUser.id, question, None, content, isSolution, ACTIVE)
     newAnswer.add()
 
-    successJson()
+    return successJson()

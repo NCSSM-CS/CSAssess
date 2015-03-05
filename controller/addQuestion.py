@@ -52,4 +52,4 @@ def iChooseU(json):
     newQuestion = Question.noID(None, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
     
-    successJson()
+    return successJson()

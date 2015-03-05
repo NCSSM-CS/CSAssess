@@ -32,4 +32,4 @@ def iChooseU(json):
     newAssessment = Assessment.noID(None, thisUser, atype, section, name, question_list, topic_list, 1)
     newAssessment.add()
 
-    successJson()
+    return successJson()
