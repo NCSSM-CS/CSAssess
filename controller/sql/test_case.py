@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         Keshav Patel
 created_date:       3/2/2015
 last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -94,9 +94,14 @@ class Test_Case(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO test_case (created_by, question_id, weight, content, active) VALUES ('%s', %s, %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.question.id, self.weight, self.content, self.active))
+            insert = ("INSERT INTO test_case (created_by, question_id, weight, content, active) VALUES (%s, %s, %s, '%s', %s);" % (self.created_by.id, self.question.id, self.weight, self.content, self.active))
             cursor.execute(insert)
-            for (id) in cursor:
+            
+	    select = "SELECT LAST_INSERT_ID();"
+
+	    cursor.execute(select)
+	    
+	    for (id) in cursor:
                 self.id = id
 
         cnx.commit()

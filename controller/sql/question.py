@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Micah Halter
 created_date:       2/28/2015
 last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modifieid date: 3/5/2015
 """
 
 # imports
@@ -131,8 +131,13 @@ class Question:
             cnx = mysql.connector.connect(**getConfig())
             cursor = cnx.cursor()
 
-            insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question.id, self.version_number, self.last_given, self.content, self.active))
+            insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question.id, self.version_number, self.last_given, self.content, self.active))
             cursor.execute(insert)
+
+	    select = "SELECT LAST_INSERT_ID();"
+
+	    cursor.exectute(select)
+            
             for (id) in cursor:
                 self.id=id
 
