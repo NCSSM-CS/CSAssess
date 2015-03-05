@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         John Fang
 created_date:       3/2/2015
 last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -44,9 +44,13 @@ class Comment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES (%s, '%s', '%s', %s); SELECT LAST_LAST_INSERT_ID();" %(self.created_by.id, self.answer.id, self.content, self.active))
+        insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES (%s, '%s', '%s', %s);" %(self.created_by.id, self.answer.id, self.content, self.active))
         cursor.execute(insert)
+        
+        select = "SELECT LAST_INSERT_ID();"
 
+        cursor.execute(select)
+        
         for (id) in cursor:
             self.id=id
 

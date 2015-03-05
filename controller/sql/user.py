@@ -1,10 +1,10 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
 last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -158,9 +158,14 @@ class User(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO user (created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s); SELECT LAST_INSERT_ID()" % (self.created_by.id, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.active))
+            insert = ("INSERT INTO user (created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);" % (self.created_by.id, self.last_login, self.username, self.password, self.first_name, self.last_name, self.role, self.add_assessment, self.edit_user, self.edit_question, self.edit_answer, self.edit_test_case, self.edit_permission, self.view_student_info, self.view_teacher_info, self.view_answer, self.view_test_case, self.view_question, self.view_all_question, self.active))
             cursor.execute(insert)
-            for (id) in cursor:
+            
+	    select = "SELECT LAST_INSERT_ID();"
+	    
+	    cursor.execute(select)
+
+	    for (id) in cursor:
                 self.id = id
 
         cnx.commit()
