@@ -31,7 +31,7 @@
 		</style>
 			 
 	</head>
-    <body>
+    <body onload="initialPython()">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -101,12 +101,11 @@
 		  
 			<textarea id="codingArea" cols="125" rows="20"></textarea>
           
-		    <div>
+		  <div>
 				<button type="button" onclick="submitSubmission()">Submit</button>
 				<button type="button">View Test Cases</button>
 				<button type="button">Run Test Cases</button>
-				<select id="languageSelect" onChange="returnValues(this.value)">
-					<option value="null">Select a Language</option>
+				<select id="languageSelect" onchange="returnValues(this.value)">
 					<option value="Python">Python 3</option>
 					<option value="Java">Java</option>
 					<option value="C">C</option>
@@ -117,16 +116,16 @@
         <div class="col-md-2">
             <h4 align="left"> Progress </h4>
             <ul class="btn-group-vertical btn-group-center pagination-centered">
-                <button type="button" class="btn btn-default btn-success">1</button>
-                <button type="button" class="btn btn-default btn-warning">2</button>
-                <button type="button" class="btn btn-default">3</button>
-                <button type="button" class="btn btn-default">4</button>
-                <button type="button" class="btn btn-default">5</button>
-                <button type="button" class="btn btn-default">6</button>
-                <button type="button" class="btn btn-default">7</button>
-                <button type="button" class="btn btn-default">8</button>
-                <button type="button" class="btn btn-default">9</button>
-                <button type="button" class="btn btn-default">10</button>
+                <button onclick="changeButtClass(this)" type="button" id="currentQuest" class="btn btn-default btn-success">1</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">2</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">3</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">4</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">5</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">6</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">7</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">8</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">9</button>
+                <button onclick="changeButtClass(this)" type="button" class="btn btn-default">10</button>
             </ul>
         </div>
         </div>
@@ -140,5 +139,6 @@
      <!-- /container -->       
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+
     </body>
 </html>
