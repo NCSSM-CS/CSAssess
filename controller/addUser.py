@@ -36,7 +36,7 @@ from sql.session import Session
 
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     username = json["username"]
     password = json["password"]
