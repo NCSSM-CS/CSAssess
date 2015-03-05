@@ -1,9 +1,9 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Ebube Chuba
+last_modified_by:   Aninda Manocha
 last_modified date: 3/5/2015
 """
 
@@ -13,17 +13,16 @@ import json
 from sql.user import User
 from sql.question import Question
 from sql.answer import Answer
-from sql.topic import Topic
 from sql.session import Session
 
 # Format of course -EC
 # requestType: addCourse
-# courseCode: "BS402"
+# courseCode: "string"
 # name: "string"
 
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser(json)
 
     courseCode = json["courseCode"]
     name = json["name"]
@@ -31,4 +30,4 @@ def iChooseU(json):
     newCourse = Course.noID(None, thisUser, courseCode, name, ACTIVE)
     newCourse.add()
 
-    return successJson()
+    return utils.successJson(json)
