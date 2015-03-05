@@ -33,7 +33,7 @@ for i in objectList:
     if i in toFile.value:
         currObject = i
 
-if currVerb.equals("login"):
+if currVerb == "login":
     # is login handled here?
     processedForm = "{success:failure}"
 else:
