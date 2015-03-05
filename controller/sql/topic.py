@@ -93,12 +93,12 @@ class Topic(object):
         if self.id is None:
             insert = ("INSERT INTO topic (created_by, name, active) VALUES ('%s', %s, '%s', %s);" % (self.created, self.created_by.id, self.name, self.active))
             cursor.execute(insert)
-            
-	    select = "SELECT LAST_INSERT_ID();"
-	    
+
+            select = "SELECT LAST_INSERT_ID();"
+
             cursor.execute(select)
 
-	    for (id) in cursor:
+            for (id) in cursor:
                 self.id = id
 
         cnx.commit()

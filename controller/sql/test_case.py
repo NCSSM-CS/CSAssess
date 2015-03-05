@@ -96,12 +96,12 @@ class Test_Case(object):
         if self.id is None:
             insert = ("INSERT INTO test_case (created_by, question_id, weight, content, active) VALUES (%s, %s, %s, '%s', %s);" % (self.created_by.id, self.question.id, self.weight, self.content, self.active))
             cursor.execute(insert)
-            
-	    select = "SELECT LAST_INSERT_ID();"
 
-	    cursor.execute(select)
-	    
-	    for (id) in cursor:
+            select = "SELECT LAST_INSERT_ID();"
+
+            cursor.execute(select)
+
+            for (id) in cursor:
                 self.id = id
 
         cnx.commit()

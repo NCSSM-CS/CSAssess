@@ -95,12 +95,12 @@ class Course(object):
         if self.id is None:
             insert = ("INSERT INTO course (created_by, course_code, name, active) VALUES (%s, '%s', '%s', %s);" % (self.created_by.id, self.course_code, self.name, self.active))
             cursor.execute(insert)
-            
-	    select = "SELECT LAST_INSERT_ID();"
 
-	    cursor.execute(select)
+            select = "SELECT LAST_INSERT_ID();"
 
-	    for (id) in cursor:
+            cursor.execute(select)
+
+            for (id) in cursor:
                 self.id = id
 
         cnx.commit()

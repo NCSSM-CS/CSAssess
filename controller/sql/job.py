@@ -113,9 +113,9 @@ class Job(object):
             insert = ("INSERT INTO job (created_by, type, assignment_id, assigned_to_id, content, taken_by_user_id, active) VALUES (%s, '%s', %s, %s, '%s', %s, %s);" % (self.created_by.id, self.atype, self.assessment.id, self.assigned_to.id, self.content, self.taken_by_user.id, self.active))
             cursor.execute(insert)
 
-	    select = "SELECT LAST_INSERT_ID();"
+            select = "SELECT LAST_INSERT_ID();"
 
-	    cursor.execute(select)
+            cursor.execute(select)
 
             for(id) in cursor:
                 self.id=id

@@ -52,9 +52,9 @@ class Answer(object):
 
             select = "SELECT LAST_INSERT_ID();"
 
-	    cursor.execute(select)
-	    
-	    for (id) in cursor:
+            cursor.execute(select)
+
+            for (id) in cursor:
                 self.id=id
 
         cnx.commit()
