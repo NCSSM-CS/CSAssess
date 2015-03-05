@@ -65,17 +65,20 @@ class Session(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
+            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s);" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
 
-        for (id) in cursor:
-                self.id = id
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
 
-        select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
+            for (id) in cursor:
+                    self.id = id[0]
 
-        cursor.execute(select)
-        for (timestamp) in cursor:
-            self.timestamp = timestamp
+            select = ("SELECT timestamp FROM session WHERE id=%s;" % (self.id))
+
+            cursor.execute(select)
+            for (timestamp) in cursor:
+                self.timestamp = timestamp[0]
 
         cnx.commit()
         cursor.close()
@@ -128,7 +131,7 @@ class Session(object):
         string += "timestamp: " + str(self.timestamp) + "\n"
         string += "token: "     + str(self.token)     + "\n"
         string += "ip: "        +     self.ip         + "\n"
-        string += "user: "      +     self.user       + "\n"
+        string += "user: "      + str(self.user)      + "\n"
         string += "active: "    + str(self.active)    + "\n"
         return string
     def toJson(self):

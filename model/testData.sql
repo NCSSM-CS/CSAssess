@@ -218,16 +218,16 @@ INSERT INTO user
         'student',
         0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0,
         0
-    )
+    ),
 	(
 		1,
 		'2015-03-05 09:53:01',
 		'bent15m',
-		MD5('bent15mbear')
-		'Matthew'
-		'Bent'
-		'student'
-		0, 0, 0, 1, 0, 0, 1, 0, 1, 0,
+		MD5('bent15mbear'),
+		'Matthew',
+		'Bent',
+		'student',
+		0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0,
 		1
 	);
 

@@ -23,8 +23,8 @@ INSERT INTO answer
 		( 3,  5, 1, 'watch cat videos', 1, 0),
 		( 7,  5, 0, 'be awsome', 0, 0),
 
-		( 4,  6,  1, 'coffee', 0, 0)
-		( 3,  6,  0, 'the dude spilled coffee over his computer when thinking of a name', 0, 0)
+		( 4,  6,  1, 'coffee', 0, 0),
+		( 3,  6,  0, 'the dude spilled coffee over his computer when thinking of a name', 0, 0),
 
 		(3,  7,  1, 'cordata', 0, 1),
 		(10,  7,  0, 'snakes r cool', 0, 1),
@@ -50,7 +50,7 @@ INSERT INTO answer
 		( 4, 14,  1, '17th century', 1, 1),
 		( 6, 14,  0, 'enough', 0, 1),
 
-		( 3,  15, 1, '42', 1, 1);
+		( 3,  15, 1, '42', 1, 1),
 		( 8,  15, 0, '43', 0, 1);
 
 
