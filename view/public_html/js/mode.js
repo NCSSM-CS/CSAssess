@@ -126,7 +126,7 @@ function submitSubmission(){
   }
   var submitData;
   submitData = {
-    language: document.getElementById('languageSelect').value,
+    //language: document.getElementById('languageSelect').value,
     time: Date(),
     problem: "1.1",
     submissions: answers
@@ -137,7 +137,16 @@ function submitSubmission(){
 //CEW 
 //Initializes editor to Python and makes all answers  = ""
 function initialPython(){
-
+  var urlDef = "/cgi-bin/CSAssess/controller/request.py";
+  var token = getCookie("token");
+  var dataDef = {"requestType":"getAssessment", "session": token};
+  var dataTypeDef = "json";
+  $.post(
+    urlDef,
+    dataDef,
+    //function to exec,
+    dataTypedef
+  );
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
   }
