@@ -173,7 +173,7 @@ class User(object):
         cnx.close()
 
     @classmethod
-    def get(self, search="all", testActive=1):
+    def get(self, search="all", searchUser=None, testActive=1):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
@@ -181,6 +181,8 @@ class User(object):
         query = ""
         if search == "all":
             query = "SELECT * FROM user"
+        elif search == None and type(searchUser) is str:
+            query = "SELECT * FROM user WHERE username=%s" % (searchUser)
         elif type(search) is int:
             query = ("SELECT * FROM user WHERE id=%s" % (search))
         elif type(search) is str:
