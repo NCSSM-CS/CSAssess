@@ -15,6 +15,7 @@ from sql.session import Session
 from sql.user import User
 from sql.section import Section
 from sql.assessment import Assessment
+from sql.job import Job
 
 #Format of job -AM
 #section: Section
