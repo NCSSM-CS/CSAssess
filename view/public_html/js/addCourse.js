@@ -6,20 +6,11 @@ function submitCourse()
 	{
 		alert("Please fill in all the fields!");
 	}
-        var token = getCookie("token");
-<<<<<<< HEAD
+    var token = getCookie("token");
 	var toSend = {"name": name, "courseCode": id, "session": token};
 	toSend.requestType = "addUser";
-=======
-	var toSend = {"name": name, "ID": id, "topics": topics, "session": token};
+	toSend = {"name": name, "ID": id, "session": token};
 	toSend.requestType = "addCourse";
->>>>>>> origin/master
 	console.log(toSend);
-        //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
-        $.post("/cgi-bin/request.py", toSend, console.log("done"), "json");
-}
-
-function showSelectedValues()
-{
-$("input[name=roleField]:checked").map(function(){return this.value;}).get().join(",");
+    $.post("/cgi-bin/CSAssess/controller/request.py", toSend, console.log("done"), "json");
 }
