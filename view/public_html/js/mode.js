@@ -147,7 +147,6 @@ function initialPython(){
     makeTheTestPage,
     dataTypeDef
   );
-  console.log("Hey");
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
   }
@@ -168,4 +167,5 @@ function initialPython(){
  function makeTheTestPage(data){
   console.log(data["assessmentList"]);
   console.log(data["session"]);  
+  console.log("WE MAD IT");
  }
