@@ -35,7 +35,7 @@ class Comment(object):
         self.answer     = answer
         self.content    = content
         self.active     = active
-    
+
     def add(self):
 
         if self.id is not None:
@@ -46,11 +46,11 @@ class Comment(object):
 
         insert = ("INSERT INTO comment (created_by, answer_id, content, active) VALUES (%s, '%s', '%s', %s);" %(self.created_by.id, self.answer.id, self.content, self.active))
         cursor.execute(insert)
-        
+
         select = "SELECT LAST_INSERT_ID();"
 
         cursor.execute(select)
-        
+
         for (id) in cursor:
             self.id=id
 
@@ -160,7 +160,7 @@ class Comment(object):
         string += "created by: " +      str(self.created_by) + "\n"
         string += "active: "     + str(bool(self.active))    + "\n"
         string += "answer: "     +      str(self.answer)     + "\n"
-        string += "content: "    +          self.content     + "\n"    
+        string += "content: "    +          self.content     + "\n"
 
         return string
 
@@ -168,7 +168,7 @@ class Comment(object):
         data = {
         "id"        : self.id,
         "created"   : self.created,
-        "created_by": self.created_by,
+        "createdBy": self.created_by,
         "active"    : self.active,
         "answer"    : self.answer,
         "content"   : self.content

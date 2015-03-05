@@ -192,7 +192,7 @@ class Section(object):
         data = {
         "id"            :     self.id,
         "created"       : str(self.created),
-        "created by"    :     self.created_by,
+        "createdBy"    :     self.created_by,
         "active"        :     self.active,
         "course"        :     self.course,
         "year"          :     self.year,

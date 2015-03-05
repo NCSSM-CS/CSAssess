@@ -199,13 +199,13 @@ class Job(object):
         data = {
         "id"          :     self.id,
         "created"     : str(self.created),
-        "created_by"  :     self.created_by,
+        "createdBy"  :     self.created_by,
         "active"      :     self.active,
         "section"     :     self.section,
         "type"        :     self.atype,
         "assessment"  :     self.assessment,
-        "assigned_to" :     self.assigned_to,
+        "assignedTo" :     self.assigned_to,
         "content"     :     self.content,
-        "taken_by"    :     self.taken_by_user
+        "takenBy"    :     self.taken_by_user
         }
         return json.dumps(data)

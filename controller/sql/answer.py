@@ -175,7 +175,7 @@ class Answer(object):
         data = {
                 "id"         : self.id,
                 "created"    : self.created,
-                "created_by" : self.created_by,
+                "createdBy" : self.created_by,
                 "active"     : self.active,
                 "solution"   : self.solution,
                 "question"   : self.question,

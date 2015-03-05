@@ -171,7 +171,7 @@ class Topic(object):
         data = {
         "id"        : self.id,
         "created"   : self.created,
-        "created by": self.created_by,
+        "createdBy": self.created_by,
         "name"      : self.name,
         "active"    : self.active
         }

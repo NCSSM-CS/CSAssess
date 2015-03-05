@@ -260,10 +260,10 @@ class Assessment(object):
         data = {
                 "id"        :     self.id,
                 "created"   : str(self.created),
-                "created by":     self.created_by,
+                "createdBy":     self.created_by,
                 "active"    :     self.active,
                 "type"      :     self.atype,
-                "section id":     self.section,
+                "sectionId":     self.section,
                 "name"      :     self.name
                 }
         return json.dumps(data)
