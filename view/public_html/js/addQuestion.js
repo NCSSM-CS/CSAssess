@@ -1,8 +1,8 @@
 /* 
  This is the javacsript for the part of the file that will be incharge of adding
 questions to the database.
- */
 
+ */
 
 
 function submitQuestion() {
@@ -70,35 +70,39 @@ function error() {
 function generateTopicCheckboxes() {
     var token = getCookie("token");
     var dataDef = {"requestType":"getTopics" , "session": token};
-    var urlDef = "/cgi-bin/request.py";
+    var urlDef = "/cgi-bin/CSAssess/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
     $.post(urlDef, dataDef, setTopics, dataTypeDef);
 }
 //Will store the topics. Declared here so other functions can see it. 
-var numTopics = [];
+var topicList = [];
+var topicIds = {"topicList":
+    [{"id": 3, "name": "sorting" },{"id": 4, "name": "searching" }
+    ]};
 //Called once the AJAX call is done. 
 function setTopics(topics) {
-    var keys = Object.keys(topics);
     // using this style of for loop, i is the index of each key in keys 
-    for(var i in keys)
+    for(var i = 0; i < topics.topicList.length; i++ )
     {
-        //check to make sure that the key is an actual, useful member of the JSON (not something added by jQuery)
-        if(topics.hasOwnProperty(keys[i]))
-        {
             //Create and append a new option to the option element.
             var span = document.createElement("span");
             span.className = "addTopic";
             var input = document.createElement("input");
+            topicIds[topics.topicList[i].name] = topics.topicList[i].id;
             //<span class="addtopic"><input type="checkbox" id="searching" value="searching"> Searching</span>
             //gets the topic
-            input.id = topics[keys[i]];
-            input.innerHTML = topics[keys[i]];
+            input.id = topics.topicList[i].name;
             input.setAttribute("type","checkbox");
+            //creates a label with the text of the question
+            var label = document.createElement('label');
+            label.appendChild(document.createTextNode(input.id));
+            label.className = "addTopic";
+            span.className = "addTopic";
             span.appendChild(input);
+            span.appendChild(label);
             document.getElementById("topicSelect").appendChild(span);
-            numTopics.push(topics[keys[i]]);
-        }
+            topicList.push(topics.topicList[i].name);
     }
  }
  
@@ -106,9 +110,11 @@ function setTopics(topics) {
 //kept changing how they want to get the topics, so I am leaving a call to this method
 //for if/when they decide to change their minds again.
  function getTopics() {
-        return numTopics;
+        return topicList;
     }
  
+ 
+ //Makes a new text box where the user can add topics. 
 function newTopicSelect(e)
 {
     if (e.keyCode == 13) 
@@ -119,7 +125,7 @@ function newTopicSelect(e)
         {
            return false;
         }
-        numTopics.push(text);
+        topicList.push(text);
         var span = document.createElement("span");
         span.className = "addTopic";
         //Takes the old text area and makes it so that enter won't do anything anymore.

@@ -27,7 +27,7 @@
             }
         </style>
     </head>
-    <body onload="generateTopicCheckboxes()">
+    <body onload="setTopics()">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -88,8 +88,8 @@
                 <div class="row" id="topicSelect">
                     <span class="addTopic">Current topics: </span>
                     <span class="addTopic"><input type="checkbox" class="addTopic" id="searching" value="searching"> Searching</span>    
-                    <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
                 </div>
+            <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
             <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
             <input type="button" class="practiceElement" value="Clear Question Entry" onclick="reload()">
         </div>

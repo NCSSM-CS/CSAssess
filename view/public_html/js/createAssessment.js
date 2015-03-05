@@ -59,6 +59,10 @@ function setTopics(topics) {
     }
  }
  
+ function doThis() {
+     alert("got here");
+ }
+ 
 //Called by an onload event in the body
 function generateSectionCheckboxes() {
     var dataDef = {requestType:"getSections","session":getCookie("token"),"username":getCookie("username")};
