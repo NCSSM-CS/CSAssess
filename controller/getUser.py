@@ -35,16 +35,16 @@ def iChooseU(json):
     complete = []
     count = 0
 
-    if not firstName == None:
+    if not firstName == "":
         complete += Topic.get(0, firstName)
         count+=1
-    if not lastName == None:
+    if not lastName == "":
         complete += Topic.get(0, lastName)
         count+=1
-    if not section == None:
+    if not section == "":
         complete += Topic.get(0, section)
         count+=1
-    if not Assessment == None:
+    if not Assessment == "":
         complete += Topic.get(0, assessment)
         count+=1
 
