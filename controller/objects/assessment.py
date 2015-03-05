@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         Micah Halter
@@ -11,7 +11,6 @@ last_modified date: 3/4/2015
 import json
 import constants
 from user import User
-from section import Section
 from question import Question
 from topic import Topic
 import mysql.connector
@@ -21,14 +20,14 @@ from mysql_connect_config import getConfig
 class Assessment(object):
     'Assessment object to hold attributes and functions for an assessment'
 
-    def __init__(self, id, created, created_by, atype, section, name, question_list, topic_list, active):
+    def __init__(self, id, created, created_by, atype, section_list, name, question_list, topic_list, active):
         """
         self          - the assessment in question
         id            - the id number of the assessment 'self' in the database
         created       - the date when the assessment 'self' was created
         created_by    - the user that created the assessment 'self'
         type          - the type of assessment 'self' is
-        section       - the section that the assessment 'self' falls under
+        section_list  - the list of sections the assessment 'self' falls under
         name          - the name of the assessment 'self'
         question_list - a list of questions that make up the assessment 'self'
         topic_list    - a list of topics that apply to the assessment 'self'
@@ -40,14 +39,14 @@ class Assessment(object):
         self.created       = created
         self.created_by    = created_by
         self.atype         = atype
-        self.section       = section
+        self.section_list  = section_list
         self.name          = name
         self.question_list = question_list
         self.topic_list    = topic_list
         self.active        = active
 
     @classmethod
-    def noID(self, created, created_by, atype, section, name, question_list, topic_list, active):
+    def noID(self, created, created_by, atype, section_list, name, question_list, topic_list, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -57,7 +56,7 @@ class Assessment(object):
         this function acts as a second constructor where you have created an
         assessment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, atype, section, name, question_list, topic_list, active)
+        return self(None, created, created_by, atype, sectionList, name, question_list, topic_list, active)
 
     def __eq__(self, other):
         """
@@ -76,7 +75,7 @@ class Assessment(object):
         self.created       == other.created       and
         self.created_by    == other.created_by    and
         self.atype         == other.atype         and
-        self.section       == other.section       and
+        self.section_list  == other.section_list  and
         self.name          == other.name          and
         self.question_list == other.question_list and
         self.topic_list    == other.topic_list    and
@@ -97,8 +96,11 @@ class Assessment(object):
         string += "created by: " +      str(self.created_by) + "\n"
         string += "active: "     + str(bool(self.active))    + "\n"
         string += "type: "       +          self.atype       + "\n"
-        string += "section: "    +      str(self.section)    + "\n"
         string += "name: "       +          self.name
+
+        string += "\nSections:\n"
+        for i in self.section_list:
+            string += "\t"             +     i.name        + "\n"
 
         string += "\nTopics:\n"
         for i in self.topic_list:
@@ -115,10 +117,38 @@ class Assessment(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        insert = ("INSERT INTO assessment (created_by, type, section_id, name, active) VALUES (%s, '%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.section.id, self.name, self.active))
-        course.execute(insert)
-        for (id) in cursor:
-            self.id = id
+        if self.id is None:
+            insert = ("INSERT INTO assessment (created_by, type, name, active) VALUES (%s, '%s', '%s', %s);" % (self.created_by.id, self.atype, self.name, self.active))
+            cursor.execute(insert)
+
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
+
+            for (id) in cursor:
+                self.id = id
+            insertSections = "INSERT INTO assessment_section (assessment_id, section_id) VALUES "
+            for i in range(0,len(self.section_list)):
+                if i == len(self.section_list)-1:
+                    insertSections += "(%s, %s);" % (self.id, self.section_list[i].id)
+                else:
+                    insertSections += "(%s, %s), " % (self.id, self.section_list[i].id)
+            cursor.execute(insertSections)
+
+            insertQuestions = "INSERT INTO assessment_question (assessment_id, question_id) VALUES "
+            for i in range(0,len(self.question_list)):
+                if i == len(self.question_list)-1:
+                    insertQuestions += "(%s, %s);" % (self.id, self.Question_list[i].id)
+                else:
+                    insertQuestions += "(%s, %s), " % (self.id, self.Question_list[i].id)
+            cursor.execute(insertQuestions)
+
+            insertTopics = "INSERT INTO assessment_topic (assessment_id, topic_id) VALUES "
+            for i in range(0,len(self.topic_list)):
+                if i == len(self.topic_list)-1:
+                    insertTopics += "(%s, %s);" % (self.id, self.topic_list[i].id)
+                else:
+                    insertTopics += "(%s, %s), " % (self.id, self.topic_list[i].id)
+            cursor.execute(insertTopics)
 
         cnx.commit()
         cursor.close()
@@ -140,7 +170,9 @@ class Assessment(object):
         elif type(search) is User:
             query = ("SELECT * FROM assessment WHERE created_by=%s" % (search.id))
         elif type(search) is Section:
-            query = ("SELECT * FROM assessment WHERE section_id=%s" % (search.id))
+            query = ("SELECT * FROM assessment_section AS asec "
+                     "INNER JOIN assessment AS a ON asec.assessment_id=a.id "
+                     "WHERE section_id=%s" % (search.id))
         elif type(search) is Course:
             query = ("SELECT a.*, c.id FROM section AS s "
                      "INNER JOIN assessment AS a ON s.id=a.section_id "
@@ -155,18 +187,26 @@ class Assessment(object):
 
         cursor.execute(query)
 
-        for (id, created, created_by, atype, section_id, name, active) in cursor:
+        for (id, created, created_by, atype name, active) in cursor:
 
             newCNX = mysql.connector.connect(**getConfig())
             newCursor = newCNX.cursor()
 
-            getQuestions = ("SELECT q.id FROM assessment_question as aq "
+            getSections = ("SELECT section_id FROM assessment_section "
+                           "WHERE assessment_id=%s" % (id))
+            newCursor.execute(getSections)
+            sList = []
+            for (id) in newCursor:
+                sList.append(Section.get(id)[0])
+
+            getQuestions = ("SELECT q.id FROM assessment_question AS aq "
                             "INNER JOIN question AS q ON aq.question_id=q.id "
                             "WHERE aq.assessment_id=%s;" % (id))
             newCursor.execute(getQuestions)
             qList = []
-            for (newid) in newCursor:
-                qList.append(Question.get(newid)[0])
+            for (id) in newCursor:
+                qList.append(Question.get(id)[0])
+
 
             getTopics = ("SELECT t.id FROM assessment_topic AS at "
                          "INNER JOIN topic AS t ON at.topic_id=t.id "
@@ -174,8 +214,8 @@ class Assessment(object):
             newCursor.execute(getTopics)
 
             tList = []
-            for (newid) in newCursor:
-                tList.append(Topic.get(newid[0])[0])
+            for (id) in newCursor:
+                tList.append(Topic.get(id[0])[0])
 
             newCNX.commit()
             newCursor.close()
