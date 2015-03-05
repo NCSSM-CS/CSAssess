@@ -31,12 +31,10 @@ function submitUser()
 	var toSend = {"username": username, "session": token, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
 	//todo in later versions: add actual validation w/ tokens
 	toSend.requestType = "addUser";
-	console.log(toSend);
-	$.post(
-	{                                                 
-        url:"/cgi-bin/CSAssess/controller/request.py",                                                 
-        data: toSend,
-        dataType: "json",
-        success: console.log("Success!")
-	});
+	$.post(                        
+		"/cgi-bin/CSAssess/controller/request.py",                                                 
+        toSend,
+        "json",
+        console.log("Executed.")
+	);
 }
