@@ -27,7 +27,7 @@ def iChooseU(json):
     user = json["user"]
     theUser = User.get(user["id"])[0]
 
-    newSession = Session.noID(token, ip, user, ACTIVE)
+    newSession = Session.noID(token, ip, theUser, ACTIVE)
     newSession.add()
 
     return utils.successJson(json)
