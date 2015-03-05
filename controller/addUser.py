@@ -12,6 +12,7 @@ import constants
 import utils
 import json
 from sql.session import Session
+from sql.user import User
 
 #Format of assessment -AM
 #requestType: addUser
