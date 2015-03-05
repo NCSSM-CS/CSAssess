@@ -14,6 +14,7 @@ from sql.user import User
 from sql.question import Question
 from sql.answer import Answer
 from sql.session import Session
+from sql.session import Course
 
 # Format of course -EC
 # requestType: addCourse
