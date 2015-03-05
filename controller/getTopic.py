@@ -26,14 +26,14 @@ def iChooseU(json):
 
     name = json["name"]
 
-    aByName = []
+    tByName = []
 
     if not name == None:
-        aByName.append(Topic.get(0, name))
+        tByName.append(Topic.get(0, name))
 
     out = {}
     
-    for num in range(len(aByName)):
-        out[num] = aByName[num]
+    for num in range(len(tByName)):
+        out[num] = tByName[num].toJson()
 
     return json.dumps(out)

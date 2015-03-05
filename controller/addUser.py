@@ -10,7 +10,6 @@ last_modified date: 3/4/2015
 # imports
 import constants
 import json
-from sql.answer import Answer
 from sql.session import Session
 
 #Format of assessment -KP
