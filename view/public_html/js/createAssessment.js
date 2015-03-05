@@ -91,3 +91,8 @@ function setSections(sections) {
 function reload() {
     location.reload();
 }
+
+function submitAssignment()
+{
+    Take inputs and send request
+}
