@@ -134,12 +134,21 @@ class Question:
             insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, self.prev_question.id, self.version_number, self.last_given, self.content, self.active))
             cursor.execute(insert)
 
+<<<<<<< HEAD
             select = "SELECT LAST_INSERT_ID();"
 
             cursor.exectute(select)
 
             for (id) in cursor:
                 self.id=id
+=======
+        select = "SELECT LAST_INSERT_ID();"
+
+        cursor.exectute(select)
+            
+        for (id) in cursor:
+            self.id=id
+>>>>>>> 4456f96c89a6bd16f1f82910319aabb2a74213f9
 
         cnx.commit()
         cursor.close()
