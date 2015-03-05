@@ -3,14 +3,14 @@
 """
 created_by:         Micah Halter
 created_date:       3/3/2015
-last_modified_by:   Micah Halter
-last_modified date: 3/3/2015
+last_modified_by:   LZ
+last_modified date: 3/4/2015
 """
 
 # imports
 import constants
 import mysql.connector
-from user import User
+from sql.user import User
 from mysql_connect_config import getConfig
 
 # classes
@@ -18,13 +18,8 @@ class Session(object):
 
     def __init__(self, id, timestamp, token, ip, user, active):
         """
-        self       - the topic in question
-        id         - the id number of the topic 'self' in the database
-        created    - the date when the topic 'self' was created
-        created_by - the user that created the topic 'self'
-        name       - the name of the topic 'self'
 
-        this function acts as the constructor to define a new topic object
+        this function acts as the constructor to define a new session object
         """
         self.id         = id
         self.timestamp  = timestamp
@@ -52,12 +47,13 @@ class Session(object):
         cursor = cnx.cursor()
 
         returnList = []
-        query = "SELECT * FROM session WHERE token=%s AND ip=%s AND active=%s;" % (searchToken, searchIP, testActive)
+        query = "SELECT * FROM session WHERE token='%s' AND ip='%s' AND active=%s;" % (searchToken, searchIP, testActive)
+        print(query)
         cursor.execute(query)
 
         for (id, timestamp, token, ip, user_id, active) in cursor:
             user = User.get(user_id)[0]
-            returnList.append(Topic(id, timestamp, token, ip, user, active))
+            returnList.append(Session(id, timestamp, token, ip, user, active))
 
         cnx.commit()
         cursor.close()
@@ -70,14 +66,20 @@ class Session(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
+            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s);" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
+
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
+
             for (id) in cursor:
-                self.id = id
-            select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
+                    self.id = id[0]
+
+            select = ("SELECT timestamp FROM session WHERE id=%s;" % (self.id))
+
             cursor.execute(select)
             for (timestamp) in cursor:
-                self.timestamp = timestamp
+                self.timestamp = timestamp[0]
 
         cnx.commit()
         cursor.close()
@@ -92,9 +94,9 @@ class Session(object):
             update = ("UPDATE session SET active=%s WHERE id=%s" % (int(bool), self.id))
             cursor.execute(update)
 
-            cnx.commit()
-            cursor.close()
-            cnx.close()
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
     def __eq__(self, other):
         """
@@ -129,18 +131,18 @@ class Session(object):
         string += "id: "        + str(self.id)        + "\n"
         string += "timestamp: " + str(self.timestamp) + "\n"
         string += "token: "     + str(self.token)     + "\n"
-        string += "ip: "        + str(bool(self.ip))  + "\n"
-        string += "user: "      +     self.user       + "\n"
-        string += "active: "    +     self.active     + "\n"
+        string += "ip: "        +     self.ip         + "\n"
+        string += "user: "      + str(self.user)      + "\n"
+        string += "active: "    + str(self.active)    + "\n"
         return string
     def toJson(self):
         data = {
-        "id"        : self.id,
-        "timestamp" : self.timestamp,
-        "token"     : self.token,
-        "ip"        : self.ip,
-        "user"      : self.user,
-        "active"    : self.active
-        }
+                "id"        : self.id,
+                "timestamp" : self.timestamp,
+                "token"     : self.token,
+                "ip"        : self.ip,
+                "user"      : self.user,
+                "active"    : self.active
+                }
         return json.dumps(data)
 

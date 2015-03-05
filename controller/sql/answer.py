@@ -3,7 +3,7 @@
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
-last_modified_by:   Micah Halter
+last_modified_by:   LZ
 last_modified date: 3/4/2015
 """
 
@@ -47,7 +47,7 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO answer (id, created, created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSET_ID();" % (self.id, self.created, self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
+            insert = ("INSERT INTO answer (created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
             cursor.execute(insert)
 
             for (id) in cursor:
@@ -97,7 +97,7 @@ class Answer(object):
         elif type(search) is User:
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
 
-        query += " AND active=%s" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s") % (testActive)
         cursor.execute(query)
 
         returnList = []
@@ -169,13 +169,13 @@ class Answer(object):
         return string
     def toJson(self):
         data = {
-        "id"         :     self.id,
-        "created"    : str(self.created),
-        "created by" :     self.created_by,
-        "active"     :     self.active
-        "solution"   :     self.solution
-        "question"   :     self.question,
-        "score"      :     self.score,
-        "content"    :     self.content
-        }
+                "id"         : self.id,
+                "created"    : self.created,
+                "created_by" : self.created_by,
+                "active"     : self.active,
+                "solution"   : self.solution,
+                "question"   : self.question,
+                "score"      : self.score,
+                "content"    : self.content
+                }
         return json.dumps(data)

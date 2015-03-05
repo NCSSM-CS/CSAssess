@@ -2,35 +2,15 @@ function submitCourse()
 {
 	var name = document.getElementById("courseNameArea").value;
 	var id = document.getElementById("courseIDArea").value;
-	var topicList = document.getElementsByName("topics");
-	var topics = "";
-	for (var i=0; i<topicList.length; i++)
-	{
-		if(topicList[i].checked)
-		{
-			topics+=","+topicList[i].value;
-		}
-	}
-	topics=topics.substring(1)
-	if (name == "" || name == null || id == "" || id == null || topics == "")
+	if (name == "" || name == null || id == "" || id == null)
 	{
 		alert("Please fill in all the fields!");
 	}
-	var toSend = {"name": name, "ID": id, "topics": topics};
-	//todo in later versions: add actual validation w/ tokens
-	toSend.token = "token-standin";
+    var token = getCookie("token");
+	var toSend = {"name": name, "courseCode": id, "session": token};
 	toSend.requestType = "addUser";
+	toSend = {"name": name, "ID": id, "session": token};
+	toSend.requestType = "addCourse";
 	console.log(toSend);
-	$.post(
-	{                                                 
-        url:"/cgi-bin/request.py",                                                 
-        data: toSend,
-        dataType: "json",
-        success: console.log("Success!")
-	});
-}
-
-function showSelectedValues()
-{
-$("input[name=roleField]:checked").map(function(){return this.value;}).get().join(",");
+    $.post("/cgi-bin/CSAssess/controller/request.py", toSend, console.log("done"), "json");
 }

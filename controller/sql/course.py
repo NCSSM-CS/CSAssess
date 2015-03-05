@@ -3,8 +3,8 @@
 """
 created_by:         Micah Halter
 created_date:       3/1/2015
-last_modified_by:   EZ
-last_modified date: 3/2/2015
+last_modified_by:   Micah Halter
+last_modified date: 3/4/2015
 """
 
 # imports
@@ -26,6 +26,7 @@ class Course(object):
         created_by  - the user that created the course 'self'
         course_code - the course code of the course 'self'
         name        - the name of the course 'self'
+        active      - bit specifying whether course object is active
         """
         self.id          = id
         self.created     = created
@@ -92,7 +93,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO course (created, created_by, type, section_id, name, active) VALUES ('%s', %s,'%s', %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.type, self.section_id, self.name, self.active))
+            insert = ("INSERT INTO course (created_by, course_code, name, active) VALUES ('%s', %s, %s, '%s', %s); SELECT LAST_INSERT_ID();" % (self.created, self.created_by.id, self.course_code, self.name, self.active))
             cursor.execute(insert)
             for (id) in cursor:
                 self.id = id
@@ -107,7 +108,7 @@ class Course(object):
         cursor = cnx.cursor()
 
         if self.id is not None:
-                update = ("UPDATE courses SET type = '%s', section_id = %s, name = '%s' WHERE id = %s;" % (self.type, self.section_id, self.name, self.id))
+                update = ("UPDATE course SET (course_code, name, active) VALUES (%s, '%s', %s) WHERE id=%s;" % (self.course_code, self.name, self.active, self.id))
                 cursor.execute(update)
 
         cnx.commit()
@@ -133,7 +134,6 @@ class Course(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        returnList = []
         query = ""
         if search == "all":
             query = "SELECT * FROM course"
@@ -142,13 +142,14 @@ class Course(object):
         elif type(search) is str:
             query = ("SELECT * FROM course WHERE (course_code LIKE '%%%s%%' OR name LIKE '%%%s%%')" % (search, search))
 
-        query += " AND active=%s;" % (testActive)
+        query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
         cursor.execute(query)
+
+        returnList = []
         for (id, created, created_by, course_code, name, active) in cursor:
             user = User.get(created_by)[0]
             newCourse = Course(id, created, user, course_code, name, active)
-            if newCourse not in returnList:
-                returnList.append(newCourse)
+            returnList.append(newCourse)
 
         cnx.commit()
         cursor.close()
@@ -160,7 +161,8 @@ class Course(object):
         data = {
         "id"            :     self.id,
         "created"       : str(self.created),
-        "cread_by"      :     self.created_by,
+        "created_by"    :     self.created_by,
+        "active"        :     self.active,
         "course_code"   :     self.course_code,
         "name"          :     self.name
         }

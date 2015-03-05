@@ -1,15 +1,29 @@
 /* 
+ * This is javascript to get the topics for the practice page for students and
+ * get questions to display one by one for the user. 
+ */
+
+/* 
  *This is a javascript file for setting the HTML content of the topic dropdown
  *on the database view page
  */ 
 
 //Run by an onload event in the body tag. 
 function doOnLoad() {
-    var token = getCookie("token");
+    var token = getCookie("token")
     var dataDef = {"requestType":"getTopics", "session": token};
-    var urlDef = "/cgi-bin/CSAssess/controller/request.py";
+    var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
     $.post(urlDef, dataDef, getTopics, dataTypeDef);
+
+  //$.ajax({
+    //    type: "POST",
+      //  url: urlDef,
+        //data: dataDef,
+        //dataType: dataTypeDef,
+        //success: getTopics
+    //}); 
 }
 
 /*  this function takes the list of topics from the ajax call and uses that
@@ -33,4 +47,3 @@ function getTopics(topics) {
         }
     }
 }
-

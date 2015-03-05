@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS `answer`;
 		
 CREATE TABLE `answer` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `question_id` INTEGER NOT NULL,
   `score` DECIMAL NULL DEFAULT NULL,
@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `question`;
 		
 CREATE TABLE `question` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `language` ENUM('python', 'java', 'none') NOT NULL COMMENT 'c, c++, java...',
   `type` ENUM('all', 'test', 'quiz', 'practice', 'inactive') NOT NULL DEFAULT 'all' COMMENT 'all, test, quiz, practice, inactive',
@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `user`;
 		
 CREATE TABLE `user` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `last_login` DATETIME NOT NULL,
   `username` VARCHAR(32) NOT NULL,
@@ -93,7 +93,7 @@ DROP TABLE IF EXISTS `course`;
 		
 CREATE TABLE `course` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `course_code` CHAR(6) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `section`;
 		
 CREATE TABLE `section` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `course_id` INTEGER NOT NULL,
   `year` YEAR NOT NULL,
@@ -129,10 +129,9 @@ DROP TABLE IF EXISTS `assessment`;
 		
 CREATE TABLE `assessment` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `type` ENUM('problem_set', 'test', 'quiz') NOT NULL COMMENT 'problem_set, test, quiz',
-  `section_id` INTEGER NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
@@ -147,7 +146,7 @@ DROP TABLE IF EXISTS `test_case`;
 		
 CREATE TABLE `test_case` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `question_id` INTEGER NOT NULL,
   `weight` INTEGER NOT NULL,
@@ -165,7 +164,7 @@ DROP TABLE IF EXISTS `topic`;
 		
 CREATE TABLE `topic` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `active` BIT NOT NULL DEFAULT 1,
@@ -179,7 +178,7 @@ CREATE TABLE `topic` (
 		
 CREATE TABLE `comment` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `answer_id` INTEGER NOT NULL,
   `content` VARCHAR(140) NOT NULL,
@@ -196,7 +195,7 @@ DROP TABLE IF EXISTS `job`;
 		
 CREATE TABLE `job` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `created` DATETIME NOT NULL,
+  `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `section_id` INTEGER NOT NULL,
   `type` ENUM('Take Assessment', 'Grade Assessment') NOT NULL,
@@ -287,6 +286,18 @@ CREATE TABLE `assessment_topic` (
 );
 
 -- ---
+-- Table 'assessment_section'
+--
+-- ---
+
+DROP TABLE IF EXISTS `assessment_section`;
+
+CREATE TABLE `assessment_section` (
+  `assessment_id` INTEGER NOT NULL,
+  `section_id` INTEGER NOT NULL
+);
+
+-- ---
 -- Foreign Keys 
 -- ---
 
@@ -300,7 +311,6 @@ ALTER TABLE `course` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `section` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `section` ADD FOREIGN KEY (course_id) REFERENCES `course` (`id`);
 ALTER TABLE `assessment` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
-ALTER TABLE `assessment` ADD FOREIGN KEY (section_id) REFERENCES `section` (`id`);
 ALTER TABLE `test_case` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `test_case` ADD FOREIGN KEY (question_id) REFERENCES `question` (`id`);
 ALTER TABLE `topic` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
@@ -322,6 +332,8 @@ ALTER TABLE `user_assessment` ADD FOREIGN KEY (user_id) REFERENCES `user` (`id`)
 ALTER TABLE `user_assessment` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `assessment_topic` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `assessment_topic` ADD FOREIGN KEY (topic_id) REFERENCES `topic` (`id`);
+ALTER TABLE `assessment_section` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
+ALTER TABLE `assessment_section` ADD FOREIGN KEY (section_id) REFERENCES `section` (`id`);
 
 -- ---
 -- Table Properties

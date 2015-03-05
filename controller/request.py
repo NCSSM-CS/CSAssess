@@ -1,28 +1,50 @@
-#!/usr/bin/env python3
+#!/usr/locl/bin/python3
 
-"""
-created_by: Ebube Chuba
-create_date: 3/3/2015
-last_modified_by: Samuel Murray
-last_modified_date: 3/3/2015
-"""
-
-"""
-TODO:
-    -Add all "requestType" use cases.
-"""
-#imports
 import cgi
 import cgitb
 import json
+import sys
+import constants
 
-#cgitb.enable()
+# if you find a better way to do this plz replace
 
-#Next Line is a test case for toFile generation
-form = {"requestType" : "addUser"}
+cgitb.enable()
 
-#form = cgi.FieldStorage()
+unprocessedForm = cgi.FieldStorage()
+
 toFile = ""
 #toFile is a file that we will eventually pass the JSON into
-toFile = form["requestType"] + ".py"
-#print(toFile)
+toFile = unprocessedForm["requestType"]
+#if constants.DEBUG > 0:
+#    print(toFile)
+
+objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
+verbList   = [ "add", "get", "update", "activate", "login" ]
+
+# currVerb/Object can only come from the provided lists
+# protects against injections
+currVerb = ""
+currObject = ""
+for i in verbList:
+    if i in toFile.value:
+        currVerb = i
+
+for i in objectList:
+    if i in toFile.value:
+        currObject = i
+
+if currVerb.equals("login"):
+    # is login handled here?
+    processedForm = "{success:failure}"
+else:
+    if currVerb != "" and currObject != "":
+        verbObject = currVerb + currObject
+        eval("import " + verbObject)
+        processedForm = eval(verbObject + ".iChooseU(unprocessedForm)")
+    else:
+        # malformed tags go here?
+        processedForm = "{success:failure}"
+
+print("Content-Type: application/json; charset=utf-8")
+print()
+print(processedForm)

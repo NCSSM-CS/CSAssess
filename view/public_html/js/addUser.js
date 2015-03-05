@@ -7,12 +7,12 @@ function submitUser()
 	var last_name = "";
 	var name = document.getElementById("nameField").value;
 	var roles = document.getElementsByName("roleField");
-	var role = "";
+	var role = [];
 	for (var i=0; i<roles.length; i++)
 	{
 		if(roles[i].checked)
 		{
-			role+=","+roles[i].value);
+			role.push(roles[i].value);
 		}
 	}
 	name = name.split(" ");
@@ -24,25 +24,19 @@ function submitUser()
 	}
 	if (password!=password2)
 	{
-		alert("Your passwords do not match. Please retype your passwords.");
+		alert("Passwords do not match. Please retype your password.");
 		throw new Error("Passwords do not match");
 	}
-	role=role.substring(1);
-	var toSend = {"username": username, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
+    var token = getCookie("token");
+	var toSend = {"username": username, "session": token, "password": password, "first_name": first_name, "last_name": last_name, "role": role};
 	//todo in later versions: add actual validation w/ tokens
-	toSend.token = "token-standin";
 	toSend.requestType = "addUser";
 	console.log(toSend);
 	$.post(
 	{                                                 
-        url:"/cgi-bin/request.py",                                                 
+        url:"/cgi-bin/CSAssess/controller/request.py",                                                 
         data: toSend,
         dataType: "json",
         success: console.log("Success!")
 	});
-}
-
-function showSelectedValues()
-{
-$("input[name=roleField]:checked").map(function(){return this.value;}).get().join(",");
 }

@@ -68,6 +68,7 @@ function submitQuery()
 	var topic = document.getElementById("topicSelect").value;
 	//var keyword = document.getElementById("practiceKeyword").value;
 	var toSend = {};
+	topic = [topic];
 	if (difficulty != "")
 	{
 		toSend.difficulty = difficulty;
@@ -77,13 +78,8 @@ function submitQuery()
 		toSend.topic = topic;
 	}
 	//todo in later versions: add actual validation w/ tokens
-	toSend.token = "token-standin";
+    var token = getCookie("token");
+	toSend.session = token;
 	toSend.requestType = "filter";
-	$.post(
-	{                                                 
-        url:"/cgi-bin/echo.py",                                                 
-        data: toSend,
-        dataType: "json",
-        success: searchDatabase
-	});
+    $.post("/cgi-bin/CSAssess/controller/request.py", toSend, searchDatabase, "json");
 }

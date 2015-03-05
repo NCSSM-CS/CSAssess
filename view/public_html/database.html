@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/jquery-1.11.1.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/generateDatabaseHTML.js"></script>
         <script src="js/database.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <style>
@@ -36,30 +39,28 @@
 				</div>
 				<form class="navbar-text navbar-right" style="float: right">
 					<a href="user_profile.html" style=";font-size: 20px; color:#ffffff; padding-right: 20px; text-decoration: none"> Testy Jones         </a>
-					<a href="login.html" style="font-size: 14px"> (Logout) </a>
+					<a href="login.html" style="font-size: 14px"> Logout </a>
 				</form>
 			</div><!--/.navbar-collapse -->
 		</nav>
-
+		<!-- The navbar on the right side -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand"><a href="index.html"> Home </a></li>
+				<li><a href="user_profile.html"> My Profile </a></li>
+				<li><a href="teacher_section.html"> CS402 - Morrison </a></li>
+				<li><a href="teacher_section.html"> CS404 - Boyarsky </a></li>
+				<li><a href="teacher_section.html"> AS305 - Miller </a></li>
+				<li><a href="#"> Question Database </a></li>
+				<li>
+					<ul>
+						<li><a href="#">View Question </a></li>
+						<li><a href="addQuestion.html"> Add Question </a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 		<div id="wrapper">
-        <!-- The navbar on the right side -->
-			<div id="sidebar-wrapper">
-				<ul class="sidebar-nav">
-					<li class="sidebar-brand"><a href="index.html"> Home </a></li>
-					<li><a href="#"> My Profile </a></li>
-					<li><a href="#"> CS402 - Morrison </a></li>
-					<li><a href="#"> CS404 - Boyarsky </a></li>
-					<li><a href="#"> AS305 - Miller </a></li>
-					<li><a href="#"> Question Database </a></li>
-					<li>
-						<ul>
-							<li><a href="#">View Question </a></li>
-							<li><a href="addQuestion.html"> Add Question </a></li>
-						</ul>
-					</li>
-					<li><a href="#"> Practice </a></li>
-				</ul>
-			</div>
         <div class="row pageContentHeader">
             View The Database
         </div>
@@ -79,7 +80,7 @@
                           </select>
                           <!-- validation must ensure that the topic exists !-->
                           <select class="practiceElement" id="difficulty" name="difficultySelect">
-                             <option value="default" selected="selected">Difficulty</option>
+                             <option value="" selected="selected">Difficulty</option>
                              <option value="1">1</option>
                              <option value="2">2</option>
                              <option value="3">3</option>
@@ -91,8 +92,7 @@
                         	 <option value="9">9</option>
                              <option value="10">10</option>
                     	 </select>
-                         <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
-                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', submitQuery)">
+                         <input type="button" class="practiceElement" value="Submit" onclick="submitQuery()">
                          <div id="database_container"></div>
                      </div>
                  </div>
