@@ -54,7 +54,7 @@ def iChooseU(json):
     for response in complete:
         if collect.count(response) < count:
             collect.append(response)
-        else collect.count(response) >= count:
+        else:
             intersect.add(response)
 
             
