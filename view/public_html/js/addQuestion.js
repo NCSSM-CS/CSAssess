@@ -47,8 +47,6 @@ function submitQuestion() {
         return false;
     }
     var urlDef = "/cgi-bin/request.py";
-  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
-  //$.post(urlDef, dataDef, success);
     //Gives the question information to the database. 
     $.ajax({
         type: "POST",
@@ -72,7 +70,7 @@ function generateTopicCheckboxes() {
     var dataDef = {"requestType":"getTopics" , "session": token};
     var urlDef = "/cgi-bin/CSAssess/controller/request.py";
     var dataTypeDef = "json";
-  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    console.log(dataDef);
     $.post(urlDef, dataDef, setTopics, dataTypeDef);
 }
 //Will store the topics. Declared here so other functions can see it. 
