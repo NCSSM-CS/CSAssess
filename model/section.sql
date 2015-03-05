@@ -1,6 +1,6 @@
 -- ---
 -- SECTION TEST DATA
--- inserts a selection sections for the courses offered
+-- inserts a selection of sections for the courses offered
 -- ---
 
 INSERT INTO section

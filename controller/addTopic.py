@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         John Fang
@@ -11,18 +11,20 @@ last_modified_date: 3/5/2015
 import constants
 import utils
 import json
+from sql.user import User
 from sql.topic import Topic
 from sql.session import Session
 
 #Format of topic
+#requestType: addTopic
 #name: "string" 
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser(json)
 
     name = json["name"]
 
     newTopic = Topic.noID(None, thisUser, name, ACTIVE)
     newTopic.add()
 
-    return successJson()
+    return utils.successJson(json)

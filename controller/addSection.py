@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/4/2015
+last_modified_by:   Aninda Manocha
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -15,18 +15,18 @@ from sql.section import Section
 from sql.course import Course
 from sql.session import Session
 
-#Format of answer -KP
-#requestType: answer
-#section: "string"
+#Format of answer -AM
+#requestType: getSection
+#course: Course
 #year: "string"
 #term: "string"
 #period: "string"
 
-
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser(json)
 
-    section = json["section"]
+    course = json["course"]
+    theCourse = Course.get(course["id"])[0]
     year = json["year"]
     term = json["term"]
     period = json["period"]
@@ -34,4 +34,4 @@ def iChooseU(json):
     newSection = Section.noID(None, thisUser, course, year, term, period, ACTIVE)
     newSection.add()
 
-    return successJson()
+    return utils.successJson(json)
