@@ -3,7 +3,9 @@
 -- ---
 
 SOURCE db.sql
-SOURCE testData.sql
+SOURCE user.sql
+SOURCE course.sql
+SOURCE section.sql
 SOURCE topic.sql
 SOURCE question.sql
 SOURCE answer.sql
