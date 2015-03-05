@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/jquery-1.11.1.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/generateDatabaseHTML.js"></script>
         <script src="js/database.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <style>
@@ -78,7 +81,7 @@
                           </select>
                           <!-- validation must ensure that the topic exists !-->
                           <select class="practiceElement" id="difficulty" name="difficultySelect">
-                             <option value="default" selected="selected">Difficulty</option>
+                             <option value="" selected="selected">Difficulty</option>
                              <option value="1">1</option>
                              <option value="2">2</option>
                              <option value="3">3</option>
@@ -90,8 +93,7 @@
                         	 <option value="9">9</option>
                              <option value="10">10</option>
                     	 </select>
-                         <input class="practiceElement" type="text" placeholder="Keyword" id="practiceKeyword">
-                         <input type="button" class="practiceElement" value="Submit" onclick="getExternal('/view/public_html/js/test/test.json', submitQuery)">
+                         <input type="button" class="practiceElement" value="Submit" onclick="submitQuery()">
                          <div id="database_container"></div>
                      </div>
                  </div>

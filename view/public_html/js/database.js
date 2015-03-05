@@ -78,9 +78,8 @@ function submitQuery()
 		toSend.topic = topic;
 	}
 	//todo in later versions: add actual validation w/ tokens
-        var token = getCookie("token");
+    var token = getCookie("token");
 	toSend.session = token;
 	toSend.requestType = "filter";
-        //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
-        $.post(url, toSend, searchDatabase, "json");
+    $.post("/cgi-bin/CSAssess/request.py", toSend, searchDatabase, "json");
 }
