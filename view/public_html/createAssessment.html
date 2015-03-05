@@ -63,6 +63,7 @@
                 <h2 align="center"> Create an Assessment </h2>
                 <div class="container"> 
                    <div class="col-md-2">
+                        <h4> # of Questions </h4>
                         <select class="practiceElement" id="assesmentType" name="assessmentTypeSelect">
                             <option value="default" selected="selected"> Assessment Type </option>
                             <option value="test">Test</option>
@@ -70,14 +71,20 @@
                         </select>
                     </div>
                     <div class="col-md-2" id="sectionSelect">
+                        <h4> Section(s) </h4>
                     </div>
                     <div class="col-md-2" id="topicSelect">
+                        <h4> Topic(s) </h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h4> Difficulty </h4>
                     </div>
                     <div class="col-md-2">
-                        Difficulties(s)
+                        <h4> # of Questions </h4>
+                        <input type="number" min="1" max="100"></input>
                     </div>
-                    <div class="col-md-2">
-                        # of Questions
+                    <div class="col-md-1">
+                        <button type="button btn-default" name="submitAssignment" onclick="submitAssignment()"> Submit </button>
                     </div>
                 </div>
                 </div>
