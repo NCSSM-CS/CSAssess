@@ -141,12 +141,24 @@ function initialPython(){
   var token = getCookie("token");
   var dataDef = {"requestType":"getAssessment", "session": token};
   var dataTypeDef = "json";
+  var name = {"name": "t0"};
+  var user = {"username": ""};
+  var section = {"section": ""};
+  var course = {"course": ""};
+  var question = {"question": 1};
+  
   $.post(
     urlDef,
     dataDef,
     makeTheTestPage,
-    dataTypeDef
+    dataTypeDef,
+    name,
+    user,
+    section,
+    course,
+    question      
   );
+  
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
   }
@@ -167,5 +179,5 @@ function initialPython(){
  function makeTheTestPage(data){
   console.log(data["assessmentList"]);
   console.log(data["session"]);  
-  console.log("WE MAD IT");
+  console.log("WE MADE IT");
  }
