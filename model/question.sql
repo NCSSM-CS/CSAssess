@@ -106,5 +106,29 @@ VALUES
 	'all',
 	7,
 	'Complete the following sentence: I love Monty ______.',
+	0
+    ),
+    (
+	2,
+	'python',
+	'all',
+	7,
+	'To what biological class does the python belong?',
+	1
+    ),
+    (
+	2,
+	'java',
+	'all',
+	2,
+	'In what century did Java coffee emerge?',
+	1
+    ),
+    (
+	1,
+	'none',
+	'all',
+	6,
+	'What is the answer to life, the universe, and everything?',
 	1
     ),
