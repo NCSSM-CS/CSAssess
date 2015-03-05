@@ -39,7 +39,7 @@ class Assessment(object):
         self.id            = id
         self.created       = created
         self.created_by    = created_by
-        self.atype          = atype
+        self.atype         = atype
         self.section       = section
         self.name          = name
         self.question_list = question_list
