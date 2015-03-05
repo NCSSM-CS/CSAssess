@@ -24,7 +24,7 @@ def iChooseU(json):
     thisUser = utils.findUser(json)
 
     question = json["question"]
-    theQuestion = Question.get(question["id"])
+    theQuestion = Question.get(question["id"])[0]
     weight = json["weight"]
     content = json["content"]
 
