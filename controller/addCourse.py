@@ -32,7 +32,7 @@ def iChooseU(json):
     term = json["term"]
     period = json["period"]
 
-    newCourse = Course.noID(None, thisUser.id, course, year, term, period, ACTIVE)
+    newCourse = Course.noID(None, thisUser, course, year, term, period, ACTIVE)
     newCourse.add()
 
     return successJson()
