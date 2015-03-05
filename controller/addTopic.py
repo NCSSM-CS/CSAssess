@@ -19,7 +19,7 @@ from sql.session import Session
 #active: boolean 
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     name = json("name")
 

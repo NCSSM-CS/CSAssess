@@ -25,7 +25,7 @@ from sql.session import Session
 # topic: list of topics
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     language = ""
     topics = []

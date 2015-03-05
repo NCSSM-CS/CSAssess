@@ -24,7 +24,7 @@ from sql.session import Session
 
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     section = json["section"]
     year = json["year"]

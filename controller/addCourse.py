@@ -25,7 +25,7 @@ from sql.session import Session
 
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     course = json["course"]
     year = json["year"]

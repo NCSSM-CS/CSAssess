@@ -21,7 +21,7 @@ from sql.session import Session
 #topic_list: list of topics
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
 
     atype = json["type"]
     section = json["section"]

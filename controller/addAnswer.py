@@ -23,7 +23,7 @@ from sql.session import Session
 #isSolution: boolean
 
 def iChooseU(json):
-    findUser()
+    thisUser = findUser()
     
     question = json["question"]
     content = json["content"]
