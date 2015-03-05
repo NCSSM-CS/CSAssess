@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Ebube Chuba
 created_date:       3/3/2015
-last_modified_by:   Ebube Chuba
-last_modified date: 3/4/2015
+last_modified_by:   Aninda Manocha
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -25,7 +25,7 @@ from sql.session import Session
 # topic: list of topics
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser(json)
 
     language = ""
     topics = []
@@ -52,4 +52,4 @@ def iChooseU(json):
     newQuestion = Question.noID(None, thisUser, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
     
-    return successJson()
+    return utils.successJson(json)

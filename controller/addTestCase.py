@@ -11,6 +11,7 @@ last_modified_date: 3/5/2015
 import constants
 import utils
 import json
+from sql.user import User
 from sql.question import Question
 from sql.session import Session
 
@@ -24,7 +25,7 @@ def iChooseU(json):
     thisUser = utils.findUser(json)
 
     question = json["question"]
-    theQuestion = Question.get(question["id"])
+    theQuestion = Question.get(question["id"])[0]
     weight = json["weight"]
     content = json["content"]
 
