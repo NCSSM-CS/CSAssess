@@ -29,7 +29,7 @@ def iChooseU(json):
     content = json["content"]
     isSolution = True 
 
-    newAnswer = Answer.noID(TIME_STAMP, thisUser.id, question, None, content, isSolution, ACTIVE)
+    newAnswer = Answer.noID(None, thisUser.id, question, None, content, isSolution, ACTIVE)
     newAnswer.add()
 
     successJson()

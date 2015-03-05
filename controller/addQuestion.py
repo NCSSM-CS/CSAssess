@@ -49,7 +49,7 @@ def iChooseU(json):
                     newTopic.add()
             topics = json[field]
 
-    newQuestion = Question.noID(TIME_STAMP, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
+    newQuestion = Question.noID(None, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
     
     successJson()

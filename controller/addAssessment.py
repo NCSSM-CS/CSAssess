@@ -29,7 +29,7 @@ def iChooseU(json):
     question_list = json["questions"]
     topic_list = json["topics"]
 
-    newAssessment = Assessment.noID(TIME_STAMP, thisUser, atype, section, name, question_list, topic_list, 1)
+    newAssessment = Assessment.noID(None, thisUser, atype, section, name, question_list, topic_list, 1)
     newAssessment.add()
 
     successJson()
