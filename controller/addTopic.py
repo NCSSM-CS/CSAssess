@@ -18,11 +18,11 @@ from sql.session import Session
 #name: "string" 
 
 def iChooseU(json):
-    thisUser = findUser(json)
+    thisUser = utils.findUser(json)
 
     name = json["name"]
 
     newTopic = Topic.noID(None, thisUser, name, ACTIVE)
     newTopic.add()
 
-    return successJson(json)
+    return utils.successJson(json)
