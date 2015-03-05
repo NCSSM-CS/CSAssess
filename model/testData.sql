@@ -314,5 +314,5 @@ INSERT INTO assessment
         created_by, type, section_id, name, active
     )
     VALUES
-    (
-        1, 'problem_set', */
+    (1, 'problem_set', '1', 'ps0', 1),
+    (1, 'problem_set', '2', 'ps0', 1),*/
