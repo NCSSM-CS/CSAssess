@@ -144,8 +144,8 @@ function initialPython(){
   $.post(
     urlDef,
     dataDef,
-    //function to exec,
-    dataTypedef
+    makeTheTestPage,
+    dataTypeDef
   );
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
@@ -162,3 +162,9 @@ function initialPython(){
       languageArgs);
    isCalled = true;
 }
+
+//CEW
+ function makeTheTestPage(data){
+  console.log(data["assessmentList"]);
+  console.log(data["session"]);  
+ }
