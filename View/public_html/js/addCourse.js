@@ -6,7 +6,7 @@ function submitCourse()
 	{
 		alert("Please fill in all the fields!");
 	}
-        var token = checkCookie("token");
+        var token = getCookie("token");
 <<<<<<< HEAD
 	var toSend = {"name": name, "courseCode": id, "session": token};
 	toSend.requestType = "addUser";

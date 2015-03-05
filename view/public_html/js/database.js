@@ -78,7 +78,7 @@ function submitQuery()
 		toSend.topic = topic;
 	}
 	//todo in later versions: add actual validation w/ tokens
-        var token = checkCookie("token");
+        var token = getCookie("token");
 	toSend.session = token;
 	toSend.requestType = "filter";
         //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)

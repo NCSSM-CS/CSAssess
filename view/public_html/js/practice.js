@@ -10,7 +10,7 @@
 
 //Run by an onload event in the body tag. 
 function doOnLoad() {
-    var token = checkCookie("token")
+    var token = getCookie("token")
     var dataDef = {"requestType":"getTopics", "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";

@@ -19,7 +19,7 @@ function error() {
 
 //Called by an onload event in the body
 function generateTopicCheckboxes() {
-    var token = checkCookie("token");
+    var token = getCookie("token");
     var dataDef = {"requestType":"getTopics", "session": token};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
@@ -61,7 +61,7 @@ function setTopics(topics) {
  
 //Called by an onload event in the body
 function generateSectionCheckboxes() {
-    var dataDef = {requestType:"getSections","session":checkCookie("token"),"username":checkCookie("username")};
+    var dataDef = {requestType:"getSections","session":getCookie("token"),"username":getCookie("username")};
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
@@ -71,8 +71,8 @@ function generateSectionCheckboxes() {
 var sections = [];
 function setSections(sections) {
    //Create and append a new option to the option element.
-    var sectionContainer = document.getElementByID("sectionSelect")
-    for(i=0, i<Object.keys(sections).length, i++)
+    var sectionContainer = document.getElementByID("sectionSelect");
+    for(var i=0; i<Object.keys(sections).length; i++)
     {
         var name = sections[i].name;
         var span = document.createElement("span");
