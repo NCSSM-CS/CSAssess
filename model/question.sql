@@ -13,7 +13,7 @@ INSERT INTO question
     )
 VALUES
     (
-	1,
+	3,
 	'none',
 	'all',
 	10,
@@ -21,7 +21,7 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'none',
 	'all',
 	1,
@@ -29,7 +29,7 @@ VALUES
 	1
     ),
     (
-	1,
+	3,
 	'python',
 	'all',
 	5,
@@ -37,7 +37,7 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'java',
 	'all',
 	5,
@@ -45,7 +45,7 @@ VALUES
 	1
     ),
     (
-	1,
+	3,
 	'none',
 	'all',
 	5,
@@ -53,7 +53,7 @@ VALUES
 	0
     ),
     (
-	2,
+	4,
 	'java',
 	'all',
 	5,
@@ -61,7 +61,7 @@ VALUES
 	0
     ),
     (
-	1,
+	3,
 	'python',
 	'all',
 	3,
@@ -69,15 +69,15 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'none',
 	'all',
 	3,
-	'In 300 words or more, explain "it" is.',
+	'In 300 words or more, explain what "it" is.',
 	1
     ),
     (
-	2,
+	4,
 	'java',
 	'all',
 	10,
@@ -85,7 +85,7 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'python',
 	'all',
 	5,
@@ -93,7 +93,7 @@ VALUES
 	1
     ),
     (
-	1,
+	3,
 	'python',
 	'all',
 	3,
@@ -101,7 +101,7 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'java',
 	'all',
 	7,
@@ -109,7 +109,7 @@ VALUES
 	0
     ),
     (
-	2,
+	4,
 	'python',
 	'all',
 	7,
@@ -117,7 +117,7 @@ VALUES
 	1
     ),
     (
-	2,
+	4,
 	'java',
 	'all',
 	2,
@@ -125,10 +125,10 @@ VALUES
 	1
     ),
     (
-	1,
+	3,
 	'none',
 	'all',
 	6,
 	'What is the answer to life, the universe, and everything?',
 	1
-    ),
+    );

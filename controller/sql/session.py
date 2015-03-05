@@ -10,7 +10,7 @@ last_modified date: 3/4/2015
 # imports
 import constants
 import mysql.connector
-from user import User
+from sql.user import User
 from mysql_connect_config import getConfig
 
 # classes
@@ -18,7 +18,7 @@ class Session(object):
 
     def __init__(self, id, timestamp, token, ip, user, active):
         """
-        
+
         this function acts as the constructor to define a new session object
         """
         self.id         = id
@@ -67,12 +67,12 @@ class Session(object):
         if self.id is None:
             insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
-            
+
         for (id) in cursor:
                 self.id = id
-            
+
         select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
-            
+
         cursor.execute(select)
         for (timestamp) in cursor:
             self.timestamp = timestamp
