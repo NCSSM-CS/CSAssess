@@ -118,8 +118,12 @@ class Assessment(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO assessment (created_by, type, name, active) VALUES (%s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.atype, self.name, self.active))
-            course.execute(insert)
+            insert = ("INSERT INTO assessment (created_by, type, name, active) VALUES (%s, '%s', '%s', %s);" % (self.created_by.id, self.atype, self.name, self.active))
+            cursor.execute(insert)
+
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
+
             for (id) in cursor:
                 self.id = id
             insertSections = "INSERT INTO assessment_section (assessment_id, section_id) VALUES "
@@ -203,7 +207,7 @@ class Assessment(object):
             for (id) in newCursor:
                 qList.append(Question.get(id)[0])
 
-            
+
             getTopics = ("SELECT t.id FROM assessment_topic AS at "
                          "INNER JOIN topic AS t ON at.topic_id=t.id "
                          "WHERE at.assessment_id=%s;" % (id))

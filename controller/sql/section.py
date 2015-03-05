@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Micah Halter
@@ -103,9 +103,12 @@ class Section(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO section (created_by, course, year, term, period, active) VALUES (%s, '%s', %s, %s, %s, '%s', '%s', %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
-
+            insert = ("INSERT INTO section (created_by, course, year, term, period, active) VALUES (%s, '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.course.id, self.year, self.term, self.period, self.active))
             cursor.execute(insert)
+
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
+
 
             for(id) in cursor:
                 self.id=id
