@@ -16,7 +16,7 @@ from sql.course import Course
 from sql.session import Session
 
 #Format of answer -AM
-#requestType: getSection
+#requestType: addSection
 #course: Course
 #year: "string"
 #term: "string"
