@@ -3,7 +3,7 @@
 """
 created_by:         Micah Halter
 created_date:       3/3/2015
-last_modified_by:   LZ
+last_modified_by:   John Fang
 last_modified date: 3/5/2015
 """
 
@@ -18,6 +18,12 @@ class Session(object):
 
     def __init__(self, id, timestamp, token, ip, user, active):
         """
+        self        - the session in question
+        id          - the id number of the session 'self' in the database
+        timestamp   - the time at which the session 'self' started
+        token       - a unique 64-bit string for a session 'self'
+        user        - the user partaking in the session 'self'
+        active      - a bit specifying whether the session is active
 
         this function acts as the constructor to define a new session object
         """

@@ -3,8 +3,8 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/4/2015
+last_modified_by:   Ebube Chuba
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -16,23 +16,19 @@ from sql.answer import Answer
 from sql.topic import Topic
 from sql.session import Session
 
-#Format of answer -KP
-#requestType: answer
-#course: "string"
-#year: "string"
-#term: "string"
-#period: "string"
+# Format of course -EC
+# requestType: addCourse
+# courseCode: "BS402"
+# name: "string"
 
 
 def iChooseU(json):
     thisUser = findUser()
 
-    course = json["course"]
-    year = json["year"]
-    term = json["term"]
-    period = json["period"]
+    courseCode = json["courseCode"]
+    name = json["name"]
 
-    newCourse = Course.noID(None, thisUser.id, course, year, term, period, ACTIVE)
+    newCourse = Course.noID(None, thisUser, courseCode, name, ACTIVE)
     newCourse.add()
 
     return successJson()
