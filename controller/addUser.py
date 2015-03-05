@@ -14,7 +14,7 @@ import json
 from sql.session import Session
 
 #Format of assessment -AM
-#requestType: user
+#requestType: addUser
 #username: "string"
 #password: "string"
 #firstName: "string"
@@ -22,7 +22,7 @@ from sql.session import Session
 #role: []
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser()
 
     username = json["username"]
     password = json["password"]
@@ -71,4 +71,4 @@ def iChooseU(json):
     newUser = User.noID(None, thisUser, None, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
     newUser.add()
 
-    return successJson()
+    return utils.successJson()
