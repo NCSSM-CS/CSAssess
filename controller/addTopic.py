@@ -15,6 +15,7 @@ from sql.topic import Topic
 from sql.session import Session
 
 #Format of topic
+#requestType: addTopic
 #name: "string" 
 
 def iChooseU(json):
