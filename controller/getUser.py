@@ -3,13 +3,12 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/4/2015
+last_modified_by:   Ebube Chuba
+last_modified date: 3/5/2015
 """
 
 # imports
 from sql.user import User
-from sql.topic import Topic
 from sql.session import Session
 
 #Format of JSON -KP
@@ -35,18 +34,18 @@ def iChooseU(json):
     complete = []
     count = 0
 
-    if not firstName == None:
-        complete += Topic.get(0, firstName)
-        count+=1
-    if not lastName == None:
-        complete += Topic.get(0, lastName)
-        count+=1
-    if not section == None:
-        complete += Topic.get(0, section)
-        count+=1
-    if not Assessment == None:
-        complete += Topic.get(0, assessment)
-        count+=1
+    if not firstName == "":
+        complete += User.get(0, firstName)
+        count += 1
+    if not lastName == "":
+        complete += User.get(0, lastName)
+        count += 1
+    if not section == "":
+        complete += User.get(0, section)
+        count += 1
+    if not Assessment == "":
+        complete += User.get(0, assessment)
+        count += 1
 
     collect = []
     intersect = []

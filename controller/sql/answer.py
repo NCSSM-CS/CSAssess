@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Ebube Chuba
 created_date:       3/2/2015
 last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -47,8 +47,12 @@ class Answer(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO answer (created_by, question_id, score, content, solution, active) VALUES (%s, '%s', %s, %s, %s, '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
+            insert = ("INSERT INTO answer (created_by, question_id, score, content, solution, active) VALUES (%s, %s, %s, '%s', %s, %s);" % (self.created_by.id, self.question.id, self.score, self.content, self.solution, self.active))
             cursor.execute(insert)
+
+            select = "SELECT LAST_INSERT_ID();"
+
+            cursor.execute(select)
 
             for (id) in cursor:
                 self.id=id

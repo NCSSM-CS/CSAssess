@@ -24,9 +24,13 @@ def iChooseU(json):
     if DEBUG > 1:
         print(thisUser)
     
-    out = {}
+    intersect = []
     for num in len(range(Assessment.get(thisUser.id))):
         out[num] = Assessment.get(thisUser.id)[num]
     
+    out = {}
+    out["assessmentList"] = intersect
+    out["sessionID"] = json["session"]
+
     return json.dumps(out)
 

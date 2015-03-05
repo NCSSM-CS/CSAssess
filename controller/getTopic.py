@@ -8,7 +8,7 @@ last_modified date: 3/4/2015
 """
 
 # imports
-from sql.user import User
+ifrom sql.user import User
 from sql.topic import Topic
 from sql.session import Session
 
@@ -26,14 +26,13 @@ def iChooseU(json):
 
     name = json["name"]
 
-    aByName = []
+    tByName = []
 
     if not name == None:
-        aByName.append(Topic.get(0, name))
+        tByName.append(Topic.get(0, name))
 
     out = {}
-    
-    for num in range(len(aByName)):
-        out[num] = aByName[num]
+    out["topicList"] = intersect
+    out["sessionID"] = json["session"]
 
     return json.dumps(out)

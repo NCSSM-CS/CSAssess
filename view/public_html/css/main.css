@@ -76,7 +76,7 @@ textarea {
     padding-right: 10px;
     font-weight: normal !important;
 }
-a:link {text-decoration: none; color:white;} //the original link with no underline
+a:link {text-decoration: none;} //the original link with no underline
 a:visited {text-decoration: none;} //the visited link with no underline
 a:hover {text-decoration: none; font-weight: 800; } //mouseover link and an underline appears
 

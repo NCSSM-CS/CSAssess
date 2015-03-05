@@ -81,5 +81,5 @@ function submitQuery()
     var token = getCookie("token");
 	toSend.session = token;
 	toSend.requestType = "filter";
-    $.post("/cgi-bin/CSAssess/request.py", toSend, searchDatabase, "json");
+    $.post("/cgi-bin/CSAssess/controller/request.py", toSend, searchDatabase, "json");
 }

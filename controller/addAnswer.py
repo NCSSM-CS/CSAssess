@@ -23,19 +23,13 @@ from sql.session import Session
 #isSolution: boolean
 
 def iChooseU(json):
-    #from Ebube
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
-
+    thisUser = findUser()
+    
     question = json["question"]
     content = json["content"]
     isSolution = True 
 
-    newAnswer = Answer.noID(TIME_STAMP, thisUser.id, question, None, content, isSolution, ACTIVE)
+    newAnswer = Answer.noID(None, thisUser, question, None, content, isSolution, ACTIVE)
     newAnswer.add()
 
-    successJson = json.dumps({"success":True, "session":session.toJson()})
-    return successJson 
+    return successJson()

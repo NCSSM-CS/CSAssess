@@ -9,14 +9,12 @@ last_modified date: 3/4/2015
 
 # imports
 import constants
+import utils
 import json
 from sql.user import User
 from sql.question import Question
 from sql.topic import Topic
 from sql.session import Session
-
-# TODO: Session things (and IP address) - EC
-#       Wait for Micah to finish objects (specifically questions) - EC
 
 # Format of questions - EC
 # requestType: question
@@ -27,13 +25,7 @@ from sql.session import Session
 # topic: list of topics
 
 def iChooseU(json):
-    ## This will work later - EC
-    
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    thisUser = findUser()
 
     language = ""
     topics = []
@@ -57,9 +49,7 @@ def iChooseU(json):
                     newTopic.add()
             topics = json[field]
 
-    newQuestion = Question.noID(TIME_STAMP, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
+    newQuestion = Question.noID(None, thisUser, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
-
-    successJson = {"success":True, "session": session.toJson()}
-
-    return json.dumps(successJson)
+    
+    return successJson()

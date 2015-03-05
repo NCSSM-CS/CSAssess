@@ -1,16 +1,16 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 """
 created_by:         Micah Halter
 created_date:       3/3/2015
-last_modified_by:   LZ
-last_modified date: 3/4/2015
+last_modified_by:   John Fang
+last_modified date: 3/5/2015
 """
 
 # imports
 import constants
 import mysql.connector
-from user import User
+from sql.user import User
 from mysql_connect_config import getConfig
 
 # classes
@@ -18,7 +18,13 @@ class Session(object):
 
     def __init__(self, id, timestamp, token, ip, user, active):
         """
-        
+        self        - the session in question
+        id          - the id number of the session 'self' in the database
+        timestamp   - the time at which the session 'self' started
+        token       - a unique 64-bit string for a session 'self'
+        user        - the user partaking in the session 'self'
+        active      - a bit specifying whether the session is active
+
         this function acts as the constructor to define a new session object
         """
         self.id         = id
@@ -47,7 +53,8 @@ class Session(object):
         cursor = cnx.cursor()
 
         returnList = []
-        query = "SELECT * FROM session WHERE token=%s AND ip=%s AND active=%s;" % (searchToken, searchIP, testActive)
+        query = "SELECT * FROM session WHERE token='%s' AND ip='%s' AND active=%s;" % (searchToken, searchIP, testActive)
+        print(query)
         cursor.execute(query)
 
         for (id, timestamp, token, ip, user_id, active) in cursor:
@@ -65,17 +72,20 @@ class Session(object):
         cursor = cnx.cursor()
 
         if self.id is None:
-            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s); SELECT LAST_INSERT_ID();" % (self.token, self.ip, self.user.id, self.active))
+            insert = ("INSERT INTO session (token, ip, user_id, active) VALUES ('%s', '%s', %s, %s);" % (self.token, self.ip, self.user.id, self.active))
             cursor.execute(insert)
-            
-        for (id) in cursor:
-                self.id = id
-            
-        select = ("SELECT timestsamp FROM session WHERE id=%s;" %s (self.id))
-            
-        cursor.execute(select)
-        for (timestamp) in cursor:
-            self.timestamp = timestamp
+
+            select = "SELECT LAST_INSERT_ID();"
+            cursor.execute(select)
+
+            for (id) in cursor:
+                    self.id = id[0]
+
+            select = ("SELECT timestamp FROM session WHERE id=%s;" % (self.id))
+
+            cursor.execute(select)
+            for (timestamp) in cursor:
+                self.timestamp = timestamp[0]
 
         cnx.commit()
         cursor.close()
@@ -128,7 +138,7 @@ class Session(object):
         string += "timestamp: " + str(self.timestamp) + "\n"
         string += "token: "     + str(self.token)     + "\n"
         string += "ip: "        +     self.ip         + "\n"
-        string += "user: "      +     self.user       + "\n"
+        string += "user: "      + str(self.user)      + "\n"
         string += "active: "    + str(self.active)    + "\n"
         return string
     def toJson(self):

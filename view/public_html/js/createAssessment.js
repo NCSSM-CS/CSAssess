@@ -95,3 +95,13 @@ function setSections(sections) {
 function reload() {
     location.reload();
 }
+
+function submitAssignment()
+{
+    var dataDef = {requestType:"getSections","session":getCookie("token"),"username":getCookie("username")};
+    var urlDef = "/cgi-bin/request.py";
+    var dataTypeDef = "json";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    $.post(urlDef, dataDef, setSections, dataTypeDef);
+    Take inputs and send request
+}

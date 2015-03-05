@@ -7,7 +7,7 @@
 function doOnLoad() {
     var token = getCookie("token");
     var dataDef = {"requestType":"getTopics", "session": token};
-    var urlDef = "/cgi-bin/CSAssessrequest.py";
+    var urlDef = "/cgi-bin/CSAssess/controller/request.py";
     var dataTypeDef = "json";
     $.post(urlDef, dataDef, getTopics, dataTypeDef);
 }

@@ -132,7 +132,6 @@ CREATE TABLE `assessment` (
   `created` TIMESTAMP NOT NULL,
   `created_by` INTEGER NOT NULL,
   `type` ENUM('problem_set', 'test', 'quiz') NOT NULL COMMENT 'problem_set, test, quiz',
-  `section_id` INTEGER NOT NULL,
   `name` VARCHAR(255) NOT NULL,
   `active` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
@@ -287,6 +286,18 @@ CREATE TABLE `assessment_topic` (
 );
 
 -- ---
+-- Table 'assessment_section'
+--
+-- ---
+
+DROP TABLE IF EXISTS `assessment_section`;
+
+CREATE TABLE `assessment_section` (
+  `assessment_id` INTEGER NOT NULL,
+  `section_id` INTEGER NOT NULL
+);
+
+-- ---
 -- Foreign Keys 
 -- ---
 
@@ -300,7 +311,6 @@ ALTER TABLE `course` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `section` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `section` ADD FOREIGN KEY (course_id) REFERENCES `course` (`id`);
 ALTER TABLE `assessment` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
-ALTER TABLE `assessment` ADD FOREIGN KEY (section_id) REFERENCES `section` (`id`);
 ALTER TABLE `test_case` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
 ALTER TABLE `test_case` ADD FOREIGN KEY (question_id) REFERENCES `question` (`id`);
 ALTER TABLE `topic` ADD FOREIGN KEY (created_by) REFERENCES `user` (`id`);
@@ -322,6 +332,8 @@ ALTER TABLE `user_assessment` ADD FOREIGN KEY (user_id) REFERENCES `user` (`id`)
 ALTER TABLE `user_assessment` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `assessment_topic` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
 ALTER TABLE `assessment_topic` ADD FOREIGN KEY (topic_id) REFERENCES `topic` (`id`);
+ALTER TABLE `assessment_section` ADD FOREIGN KEY (assessment_id) REFERENCES `assessment` (`id`);
+ALTER TABLE `assessment_section` ADD FOREIGN KEY (section_id) REFERENCES `section` (`id`);
 
 -- ---
 -- Table Properties

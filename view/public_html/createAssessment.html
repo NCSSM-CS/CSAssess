@@ -45,41 +45,66 @@
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="sidebar-brand"><a href="index.html"> Home </a></li>
-				<li><a href="#"> My Profile </a></li>
-				<li><a href="#"> CS402 - Morrison </a></li>
-				<li><a href="#"> CS404 - Boyarsky </a></li>
-				<li><a href="#"> AS305 - Miller </a></li>
-				<li><a href="#"> Question Database </a></li>
+				<li><a href="user_profile.html"> My Profile </a></li>
+				<li><a href="teacher_section.html"> CS402 - Morrison </a></li>
+				<li><a href="teacher_section.html"> CS404 - Boyarsky </a></li>
+				<li><a href="teacher_section.html"> AS305 - Miller </a></li>
+				<li><a href="database.html"> Question Database </a></li>
 				<li>
 					<ul>
 						<li><a href="#">View Question </a></li>
 						<li><a href="addQuestion.html"> Add Question </a></li>
 					</ul>
 				</li>
-				<li><a href="#"> Practice </a></li>
 			</ul>
 			</div>
 		<div id="wrapper">	
             <div id="page-conent-wrapper">
                 <h2 align="center"> Create an Assessment </h2>
-                <div class="container"> 
+                <div class="container-fluid row"> 
                    <div class="col-md-2">
+                        <h4 align="center"> General Info </h4>
+                        <input placeholder="Assignment Name" id="assignmentName"> </input>
                         <select class="practiceElement" id="assesmentType" name="assessmentTypeSelect">
                             <option value="default" selected="selected"> Assessment Type </option>
                             <option value="test">Test</option>
                             <option value="quiz">Quiz</option>
                         </select>
                     </div>
-                    <div class="col-md-2" id="sectionSelect">
+                    <div class="col-md-3" id="sectionSelect">
+                        <h4 align="center"> Section(s) </h4>
                     </div>
-                    <div class="col-md-2" id="topicSelect">
+                    <div class="col-md-3" id="topicSelect">
+                        <h4 align="center"> Topic(s) </h4>
                     </div>
                     <div class="col-md-2">
-                        Difficulties(s)
+                        <h4 align="left"> Difficulty </h4>
+                        <input type="checkbox" name="1" value="1"> 1 <br>
+                        <input type="checkbox" name="2" value="2"> 2 <br>
+                        <input type="checkbox" name="3" value="3"> 3 <br>
+                        <input type="checkbox" name="4" value="4"> 4 <br>
+                        <input type="checkbox" name="5" value="5"> 5 <br>
+                        <input type="checkbox" name="6" value="6"> 6 <br>
+                        <input type="checkbox" name="7" value="7"> 7 <br>
+                        <input type="checkbox" name="8" value="8"> 8 <br>
+                        <input type="checkbox" name="9" value="9"> 9 <br>
+                        <input type="checkbox" name="10" value="10"> 10 <br>
                     </div>
                     <div class="col-md-2">
-                        # of Questions
+                        <h4 align="center"> # of Questions </h4>
+                        <input type="number" min="1" max="100"></input>
                     </div>
+                </div>
+                <div class="container-fluid row">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button btn-default" name="submitAssignment" onclick="submitAssignment()" style="width:90px;height:40px;"> Submit </button>
+                    </div>
+                    <div class="col-md-5">
+                    </div>    
+                </div>
+            
                 </div>
                 </div>
             </div>

@@ -1,80 +1,57 @@
-#!/usr/bin/env python3
+#!/usr/locl/bin/python3
 
-"""
-created_by: Ebube Chuba
-create_date: 3/3/2015
-last_modified_by: Samuel Murray
-last_modified_date: 3/4/2015
-"""
-
-#imports
 import cgi
 import cgitb
 import json
 import sys
 import constants
-#import addTopic
-#import getTopic
-#import updateTopic
-#import activateTopic
-#import getUser
-#import addUser
-#import updateUser
-#import activateUser
-#import getAssessment
-#import addAssessment
-#import updateAssessment
-#import activateAssessment
-import getQuestion
-import addQuestion
-#import updateQuestion
-#import activateQuestion
 
+def processRequest(unprocessedForm):
+    """ Receives cgi.FieldStorage() and returns JSON to be printed"""
+    
+    if unprocessedForm.has_key("requestType"):
+        requestType = unprocessedForm.getvalue("requestType")
+        return '{"success":"success?"}' # testing
+        
+    else:
+        # received form contains no requestType
+        return '{"success":"failure"}'
+
+
+    objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
+    verbList   = [ "add", "get", "update", "activate", "login" ]
+    currVerb = ""
+    currObject = ""
+    
+    # currVerb/Object can only come from the provided lists
+    # protects against injections
+    # safe-ish
+    for i in verbList:
+        if i in requestType:
+            currVerb = i
+    for i in objectList:
+        if i in requestType:
+            currObject = i
+    
+    if currVerb == "login":
+        #TODO is login handled in this file?
+        processedForm = '{"success":"failure"}'
+    else:
+        if currVerb != "" and currObject != "":
+            verbObject = currVerb + currObject
+            # this is supposed to be emulating "eval('import ' + verbObject)"
+            #                   name      |  add to | add to | import [] from | level?
+            module = __import__(verbObject, globals(), locals(), [], 0)
+            processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
+        else:
+            #TODO malformed tags go here?
+            processedForm = '{"success":"failure"}'
+
+#=== Return JSON ===#
 cgitb.enable()
-
 unprocessedForm = cgi.FieldStorage()
-toFile = ""
-#toFile is a file that we will eventually pass the JSON into
-toFile = unprocessedForm["requestType"]
-if constants.DEBUG > 0:
-    print(toFile)
-# Add Topic requestTypes
-#if toFile == "getTopic":
-#    processedForm = getTopic.iChooseU(unprocessedForm)
-#elif toFile == "addTopic":
-#    processedForm = addTopic.iChooseU(unprocessedForm)
-#elif toFile == "updateTopic":
-#    processedForm = updateTopic.iChooseU(unprocessedForm)
-#elif toFile == "activateTopic":
-#    processedForm = activateTopic.iChooseU(unprocessedForm)
-# Add User requestTypes
-#elif toFile == "getUser":
-#    processedForm = getUser.iChooseUunprocessedForm)
-#elif toFile == "addUser":
-#    processedForm = addUser.iChooseU(unprocessedForm)
-#elif toFile == "updateUser":
-#    processedForm = updateUser.iChooseU(unprocessedForm)
-#elif toFile == "activateUser":
-#    processedForm = activateUser.iChooseU(unprocessedForm)
-# Add Assessment requestTypes
-#elif toFile == "getAssessment":
-#    processedForm = getAssessment.iChooseU(unprocessedForm)
-#elif toFile == "addAssessment":
-#    processedForm = addAssessment.iCChooseU(unprocessedForm)
-#elif toFile == "updateAssessment":
-#    processedForm = updateAssessment.iChooseU(unprocessedForm)
-#elif toFile == "activateAssessment":
-#    processedForm = activateAssessment.iChooseU(unprocessedForm)
-# Add Question requestTypes
-elif toFile == "getQuestion":
-    processedForm = getQuestion.iChooseU(unprocessedForm)
-elif toFile == "addQuestion":
-    processedForm = addQuestion.iChooseU(unprocessedForm)
-#elif toFile == "updateQuestion":
-#    processedForm = updateQuestion.iChooseU(unprocessedForm)
-#elif toFile == "activateQuestion":
-#    processedForm = activateQuestion.iChooseU(unprocessedForm)
+
 
 print("Content-Type: application/json; charset=utf-8")
 print()
-print(processedForm)
+print(processRequest(unprocessedForm))
