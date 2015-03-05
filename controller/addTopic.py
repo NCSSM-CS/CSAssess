@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         John Fang
@@ -18,11 +18,11 @@ from sql.session import Session
 #name: "string" 
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = findUser(json)
 
     name = json["name"]
 
     newTopic = Topic.noID(None, thisUser, name, ACTIVE)
     newTopic.add()
 
-    return successJson()
+    return successJson(json)
