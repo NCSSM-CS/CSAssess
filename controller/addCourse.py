@@ -25,12 +25,7 @@ from sql.session import Session
 
 
 def iChooseU(json):
-    #from Ebube
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    findUser()
 
     course = json["course"]
     year = json["year"]
@@ -40,5 +35,4 @@ def iChooseU(json):
     newCourse = Course.noID(TIME_STAMP, thisUser.id, course, year, term, period, ACTIVE)
     newCourse.add()
 
-    successJson = json.dumps({"success":True, "session":session.toJson()})
-    return successJson 
+    successJson()

@@ -25,7 +25,7 @@ from sql.session import Session
 # topic: list of topics
 
 def iChooseU(json):
-    utils.findUser()
+    findUser()
 
     language = ""
     topics = []
@@ -52,4 +52,4 @@ def iChooseU(json):
     newQuestion = Question.noID(TIME_STAMP, thisUser.id, language, qType, difficulty, 1, 1, None, content, topics)
     newQuestion.add()
     
-    utils.successJson()
+    successJson()

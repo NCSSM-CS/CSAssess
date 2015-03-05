@@ -9,6 +9,7 @@ last_modified date: 3/4/2015
 
 # imports
 import constants
+import utils
 import json
 from sql.session import Session
 
@@ -35,11 +36,7 @@ from sql.session import Session
 
 
 def iChooseU(json):
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    findUser()
 
     username = json["username"]
     password = json["password"]
@@ -62,5 +59,4 @@ def iChooseU(json):
     newUser = User.noID(TIME_STAMP, thisUser, 0, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
     newUser.add()
 
-    successJson = json.dumps({"success":True, "session":session.toJson()})
-    return successJson
+    successJson()
