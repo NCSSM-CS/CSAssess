@@ -22,7 +22,7 @@ from sql.session import Session
 #role: []
 
 def iChooseU(json):
-    thisUser = utils.findUser()
+    thisUser = utils.findUser(json)
 
     username = json["username"]
     password = json["password"]
@@ -71,4 +71,4 @@ def iChooseU(json):
     newUser = User.noID(None, thisUser, None, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
     newUser.add()
 
-    return utils.successJson()
+    return utils.successJson(json)
