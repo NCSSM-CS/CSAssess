@@ -141,7 +141,7 @@ function newTopicSelect(e)
         span.appendChild(textArea);
         //<span class="addtopic"><input type="text" class="addtopic" placeholder="Add new topic." id="topic"></span>
         console.log(span);
-        document.getElementById("topicSelect").appendChild(span);
+        document.getElementById("newTopic").appendChild(span);
     }
 }
 function reload() {

@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 
 """
 created_by:         Micah Halter
@@ -242,25 +242,25 @@ class User(object):
         data = {
                 "id"                :     self.id,
                 "created"           : str(self.created),
-                "created by"        :     self.created_by,
-                "last login"        : str(self.last_login),
+                "createdBy"        :     self.created_by,
+                "lastLogin"        : str(self.last_login),
                 "active"            :     self.active,
                 "username"          :     self.username,
                 "password"          :     self.password,
-                "first name"        :     self.first_name,
-                "last name"         :     self.last_name,
+                "firstName"        :     self.first_name,
+                "lastName"         :     self.last_name,
                 "role"              :     self.role,
-                "add assessment"    :     self.add_assessment,
-                "edit user"         :     self.edit_user,
-                "edit question"     :     self.edit_question,
-                "edit answer"       :     self.edit_answer,
-                "edit test case"    :     self.edit_test_case,
-                "edit permission"   :     self.edit_permission,
-                "view student info" :     self.view_student_info,
-                "view teacher info" :     self.view_teacher_info,
-                "view answer"       :     self.view_answer,
-                "view test case"    :     self.view_test_case,
-                "view question"     :     self.view_question,
-                "view all question" :     self.view_all_question
+                "addAssessment"    :     self.add_assessment,
+                "editUser"         :     self.edit_user,
+                "editQuestion"     :     self.edit_question,
+                "editAnswer"       :     self.edit_answer,
+                "editTest case"    :     self.edit_test_case,
+                "editPermission"   :     self.edit_permission,
+                "viewStudent info" :     self.view_student_info,
+                "viewTeacher info" :     self.view_teacher_info,
+                "viewAnswer"       :     self.view_answer,
+                "viewTestCase"    :     self.view_test_case,
+                "viewQuestion"     :     self.view_question,
+                "viewAllQuestion" :     self.view_all_question
                 }
         return json.dumps(data)

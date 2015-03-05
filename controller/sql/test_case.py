@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 
 """
 created_by:         Keshav Patel
@@ -158,7 +158,7 @@ class Test_Case(object):
         data = {
                 "id"         : self.id,
                 "created"    : self.created,
-                "created_by" : self.created_by,
+                "createdBy" : self.created_by,
                 "question"   : self.question,
                 "weight"     : self.weight,
                 "content"    : self.content,

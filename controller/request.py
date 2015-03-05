@@ -1,21 +1,23 @@
-#!/usr/locl/bin/python3
+#!/usr/bin/local/python3
+
+# Author : Caeman + Sam
 
 import cgi
 import cgitb
-import json
+#import json
 import sys
 import constants
 
 def processRequest(unprocessedForm):
     """ Receives cgi.FieldStorage() and returns JSON to be printed"""
     
-    if unprocessedForm.has_key("requestType"):
+    if "requestType" in unprocessedForm:
         requestType = unprocessedForm.getvalue("requestType")
-        return '{"success":"success?"}' # testing
+        #return '{"success":"success?"}' # testing
         
     else:
         # received form contains no requestType
-        return '{"success":"failure"}'
+        return '{"success":"failure","mode":"noRequestType"}'
 
 
     objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
@@ -35,17 +37,17 @@ def processRequest(unprocessedForm):
     
     if currVerb == "login":
         #TODO is login handled in this file?
-        processedForm = '{"success":"failure"}'
+        processedForm = '{"success":"failure","mode":"login"}'
     else:
         if currVerb != "" and currObject != "":
             verbObject = currVerb + currObject
             # this is supposed to be emulating "eval('import ' + verbObject)"
-            #                   name      |  add to | add to | import [] from | level?
-            module = __import__(verbObject, globals(), locals(), [], 0)
+            module = __import__(verbObject)
+            #TODO
             processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
         else:
             #TODO malformed tags go here?
-            processedForm = '{"success":"failure"}'
+            processedForm = '{"success":"failure","mode":"malformed"}'
 
 #=== Return JSON ===#
 cgitb.enable()

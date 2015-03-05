@@ -85,13 +85,10 @@ a:hover {text-decoration: none; font-weight: 800; } //mouseover link and an unde
 	text-align: center;
 	width: 100%;
 }
-
-
-
-
-
-
-
+#newTopic {
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
 
 
 

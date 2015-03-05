@@ -145,7 +145,7 @@ class Question:
         select = "SELECT LAST_INSERT_ID();"
 
         cursor.exectute(select)
-            
+
         for (id) in cursor:
             self.id=id
 >>>>>>> 4456f96c89a6bd16f1f82910319aabb2a74213f9
@@ -246,13 +246,13 @@ class Question:
         data = {
                 "id"            : self.id,
                 "created"       : self.created,
-                "created by"        : self.created_by,
+                "createdBy"        : self.created_by,
                 "language"      : self.language,
                 "type"          : self.atype,
                 "difficulty"        : self.difficulty,
-                "previous_question"  : self.prev_question,
-                "version_number"    : self.version_number,
-                "last_given"        : self.last_given,
+                "previousQuestion"  : self.prev_question,
+                "versionNumber"    : self.version_number,
+                "lastGiven"        : self.last_given,
                 "content"       : self.content,
                 "topics"        : self.topic_list,
                 "active"        : self.active

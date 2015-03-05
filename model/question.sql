@@ -1,5 +1,6 @@
 -- ---
--- Fill in question table.
+-- QUESTION TEST DATA
+-- inserts a selection of questions
 -- ---
 
 INSERT INTO question
@@ -15,7 +16,7 @@ VALUES
     (
 	3,
 	'none',
-	'all',
+	'quiz',
 	10,
 	'Convert the number 1 into binary.',
 	1
@@ -23,7 +24,7 @@ VALUES
     (
 	4,
 	'none',
-	'all',
+	'test',
 	1,
 	'What is 9 x F in hexadecimal?',
 	1
@@ -31,7 +32,7 @@ VALUES
     (
 	3,
 	'python',
-	'all',
+	'quiz',
 	5,
 	'How would you define a class "Test" that inherits from object?',
 	1
@@ -39,7 +40,7 @@ VALUES
     (
 	4,
 	'java',
-	'all',
+	'test',
 	5,
 	'What is the result of new String("Test") == new String("Test")',
 	1
@@ -47,7 +48,7 @@ VALUES
     (
 	3,
 	'none',
-	'all',
+	'quiz',
 	5,
 	'What does Todd Robert\'s wife do for a living?',
 	0
@@ -55,7 +56,7 @@ VALUES
     (
 	4,
 	'java',
-	'all',
+	'test',
 	5,
 	'Where does Java get it\'s name?',
 	0
@@ -63,7 +64,7 @@ VALUES
     (
 	3,
 	'python',
-	'all',
+	'quiz',
 	3,
 	'To what biological phylum does the python belong?',
 	1
@@ -71,7 +72,7 @@ VALUES
     (
 	4,
 	'none',
-	'all',
+	'test',
 	3,
 	'In 300 words or more, explain what "it" is.',
 	1
@@ -79,7 +80,7 @@ VALUES
     (
 	4,
 	'java',
-	'all',
+	'quiz',
 	10,
 	'What is Java?',
 	1
@@ -87,7 +88,7 @@ VALUES
     (
 	4,
 	'python',
-	'all',
+	'test',
 	5,
 	'To what biological subphylum does the python belong?',
 	1
@@ -95,7 +96,7 @@ VALUES
     (
 	3,
 	'python',
-	'all',
+	'quiz',
 	3,
 	'How many coconuts can a swallow carry?',
 	1
@@ -103,7 +104,7 @@ VALUES
     (
 	4,
 	'java',
-	'all',
+	'test',
 	7,
 	'Complete the following sentence: I love Monty ______.',
 	0
@@ -111,7 +112,7 @@ VALUES
     (
 	4,
 	'python',
-	'all',
+	'quiz',
 	7,
 	'To what biological class does the python belong?',
 	1
@@ -119,7 +120,7 @@ VALUES
     (
 	4,
 	'java',
-	'all',
+	'test',
 	2,
 	'In what century did Java coffee emerge?',
 	1
@@ -127,7 +128,7 @@ VALUES
     (
 	3,
 	'none',
-	'all',
+	'quiz',
 	6,
 	'What is the answer to life, the universe, and everything?',
 	1
