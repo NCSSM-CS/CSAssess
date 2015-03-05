@@ -3,8 +3,8 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/4/2015
+last_modified_by:   Aninda Manocha
+last_modified date: 3/5/2015
 """
 
 # imports
@@ -13,27 +13,13 @@ import utils
 import json
 from sql.session import Session
 
-#Format of assessment -KP
-#requestType: addUser
-#last_login        - the date when the user 'self' was last logged in
-#username          - the username of the user 'self'
-#password          - the hashed password of the user 'self'
-#first_name        - the first name of the user 'self'
-#last_name         - the last name of the user 'self'
-#role              - the role of the user 'self'
-#add_assessment    - whether the user 'self' can add assignments or not
-#edit_user         - whether the user 'self' can edit users or not
-#edit_question     - whether the user 'self' can edit questions or not
-#edit_answer       - whether the user 'self' can edit answers or not
-#edit_test_case    - whether the user 'self' can edit test cases or not
-#edit_permission   - whether the user 'self' can edit permissions or not
-#view_student_info - whether the user 'self' can view student information or not
-#view_teacher_info - whether the user 'self' can view teacher information or not
-#view_answer       - whether the user 'self' can view answers or not
-#view_test_case    - whether the user 'self' can view test cases or not
-#view_question     - whether the user 'self' can view questions or not
-#view_all_question - whether the user 'self' can view all questions or not
-
+#Format of assessment -AM
+#requestType: user
+#username: "string"
+#password: "string"
+#firstName: "string"
+#lastName: "string"
+#role: []
 
 def iChooseU(json):
     thisUser = findUser()
@@ -43,20 +29,46 @@ def iChooseU(json):
     firstName = json["firstName"]
     lastName = json["lastName"]
     role = json["role"]
-    addAssessment = json["addAssessment"]
-    editUser = json["editUser"]
-    editQuestion = json["editQuestion"]
-    editAnswer = json["editAnswer"]
-    editTestCase = json["editTestCase"]
-    editPermission = json["editPermission"]
-    viewStudentInfo = json["viewStudentInfo"]
-    viewTeacherInfo = json["viewTeacherInfo"]
-    viewAnswer = json["viewAnswer"]
-    viewTestCase = json["viewTestCase"]
-    viewQuestion = json["viewQuestion"]
-    viewAllQuestion = json["viewAllQuestion"]
 
-    newUser = User.noID(None, thisUser, 0, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
+    addAssessment = 0
+    editUser = 0
+    editQuestion = 0
+    editAnswer = 0
+    editTestCase = 0
+    editPermission = 0
+    viewStudentInfo = 0
+    viewTeacherInfo = 0
+    viewAnswer = 0
+    viewTestCase = 0
+    viewQuestion = 0
+    viewAllQuestion = 0
+
+    if "Admin" in role:
+        editUser = 1
+        editPermission = 1
+        viewTeacherInfo = 1
+    if "Teacher" in role:
+        addAssessment = 1
+        editQuestion = 1
+        editAnswer = 1
+        editTestCase = 1
+        viewStudentInfo = 1
+        viewAnswer = 1
+        viweTestCase = 1
+        viewQuestion = 1
+        viewAllQuestion = 1
+    if "TA" in role:
+        viewStudentInfo = 1
+        viewAnswer = 1
+        viewTestCase = 1
+        viewQuestion = 1
+        viewAllQuestion = 1
+    if "Student" in role:
+        editAnswer = 1
+        viewAnswer = 1
+        viewQuestion = 1
+
+    newUser = User.noID(None, thisUser, None, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
     newUser.add()
 
     return successJson()

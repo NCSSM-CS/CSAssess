@@ -72,8 +72,9 @@
 textarea {
     resize: none;
 }
-.addtopic {
+.addTopic {
     padding-right: 10px;
+    font-weight: normal !important;
 }
 a:link {text-decoration: none;} //the original link with no underline
 a:visited {text-decoration: none;} //the visited link with no underline

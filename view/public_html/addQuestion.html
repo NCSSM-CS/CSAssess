@@ -27,7 +27,7 @@
             }
         </style>
     </head>
-    <body onload="generateTopicCheckboxes()">
+    <body onload="setTopics()">
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -44,53 +44,50 @@
 		</nav>
 		<!-- The navbar on the right side -->
 		<div id="sidebar-wrapper">
-			<ul class="sidebar-nav">
-				<li class="sidebar-brand"><a href="index.html"> Home </a></li>
-				<li><a href="user_profile.html"> My Profile </a></li>
-				<li><a href="teacher_section.html"> CS402 - Morrison </a></li>
-				<li><a href="teacher_section.html"> CS404 - Boyarsky </a></li>
-				<li><a href="teacher_section.html"> AS305 - Miller </a></li>
-				<li><a href="database.html"> Question Database </a></li>
-				<li>
-					<ul>
-						<li><a href="database.html">View Question </a></li>
-						<li><a href="#"> Add Question </a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+				<ul class="sidebar-nav">
+					<li class="sidebar-brand"><a href="index.html"> Home </a></li>
+					<li><a href="database.html"> Question Database </a></li> 
+					<li>
+						<ul>
+							<li><a href="database.html">View Question </a></li>
+							<li><a href="#"> Add Question </a></li>
+						</ul>
+					</li>
+					<li><a href="practice.html"> Practice </a></li>
+				</ul>
+                </div>
 		<div id="wrapper">
         <div class="row pageContentHeader">
             Add a Question To The Database
         </div>
         <div class="row practiceContent">
-			<textarea rows="10" cols="125" id="questionSubmit" placeholder="Text of the question you want to add. "></textarea><br>
-			<textarea rows="10" cols="125" id="answerSubmit" placeholder="Text of the answer to the question you want to add. "></textarea><br>
-			<input type="text" placeholder="Language" id="language">
-			<!--TODO: better way to handle multiple topics !-->
-			<select class="practiceElement" id="difficulty" name="difficultySelect">
-				<option value="default" selected="selected">Difficulty</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</select>
-				<input type="checkbox" id="quiz" value="quiz">Quiz
-				<input type="checkbox" id="test" value="test">Test
-				<input type="checkbox" id="practice" value="practice">Practice
-				<div class="row" id="topicSelect">
-					<span class="addTopic">Current topics: </span>
-					<span class="addTopic"><input type="checkbox" class="addTopic" id="searching" value="searching"> Searching</span>    
-					<span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
-				</div>
-			<input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
-			<input type="button" class="practiceElement" value="Clear Question Entry" onclick="reload()">
+            <textarea rows="10" cols="150" id="questionSubmit" placeholder="Text of the question you want to add. "></textarea><br>
+            <textarea rows="10" cols="150" id="answerSubmit" placeholder="Text of the answer to the question you want to add. "></textarea><br>
+            <input type="text" placeholder="Language" id="language">
+            <!--TODO: better way to handle multiple topics !-->
+            <select class="practiceElement" id="difficulty" name="difficultySelect">
+                <option value="default" selected="selected">Difficulty</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+                <input type="checkbox" id="quiz" value="quiz">Quiz
+                <input type="checkbox" id="test" value="test">Test
+                <input type="checkbox" id="practice" value="practice">Practice
+                <div class="row" id="topicSelect">
+                    <span class="addTopic">Current topics: </span>
+                    <span class="addTopic"><input type="checkbox" class="addTopic" id="searching" value="searching"> Searching</span>    
+                </div>
+            <span class="addTopic"><input type="text" placeholder="Add new topic." id="topic" onkeydown="newTopicSelect(event)"></span>
+            <input type="button" class="practiceElement" value="Submit Question" onclick="submitQuestion()">
+            <input type="button" class="practiceElement" value="Clear Question Entry" onclick="reload()">
         </div>
       </div> 
       <footer>
