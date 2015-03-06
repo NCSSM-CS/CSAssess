@@ -46,7 +46,7 @@ function submitQuestion() {
         alert("Your question was not added to the database.");
         return false;
     }
-    var urlDef = "/cgi-bin/request.py";
+    var urlDef = "/cgi-bin/CSAssess/controller/request.py";
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
   //$.post(urlDef, dataDef, success);
     //Gives the question information to the database. 
