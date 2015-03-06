@@ -141,7 +141,7 @@ class Question:
 
             select = "SELECT LAST_INSERT_ID();"
 
-            cursor.exectute(select)
+            cursor.execute(select)
 
             for (id) in cursor:
                 self.id=id
