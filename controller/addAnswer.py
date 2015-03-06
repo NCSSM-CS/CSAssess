@@ -22,14 +22,14 @@ from sql.session import Session
 #content: "string"
 #isSolution: boolean
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
     
-    question = Question.get(json["question"])[0]
-    content = json["content"]
+    question = Question.get(form["question"])[0]
+    content = form["content"]
     isSolution = True 
 
     newAnswer = Answer.noID(None, thisUser, thisQuestion, None, content, isSolution, ACTIVE)
     newAnswer.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
