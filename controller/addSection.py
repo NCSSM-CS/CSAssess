@@ -3,8 +3,8 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
-last_modified date: 3/5/2015
+last_modified_by:   Keshav Patel
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -22,16 +22,16 @@ from sql.session import Session
 #term: "string"
 #period: "string"
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    course = json["course"]
+    course = form["course"]
     theCourse = Course.get(course["id"])[0]
-    year = json["year"]
-    term = json["term"]
-    period = json["period"]
+    year = form["year"]
+    term = form["term"]
+    period = form["period"]
 
     newSection = Section.noID(None, thisUser, theCourse, year, term, period, ACTIVE)
     newSection.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)

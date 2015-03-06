@@ -3,8 +3,8 @@
 """
 created_by:         Aninda Manocha
 created_date:       3/5/2015
-last_modified_by:   Aninda Manocha
-last_modified date: 3/5/2015
+last_modified_by:   Keshav Patel
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -20,13 +20,13 @@ from sql.comment import Comment
 #answer: integer
 #content: "string"
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    answer = Answer.get(json["answer"])[0]
-    content = json["content"]
+    answer = Answer.get(form["answer"])[0]
+    content = form["content"]
 
     newComment = Comment.noID(None, thisUser, answer, content, ACTIVE)
     newComment.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)

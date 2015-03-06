@@ -3,8 +3,8 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
-last_modified date: 3/5/2015
+last_modified_by:   Keshav Patel
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -22,13 +22,13 @@ from sql.session import Course
 # name: "string"
 
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    courseCode = json["courseCode"]
-    name = json["name"]
+    courseCode = form["courseCode"]
+    name = form["name"]
 
     newCourse = Course.noID(None, thisUser, courseCode, name, ACTIVE)
     newCourse.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
