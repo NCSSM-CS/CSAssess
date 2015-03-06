@@ -40,7 +40,7 @@ class Test_Case(object):
         self.active      = active
 
     @classmethod
-    def noID(self, created, created_by, question, weight, content, active):
+    def noID(self, created_by, question, weight, content, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -50,7 +50,7 @@ class Test_Case(object):
         this function acts as a second constructor where you have created a
         test_case that has not yet been assigned an id from the database
         """
-        return self(self, created, created_by, question, weight, content, active)
+        return self(None, None, created_by, question, weight, content, active)
 
     def __eq__(self, other):
         """

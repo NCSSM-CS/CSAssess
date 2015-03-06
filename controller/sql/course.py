@@ -36,7 +36,7 @@ class Course(object):
         self.active      = active
 
     @classmethod
-    def noID(self, created, created_by, course_code, name, active):
+    def noID(self, created_by, course_code, name, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -46,7 +46,7 @@ class Course(object):
         this function acts as a second constructor where you have created a
         course that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, course_code, name, active)
+        return self(None, None, created_by, course_code, name, active)
 
     def __eq__(self, other):
         """

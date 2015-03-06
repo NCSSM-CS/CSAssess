@@ -123,7 +123,7 @@ class Comment(object):
         this function acts as a second constructor where you have created a
         comment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, answer, content, active)
+        return self(None, None, created_by, answer, content, active)
 
     def __eq__(self, other):
         """

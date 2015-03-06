@@ -69,7 +69,7 @@ class User(object):
         self.active            = active
 
     @classmethod
-    def noID(self, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
+    def noID(self, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -79,7 +79,7 @@ class User(object):
         this function acts as a second constructor where you have created a
         user that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active)
+        return self(None, None, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active)
 
     def __eq__(self, other):
         """
