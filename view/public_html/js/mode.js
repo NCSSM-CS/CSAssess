@@ -1,5 +1,8 @@
 //CEW 
 
+//Holds assessment metadata
+var assessmentInfo;
+
 //isCalled toggles on and off with call of returnValues
 var isCalled = false;
 
@@ -215,6 +218,6 @@ function createProgress(){
 //CEW
  function makeTheTestPage(data){
   console.log(data["assessmentList"]);
-  console.log(data["session"]);  
+  assessmentInfo = data["assessmentList"];
   console.log(data);
  }
