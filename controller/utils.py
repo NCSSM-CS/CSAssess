@@ -20,6 +20,7 @@ def findUser(form):
     return thisUser
 
 def successJson(form):
+    return json.dumps({"success":True, "session":"127.0.0.1/test"})
     session = Session.get("1234567890123456789012345678901234567890123456789012345678901234", "127.0.0.1")[0]
     successJson = json.dumps({"success":True, "session":session.toJson()})
     return successJson
