@@ -96,9 +96,9 @@ class Answer(object):
             query = "SELECT * FROM answer;"
         elif type(search) is int:
             query = ("SELECT * FROM answer WHERE id=%s" % (search))
-        elif str(type(search)) == "<class 'question.Question'>":
+        elif str(type(search)) == "<class 'sql.question.Question'>":
             query = ("SELECT * FROM answer WHERE question_id=%s" % (search.id))
-        elif str(type(search)) == "<class 'user.User'>":
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = ("SELECT * FROM answer WHERE created_by=%s" % (search.id))
 
         query += (" WHERE active=%s;" if search=="all" else " AND active=%s") % (testActive)

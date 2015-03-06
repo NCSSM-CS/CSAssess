@@ -157,25 +157,25 @@ class Question:
             query = "SELECT * FROM question"
         elif id is not 0:
             query = "SELECT * FROM question WHERE id=%s" % (id)
-        elif str(type(search)) == "<class 'user.User'>":
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = "SELECT * FROM question WHERE created_by=%s" % (search.id)
         elif type(search) is str:
             query = "SELECT * FROM question WHERE (language='%s' OR type='%s')" % (search, search)
         elif type(search) is int:
             query = "SELECT * FROM question WHERE difficulty=%s" % (search)
-        elif str(type(search)) == "<class 'answer.Answer'>":
+        elif str(type(search)) == "<class 'sql.answer.Answer'>":
             query = ("SELECT q.* FROM answer AS a "
                      "INNER JOIN question AS q ON a.question_id=q.id "
                      "WHERE a.question_id=%s" % (search.id))
-        elif str(type(search)) == "<class 'test_case.Test_Case'>":
+        elif str(type(search)) == "<class 'sql.test_case.Test_Case'>":
             query = ("SELECT q.* FROM test_case AS t "
                      "INNER JOIN question AS q ON t.question_id=q.id "
                      "WHERE t.question_id=%s" % (search.id))
-        elif str(type(search)) == "<class 'topic.Topic'>":
+        elif str(type(search)) == "<class 'sql.topic.Topic'>":
             query = ("SELECT q.* FROM question_topic AS qt "
                      "INNER JOIN question AS q ON qt.question_id=q.id "
                      "WHERE qt.topic_id=%s" % (search.id))
-        elif str(type(search)) == "<class 'assessment.Assessment'>":
+        elif str(type(search)) == "<class 'sql.assessment.Assessment'>":
             query = ("SELECT q.* FROM assessment_question AS aq "
                      "INNER JOIN question AS q ON aq.question_id=q.id "
                      "WHERE aq.assessment_id=%s" % (search.id))

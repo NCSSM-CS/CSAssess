@@ -188,9 +188,9 @@ class User(object):
             query = ("SELECT * FROM user WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM user WHERE (first_name LIKE '%s%%' OR last_name LIKE '%s%%')" % (search, search))
-        elif str(type(search)) == "<class 'section.Section'>":
+        elif str(type(search)) == "<class 'sql.section.Section'>":
             query = ("SELECT * FROM user WHERE section_id='%s'" % (search.id))
-        elif str(type(search)) == "<class 'assessment.Assessment'>":
+        elif str(type(search)) == "<class 'sql.assessment.Assessment'>":
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
                      "WHERE ua.assessment_id=%s"

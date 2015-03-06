@@ -18,18 +18,13 @@ from sql.session import Session
 #section: "string"
 #assessment: "string"
 
-def iChooseU(json):
-    #from Ebube pt. 2
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    firstName = json["firstName"]
-    lastName = json["lastName"]
-    section = json["section"]
-    assessment = json["assessment"]
+    firstName = form["firstName"]
+    lastName = form["lastName"]
+    section = form["section"]
+    assessment = form["assessment"]
 
     complete = []
     count = 0
@@ -55,8 +50,6 @@ def iChooseU(json):
             collect.append(response)
         else:
             intersect.add(response)
-
-            
 
     out = {}
     

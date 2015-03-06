@@ -10,7 +10,8 @@ from sql.user import User
 from sql.session import Session
 
 def findUser(json):
-    session = Session.get("1234567890123456789012345678901234567890123456789012345678901234", "127.0.0.1")[0]
+    return User.get(1)[0]
+    session = Session.get(json["session"], )[0]
     thisUser = session.user
     if DEBUG > 1:
         print(thisUser)

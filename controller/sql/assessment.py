@@ -168,18 +168,18 @@ class Assessment(object):
             query = ("SELECT * FROM assessment WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM assessment WHERE name='%s'" % (search))
-        elif str(type(search)) == "<class 'user.User'>":
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = ("SELECT * FROM assessment WHERE created_by=%s" % (search.id))
-        elif str(type(search)) == "<class 'section.Section'>":
+        elif str(type(search)) == "<class 'sql.section.Section'>":
             query = ("SELECT * FROM assessment_section AS asec "
                      "INNER JOIN assessment AS a ON asec.assessment_id=a.id "
                      "WHERE section_id=%s" % (search.id))
-        elif str(type(search)) == "<class 'course.Course'>":
+        elif str(type(search)) == "<class 'sql.course.Course'>":
             query = ("SELECT a.*, c.id FROM section AS s "
                      "INNER JOIN assessment AS a ON s.id=a.section_id "
                      "INNER JOIN course AS c ON s.course_id=c.id WHERE c.id=%s"
                      % (search.id))
-        elif str(type(search)) == "<class 'question.Question'>":
+        elif str(type(search)) == "<class 'sql.question.Question'>":
             query = ("SELECT a.* FROM assessment_question as aq "
                      "INNER JOIN assessment AS a ON aq.assessment_id=a.id "
                      "WHERE aq.question_id=%s" % (search.id))

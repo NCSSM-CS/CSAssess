@@ -31,9 +31,9 @@ def iChooseU(form):
     section = Section.get(0, form["section"])[0]
     jtype = json["jtype"]
     assessment = Assessment.get(0, form["assessment"])[0]
-    assignedTo = User.get(0, form["assignedTo"])[0]
+    assignedTo = User.get(0, None, form["assignedTo"])[0]
     content = form["content"]
-    takenByUser = form["takenByUser"]
+    takenByUser = User.get(form["takenByUser"])[0]
 
     newJob = Job.noID(None, thisUser, section, jtype, assessment, assignedTo, content, takenByUser, ACTIVE)
     newJob.add()
