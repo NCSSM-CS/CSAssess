@@ -148,7 +148,7 @@ class Session(object):
                 "timestamp" : str(self.timestamp),
                 "token"     : self.token,
                 "ip"        : self.ip,
-                "user"      : self.user,
+                "user"      : self.user.toJson(),
                 "active"    : self.active
                 }
         return json.dumps(data)
