@@ -8,6 +8,7 @@ last_modified date: 3/5/2015
 """
 
 # imports
+import utils
 from sql.user import User
 from sql.session import Session
 
