@@ -3,7 +3,7 @@
 """
 created_by:         John Fang
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
+last_modified_by:   Ebube Chuba
 last_modified_date: 3/6/2014
 """
 
@@ -24,11 +24,11 @@ import json
 def iChooseU(form):
     thisUser = utils.findUser(form)
 
-    name = form["name"]
-    user = form["user"]
-    section = form["section"]
-    course = form["course"]
-    question = form["question"]
+    name = form.getlist("name")[0]
+    user = form.getlist("user")[0]
+    section = form.getlist("section")[0]
+    course = form.getlist("course")[0]
+    question = form.getlist("question")[0]
 
     complete = []
     count = 0
@@ -60,6 +60,6 @@ def iChooseU(form):
 
     out = {}
     out["assessmentList"] = intersect
-    out["sessionID"] = form["session"]
+    out["sessionID"] = form.getlist("session")[0]
 
     return json.dumps(out)
