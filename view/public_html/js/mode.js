@@ -90,7 +90,6 @@ function changeButtClass(that){
   
   
   //Updates current editor text
-  console.log(that.textContent);
   editor.setValue(answers[that.textContent-1]);
   
   //Changes prevbutt color depending on whether or not text is in the textarea
