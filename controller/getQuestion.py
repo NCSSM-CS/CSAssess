@@ -35,7 +35,7 @@ def iChooseU(form):
         complete += Question.get(0, Topic.get(topic[0])[0])
         count += 1
     if len(difficulty) != 0:
-        complete += Question.get(0, difficulty[0])
+        complete += Question.get(0, int(difficulty[0]))
         count += 1
 
     print(complete)
