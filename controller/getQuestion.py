@@ -4,7 +4,7 @@
 created_by:         Ebube Chuba
 created_date:       3/4/2015
 last_modified_by:   Ebube Chuba
-last_modified date: 3/4/2015
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -12,7 +12,6 @@ import json
 import utils
 from sql.user import User
 from sql.question import Question
-from sql.session import Session
 
 # Format of JSON - EC
 # requestType: getQuestion
@@ -24,19 +23,19 @@ def iChooseU(form):
     thisUser = utils.findUser(form)
     
     qByType = []
-    for i in range(len(json["topics"])):
-        theseQuestions = Question.get(0, json["topics"][i])
+    for i in range(len(form.getlist("topics"))):
+        theseQuestions = Question.get(0, form.getlist("topics")[i])
         for j in range(len(theseQuestions)):
             thisQuestion = theseQuestions[j]
             if not thisQuestion in qByType:
                 qByType.append(thisQuestion)
-    qByDiff = Question.get(0, form["difficulty"])
+    qByDiff = Question.get(0, form.getlist("difficulty")[0])
     intersect = [];
     for q in qByType:
         if q in qByDiff:
             intersect.append(q.toJson())
     out = {}
     out["questionList"] = intersect
-    out["sessionID"] = form["session"]
+    out["sessionID"] = form.getlist("session")[0]
     
     return json.dumps(out)
