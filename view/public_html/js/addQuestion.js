@@ -8,27 +8,26 @@ questions to the database.
 function submitQuestion() {
     //Gets the content of the input fields
     var questionContent = $("#questionSubmit").val();
-    //var language = $("#language").val();
+    var language = $("#language").val();
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
-    var type = "";
-    var language = "Java";
-    if($('#test').is(':checked')) type += "test" + " ";
-    else if($('#quiz').is(':checked')) type += "quiz" + " ";
-    else if($('#practice').is(':checked')) type  += "quiz" + " ";
+    var types = "";
+    if($('#test').is(':checked')) types += "test" + " ";
+    else if($('#quiz').is(':checked')) types += "quiz" + " ";
+    else if($('#practice').is(':checked')) types += "practice" + " ";
     //var topics = getTopics();
     var topics= ["search"];
     //Gets the token cookie, where the session data is stored. 
     var token = getCookie("token");
     //Defines the JSON to be returned
-    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent, "qType": type};
+    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent, "qType": types};
     //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
         return false;
     }
-    if(type == "") {
+    if(types == "") {
         alert("Please select a type");
         return false;
     }
@@ -51,6 +50,7 @@ function submitQuestion() {
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
   //$.post(urlDef, dataDef, success);
     //Gives the question information to the database. 
+    console.log(dataDef);
     $.ajax({
        // type: "POST",
         type: "GET",
