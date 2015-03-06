@@ -23,8 +23,8 @@ from sql.topic import Topic
 def iChooseU(form):
     thisUser = utils.findUser(form)
     
-    topic = form.getlist("firstName")[0]
-    difficulty = form.getlist("lastName")[0]
+    topic = form.getlist("topic")[0]
+    difficulty = form.getlist("difficulty")[0]
 
     complete = []
     count = 0
