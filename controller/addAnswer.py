@@ -25,8 +25,7 @@ from sql.session import Session
 def iChooseU(json):
     thisUser = utils.findUser(json)
     
-    question = json["question"]
-    thisQuestion = Question.get(question)[0]
+    question = Question.get(json["question"])[0]
     content = json["content"]
     isSolution = True 
 
