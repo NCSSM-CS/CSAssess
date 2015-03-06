@@ -3,8 +3,8 @@
 """
 created_by:         Aninda Manocha
 created_date:       3/5/2015
-last_modified_by:   Aninda Manocha
-last_modified_date: 3/5/2015
+last_modified_by:   Keshav Patel
+last_modified_date: 3/6/2015
 """
 
 # imports
@@ -18,19 +18,19 @@ from sql.test_case import Test_Case
 
 #Format of test case -AM
 #requestType: addTestCase
-#question: Question
-#weight: integer
-#content: "string"
+#question: question id  integer
+#weight:                integer
+#content:               string
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    question = json["question"]
-    theQuestion = Question.get(question["id"])[0]
-    weight = json["weight"]
-    content = json["content"]
+    question = form["question"]
+    theQuestion = Question.get(question)[0]
+    weight = form["weight"]
+    content = form["content"]
 
     newTestCase = Test_Case.noID(None, thisUser, theQuestion, weight, content, ACTIVE)
     newTestCase.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
