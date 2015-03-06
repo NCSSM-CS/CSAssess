@@ -133,7 +133,9 @@ class Question:
             cnx = mysql.connector.connect(**getConfig())
             cursor = cnx.cursor()
 
-            insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, (self.prev_question.id if type(self.prev_question.id) is Question else "Null"), self.version_number, self.last_given, self.content, self.active))
+            print(type(self.created_by))
+            print(type(self.prev_question))
+            insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, '%s', '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, (self.prev_question.id if type(self.prev_question) is Question else "Null"), self.version_number, self.last_given, self.content, self.active))
             print(insert)
             cursor.execute(insert)
 
