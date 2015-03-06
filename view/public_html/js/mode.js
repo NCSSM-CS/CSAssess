@@ -10,7 +10,9 @@ var editor;
 var isCompleted;
 
 //Stores answers, initialized to number of questions on test
-var answers = new Array(10);
+var answers;
+
+var numQuest;
 
 function returnValues(val)
 {
@@ -66,7 +68,7 @@ function returnValues(val)
 }
 //CEW
 //Originally stores first button, then changes as buttons are clicked.
-var prevButt;
+var prevButt = document.getElementById("currentQuest");
 //Index of Question. Used to reference into answers
 var indexQuest;
 
@@ -86,7 +88,9 @@ function changeButtClass(that){
   //Saves answer to answers
   answers[indexQuest] = editor.getValue();
   
+  
   //Updates current editor text
+  console.log(that.textContent);
   editor.setValue(answers[that.textContent-1]);
   
   //Changes prevbutt color depending on whether or not text is in the textarea
@@ -151,8 +155,11 @@ function initialPython(){
   var dataTypeDef = "json";
   //Gets assessment
   $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
-  console.log("Please work. CEW needs this to work");
   
+  numQuests = 5;
+  answers = new Array(numQuests);
+  
+  createProgress();
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
   }
@@ -168,6 +175,25 @@ function initialPython(){
       languageArgs);
    isCalled = true;
 }
+
+//CEW
+//creates the progress buttons
+function createProgress(){
+  for (var i=0;i<numQuests;i++){
+    var btn = document.createElement("BUTTON");
+    var questNum = document.createTextNode(i+1);
+    if (i==0){
+      btn.setAttribute("class","btn btn-default btn-success");
+      btn.setAttribute("id","currentQuest");
+    }else{
+      btn.setAttribute("class","btn btn-default");
+    }
+    btn.setAttribute("onclick","changeButtClass(this)");
+    btn.appendChild(questNum);
+    document.getElementById("progress").appendChild(btn);
+  }
+}
+
 
 //CEW
  function makeTheTestPage(data){
