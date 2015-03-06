@@ -10,11 +10,11 @@ last_modified date: 3/5/2015
 # imports
 import json
 import constants
-from user import User
-from question import Question
-from topic import Topic
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.question import Question
+from sql.topic import Topic
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Assessment(object):

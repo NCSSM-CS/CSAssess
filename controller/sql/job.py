@@ -9,12 +9,12 @@ last_modified_date: 3/4/2015
 
 #imports
 import constants
-from user import User
-from section import Section
-from assessment import Assessment
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.section import Section
+from sql.assessment import Assessment
+from sql.mysql_connect_config import getConfig
 
 class Job(object):
     'Job object to hold attributes and functions for a job.'

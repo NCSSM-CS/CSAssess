@@ -9,11 +9,11 @@ last_modified date: 3/4/2015
 
 # imports
 import constants
-from user import User
-from course import Course
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.course import Course
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Section(object):

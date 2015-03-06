@@ -11,7 +11,7 @@ last_modified date: 3/5/2015
 import constants
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.mysql_connect_config import getConfig
 
 # classes
 class User(object):

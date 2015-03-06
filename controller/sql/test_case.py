@@ -9,7 +9,10 @@ last_modified date: 3/5/2015
 
 # imports
 import constants
-from question import Question
+import json
+import mysql.connector
+from sql.question import Question
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Test_Case(object):

@@ -11,9 +11,9 @@ last_modified date: 3/5/2015
 import constants
 import json
 import mysql.connector
-from user import User
-from question import Question
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.question import Question
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Answer(object):

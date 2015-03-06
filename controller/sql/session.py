@@ -10,8 +10,8 @@ last_modified date: 3/5/2015
 # imports
 import constants
 import mysql.connector
-from user import User
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Session(object):

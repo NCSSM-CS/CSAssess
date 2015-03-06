@@ -1,33 +1,20 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
-import constants
-import sys
+from sql.answer import Answer
+from sql.assessment import Assessment
+from sql.comment import Comment
+from sql.course import Course
+from sql.job import Job
+from sql.question import Question
+from sql.section import Section
+from sql.session import Session
+from sql.test_case import Test_Case
+from sql.topic import Topic
+from sql.user import User
 
-import viewAssessment
-import viewAnswer
-import viewJob
-import viewTestCase
-import viewQuestion
-import viewTopic
-import viewSection
-import viewCourse
-import viewUser
+x = User.get(3)[0]
 
-import editAssessment
-import editQuestion
-import editTopic
-import editSection
-import editCourse
-import editComment
-import editUser
+y = Course.get()
 
-
-from assessment import Assessment
-from question import Question
-from topic import Topic
-from section import Section
-from course import Course
-from user import User
-from comment import Comment
-
-print(viewUser.byID(1).toJson())
+for i in y:
+    print(i)

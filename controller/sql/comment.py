@@ -11,9 +11,9 @@ last_modified date: 3/5/2015
 import constants
 import json
 import mysql.connector
-from user import User
-from answer import Answer
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.answer import Answer
+from sql.mysql_connect_config import getConfig
 # classes
 class Comment(object):
     'Comment object to hold attributes and functions for an assessment'
