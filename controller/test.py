@@ -13,6 +13,7 @@ from sql.topic import Topic
 from sql.user import User
 
 user = User.get(6)[0]
+print(type(user.created))
 
 section = Section.get(None, None, None, user)
 
