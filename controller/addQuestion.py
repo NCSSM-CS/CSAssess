@@ -30,7 +30,7 @@ def iChooseU(form):
     content = form.getlist("content")[0]
     language = form.getlist("language")[0]
     difficulty = form.getlist("difficulty")[0]
-    qType = form["qType"]
+    qType = form.getlist("qType")[0]
     topics = []
     for topic in form.getlist("topics"):
         topics.append(Topic.get(0, topic)[0])
