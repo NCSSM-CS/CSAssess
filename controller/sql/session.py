@@ -9,6 +9,7 @@ last_modified date: 3/5/2015
 
 # imports
 import constants
+import json
 import mysql.connector
 from sql.user import User
 from sql.mysql_connect_config import getConfig
