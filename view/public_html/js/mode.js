@@ -165,6 +165,9 @@ function initialPython(){
                   "course": "",
                   "question": 1
                  };
+  
+  console.log(dataDef);
+  
   var dataTypeDef = "json";
   //Gets assessment
   $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
