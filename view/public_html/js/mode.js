@@ -169,7 +169,7 @@ function initialPython(){
                   "question": 1
                  };
   
-  console.log(dataDef);
+  //{ requestType: "getAssessment", session: 0, name: "t0", user: "", section: "", course: "", question: 1 }
   
   var dataTypeDef = "json";
   //Gets assessment
