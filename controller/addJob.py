@@ -4,7 +4,7 @@
 created_by: Aninda Manocha
 created_date: 3/5/2015
 last_modified_by: Aninda Manocha
-last_modified_date: 3/5/2015
+last_modified_date: 3/6/2015
 """
 
 #imports
@@ -18,27 +18,24 @@ from sql.assessment import Assessment
 from sql.job import Job
 
 #Format of job -AM
-#section: Section
+#section: "string"
 #jtype: "string"
-#assessment: Assessment
-#assignedTo: User
+#assessment: "string"
+#assignedTo: "string"
 #content: "string"
 #takenByUser: integer
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    section = json["section"]
-    theSection = Section.get(section["id"])[0]
+    section = Section.get(0, form["section"])[0]
     jtype = json["jtype"]
-    assessment = json["assessment"]
-    theAssessment = Assessment.get(assessment["id"])[0]
-    assignedTo = json["assignedTo"]
-    theAssignedTo = User.get(assignedTo["id"])[0]
-    content = json["content"]
-    takenByUser = json["takenByUser"]
+    assessment = Assessment.get(0, form["assessment"])[0]
+    assignedTo = User.get(0, form["assignedTo"])[0]
+    content = form["content"]
+    takenByUser = form["takenByUser"]
 
-    newJob = Job.noID(None, thisUser, theSection, jtype, theAssessment, theAssignedTo, content, takenByUser, ACTIVE)
+    newJob = Job.noID(None, thisUser, section, jtype, assessment, assignedTo, content, takenByUser, ACTIVE)
     newJob.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
