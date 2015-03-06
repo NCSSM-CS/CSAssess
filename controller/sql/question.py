@@ -240,7 +240,7 @@ class Question:
         data = {
                 "id"               :     self.id,
                 "created"          : str(self.created),
-                "createdBy"        :     self.created_by,
+                "createdBy"        :     self.created_by.toJson(),
                 "language"         :     self.language,
                 "type"             :     self.atype,
                 "difficulty"       :     self.difficulty,
