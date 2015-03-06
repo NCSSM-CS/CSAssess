@@ -43,7 +43,7 @@ def iChooseU(form):
         if collect.count(response) < count and count > 1:
             collect.append(response)
         else:
-            intersect.add(response.toJson())
+            intersect.append(response.toJson())
 
     out = {}
     out["questionList"] = intersect
