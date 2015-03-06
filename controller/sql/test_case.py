@@ -9,7 +9,10 @@ last_modified date: 3/5/2015
 
 # imports
 import constants
-from question import Question
+import json
+import mysql.connector
+from sql.question import Question
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Test_Case(object):
@@ -68,7 +71,8 @@ class Test_Case(object):
         self.question    == other.question    and
         self.weight      == other.weight      and
         self.content     == other.content     and
-        self.active      == self.active)
+        self.active      == other.active
+        ) if type(other) is Test_Case else False
 
     def __str__(self):
         """
@@ -116,9 +120,9 @@ class Test_Case(object):
             query = "SELECT * FROM test_cases"
         elif type(search) is int:
             query = "SELECT * FROM test_cases WHERE id=%s" % (search)
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'user.User'>":
             query = "SELECT * FROM test_cases WHERE created_by=%s" % (search.id)
-        elif type(search) is Question:
+        elif str(type(search)) == "<class 'question.Question'>":
             query = "SELECT * FROM test_cases WHERE question_id=%s" % (search.id)
         query += (" WHERE active=%s;" if search=="all" else " AND active=%s;") % (testActive)
 

@@ -1,16 +1,19 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Aninda Manocha
 created_date:       3/4/2015
 last_modified_by:   Aninda Manocha
-last_modified date: 3/4/2015
+last_modified date: 3/5/2015
 """
 
 # imports
 import constants
+import utils
 import json
 from sql.session import Session
+from sql.user import User
+from sql.assessment import Assessment
 
 #Format of assessment -AM
 #requestType: assessment
@@ -21,7 +24,7 @@ from sql.session import Session
 #topic_list: list of topics
 
 def iChooseU(json):
-    thisUser = findUser()
+    thisUser = utils.findUser(json)
 
     atype = json["type"]
     section = json["section"]
@@ -32,4 +35,4 @@ def iChooseU(json):
     newAssessment = Assessment.noID(None, thisUser, atype, section, name, question_list, topic_list, 1)
     newAssessment.add()
 
-    return successJson()
+    return utils.successJson(json)

@@ -9,11 +9,11 @@ last_modified date: 3/4/2015
 
 # imports
 import constants
-from user import User
-from course import Course
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.course import Course
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Section(object):
@@ -75,7 +75,8 @@ class Section(object):
         self.year       == other.year       and
         self.term       == other.term       and
         self.period     == other.period     and
-        self.active     == other.active)
+        self.active     == other.active
+        ) if type(other) is Section else False
 
     def __str__(self):
         """
@@ -167,9 +168,9 @@ class Section(object):
                      "WHERE su.user_id=%s" % (search.id))
         elif type(search) is int:
             query = ("SELECT * FROM section WHERE id = %s" % (search))
-        elif type(search) is user:
+        elif str(type(search)) == "<class 'user.User'>":
             query = ("SELECT * FROM section WHERE created_by = %s" % (search.id))
-        elif type(search) is course:
+        elif str(type(search)) == "<class 'course.Course'>":
             query = ("SELECT * FROM section WHERE course_id = %s" % (search.id))
         elif type(search) is str:
             query = ("SELECT * FROM section WHERE period = '%s'" % (search))

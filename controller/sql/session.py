@@ -11,7 +11,7 @@ last_modified date: 3/5/2015
 import constants
 import mysql.connector
 from sql.user import User
-from mysql_connect_config import getConfig
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Session(object):
@@ -54,7 +54,6 @@ class Session(object):
 
         returnList = []
         query = "SELECT * FROM session WHERE token='%s' AND ip='%s' AND active=%s;" % (searchToken, searchIP, testActive)
-        print(query)
         cursor.execute(query)
 
         for (id, timestamp, token, ip, user_id, active) in cursor:
@@ -122,7 +121,8 @@ class Session(object):
         self.token      == other.token      and
         self.ip         == other.ip         and
         self.user       == other.user       and
-        self.active     == other.active)
+        self.active     == other.active
+        ) if type(other) is Session else False
 
     def __str__(self):
         """

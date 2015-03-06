@@ -11,8 +11,8 @@ last_modified date: 3/5/2015
 import constants
 import json
 import mysql.connector
-from user import User
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.mysql_connect_config import getConfig
 
 # classes
 class Course(object):
@@ -66,7 +66,8 @@ class Course(object):
         self.created_by  == other.created_by  and
         self.course_code == other.course_code and
         self.name        == other.name        and
-        self.active      == other.active)
+        self.active      == other.active
+        ) if type(other) is Course else False
 
     def __str__(self):
         """

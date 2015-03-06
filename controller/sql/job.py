@@ -9,12 +9,12 @@ last_modified_date: 3/4/2015
 
 #imports
 import constants
-from user import User
-from section import Section
-from assessment import Assessment
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.user import User
+from sql.section import Section
+from sql.assessment import Assessment
+from sql.mysql_connect_config import getConfig
 
 class Job(object):
     'Job object to hold attributes and functions for a job.'
@@ -79,7 +79,8 @@ class Job(object):
         self.assigned_to       == other.assigned_to       and
         self.content           == other.content           and
         self.taken_by_user     == other.taken_by_user     and
-        self.active            == other.active)
+        self.active            == other.active
+        ) if type(other) is Job else False
 
     def __str__(self):
         """

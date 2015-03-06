@@ -11,7 +11,7 @@ last_modified date: 3/5/2015
 import constants
 import json
 import mysql.connector
-from mysql_connect_config import getConfig
+from sql.mysql_connect_config import getConfig
 
 # classes
 class User(object):
@@ -115,7 +115,8 @@ class User(object):
         self.view_test_case    == other.view_test_case     and
         self.view_question     == other.view_question      and
         self.view_all_question == other.view_all_question  and
-        self.active            == other.active)
+        self.active            == other.active
+        ) if type(other) is User else False
 
     def __str__(self):
         """
@@ -187,9 +188,9 @@ class User(object):
             query = ("SELECT * FROM user WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM user WHERE (first_name LIKE '%s%%' OR last_name LIKE '%s%%')" % (search, search))
-        elif type(search) is Section:
+        elif str(type(search)) == "<class 'section.Section'>":
             query = ("SELECT * FROM user WHERE section_id='%s'" % (search.id))
-        elif type(search) is Assessment:
+        elif str(type(search)) == "<class 'assessment.Assessment'>":
             query = ("SELECT u.* FROM user_assessment AS ua "
                      "INNER JOIN user AS u ON ua.user_id=u.id "
                      "WHERE ua.assessment_id=%s"
@@ -200,7 +201,7 @@ class User(object):
 
         cursor.execute(query)
         for (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) in cursor:
-            user = username if created_by == id else User.get(created_by)
+            user = username if created_by == id else User.get(created_by)[0]
             returnList.append(User(id, created, user, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active))
 
         """
