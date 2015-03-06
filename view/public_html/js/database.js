@@ -48,10 +48,10 @@ function searchDatabase(text)
     thead.appendChild(tr);
     database.appendChild(thead);
     var tbody = document.createElement("TBODY"); //gets all questions and puts them in table 
-	for (i = 0; i < length; i++) 
+	for (var i = 0; i < length; i++) 
 	{	
 		var tr = document.createElement("TR");
-		for (j = 0; j < 5; j++) 
+		for (var j = 0; j < 5; j++) 
 		{
     		var td = document.createElement("TD");
     		td.textContent = questions[i][data[j]];
