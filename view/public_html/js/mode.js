@@ -151,12 +151,7 @@ function initialPython(){
   var dataTypeDef = "json";
   
   //Gets assessment
-  $.post(
-    urlDef,
-    dataDef,
-    makeTheTestPage,
-    dataTypeDef    
-  );
+  $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
   
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
