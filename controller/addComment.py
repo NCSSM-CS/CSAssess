@@ -17,17 +17,16 @@ from sql.comment import Comment
 
 #Format of comment -AM
 #requestType: addComment
-#answer: Answer
+#answer: integer
 #content: "string"
 
 def iChooseU(json):
     thisUser = utils.findUser(json)
 
-    answer = json["answer"]
-    theAnswer = Answer.get(answer["id"])[0]
+    answer = Answer.get(json["answer"])[0]
     content = json["content"]
 
-    newComment = Comment.noID(None, thisUser, theAnswer, content, ACTIVE)
+    newComment = Comment.noID(None, thisUser, answer, content, ACTIVE)
     newComment.add()
 
     return utils.successJson(json)
