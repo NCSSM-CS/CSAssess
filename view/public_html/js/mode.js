@@ -152,6 +152,7 @@ function initialPython(){
   
   //Gets assessment
   $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
+  console.log("Please work. CEW needs this to work");
   
   for (var i = 0; i<answers.length;i++){
     answers[i] = "";
