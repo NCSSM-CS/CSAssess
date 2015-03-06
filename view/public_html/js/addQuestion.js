@@ -12,7 +12,7 @@ function submitQuestion() {
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
-    var types = "";
+    var type = "";
     if($('#test').is(':checked')) types += "test" + " ";
     else if($('#quiz').is(':checked')) types += "quiz" + " ";
     else if($('#practice').is(':checked')) types += "quiz" + " ";
