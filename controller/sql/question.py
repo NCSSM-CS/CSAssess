@@ -49,6 +49,7 @@ class Question:
         self.topic_list       = topic_list
         self.active           = active
 
+    @classmethod
     def noID(self, created, created_by, language, atype, difficulty, prev_question, version_number, last_given, content, topic_list, active):
         """
         the parameters correspond with the parameters in the constructor above
