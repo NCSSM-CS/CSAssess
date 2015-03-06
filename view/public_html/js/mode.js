@@ -213,4 +213,5 @@ function createProgress(){
   console.log(data["assessmentList"]);
   console.log(data["session"]);  
   console.log("WE MADE IT");
+  console.log(data);
  }
