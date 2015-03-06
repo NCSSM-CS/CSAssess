@@ -9,6 +9,7 @@ last_modified date: 3/4/2015
 
 # imports
 import json
+import utils
 from sql.user import User
 from sql.question import Question
 from sql.session import Session
