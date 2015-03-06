@@ -8,7 +8,7 @@ questions to the database.
 function submitQuestion() {
     //Gets the content of the input fields
     var questionContent = $("#questionSubmit").val();
-    var language = $("#language").val();
+   // var language = $("#language").val();
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
@@ -18,6 +18,7 @@ function submitQuestion() {
     else if($('#practice').is(':checked')) types += "practice" + " ";
     //var topics = getTopics();
     var topics= ["search"];
+    var language = "java";
     //Gets the token cookie, where the session data is stored. 
     var token = getCookie("token");
     //Defines the JSON to be returned
