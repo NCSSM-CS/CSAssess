@@ -89,6 +89,10 @@ a:hover {text-decoration: none; font-weight: 800; } //mouseover link and an unde
     padding-bottom: 10px;
     padding-top: 5px;
 }
+tr#userTable > td
+{
+  padding-bottom: 1em;
+}
 
 
 
