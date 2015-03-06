@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         John Fang
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified_date: 3/5/2014
+last_modified_by:   Aninda Manocha
+last_modified_date: 3/6/2014
 """
 
 # imports
@@ -22,11 +22,7 @@ import json
 #question: question id      (int)
 
 def iChooseU(json):
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress[0])
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    thisUser = utils.findUser(json)
 
     name = json["name"]
     user = json["user"]
