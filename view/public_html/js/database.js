@@ -8,13 +8,17 @@ function getExternal(filepath, callback) { //ajax request function
 	ajax.open("GET", filepath, "true");
 	ajax.send();
 }
-function searchDatabase(text)
+function searchDatabase(questions)
 {
 	//todo: find out how topic will be gotten and figure out how to parse it
 	//var topic = document.getElementById("topic").value;
 	var i = 0;
 	var j = 0;
 	var length = Object.keys(questions.questionList).length; //gets length of associative array "questions"
+	for (i = 0; i < length; i++)
+	{
+		questions.questionList[i] = JSON.parse(questions.questionList[i]);
+	}
 	var container = document.getElementById("database_container"); //gets container to put table in
 	while (container.firstChild) //removes old table if it exists
 	{
