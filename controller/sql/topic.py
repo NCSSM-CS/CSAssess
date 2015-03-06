@@ -35,7 +35,7 @@ class Topic(object):
         self.active     = active
 
     @classmethod
-    def noID(self, created, created_by, name, active):
+    def noID(self, created_by, name, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -45,7 +45,7 @@ class Topic(object):
         this function acts as a second constructor where you have created a
         topic that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, name, active)
+        return self(None, None, created_by, name, active)
 
     @classmethod
     def get(self, search="all", testActive=1):

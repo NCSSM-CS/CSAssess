@@ -50,7 +50,7 @@ class Question:
         self.active           = active
 
     @classmethod
-    def noID(self, created, created_by, language, atype, difficulty, prev_question, version_number, last_given, content, topic_list, active):
+    def noID(self, created_by, language, atype, difficulty, prev_question, version_number, last_given, content, topic_list, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -60,7 +60,7 @@ class Question:
         this function acts as a second constructor where you have created a
         question that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, language, atype, difficulty, prev_question, version_number, last_given, content, topic_list, active)
+        return self(None, None, created_by, language, atype, difficulty, prev_question, version_number, last_given, content, topic_list, active)
 
     def __eq__(self, other):
         """
@@ -134,7 +134,6 @@ class Question:
             cursor = cnx.cursor()
 
             insert = ("INSERT INTO question (created_by, language, type, difficulty, prev_question_id, version_number, last_given, content, active) VALUES (%s, '%s', '%s', %s, %s, %s, %s, '%s', %s);" % (self.created_by.id, self.language, self.atype, self.difficulty, (self.prev_question.id if type(self.prev_question) is Question else "Null"), self.version_number, ("'" + self.last_given + "'" if str(type(self.last_given)) == "<class 'datetime.datetime'>" else self.last_given), self.content, self.active))
-            print(insert)
             cursor.execute(insert)
 
             select = "SELECT LAST_INSERT_ID();"

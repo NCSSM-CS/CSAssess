@@ -116,7 +116,7 @@ class Answer(object):
 
         return returnList
 
-    def noID(self, created, created_by, question, score, content, solution, active):
+    def noID(self, created_by, question, score, content, solution, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -126,7 +126,7 @@ class Answer(object):
         this function acts as a second constructor where you have created a
         answer that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, question, score, content, solution, active)
+        return self(None, None, created_by, question, score, content, solution, active)
 
     def __eq__(self, other):
         """

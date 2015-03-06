@@ -43,7 +43,7 @@ class Section(object):
         self.active     = active
 
     @classmethod
-    def noID(self, created, created_by, course, year, term, period, active):
+    def noID(self, created_by, course, year, term, period, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -53,7 +53,7 @@ class Section(object):
         this function acts as a second constructor where you have created an
         assessment that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, course, year, term, period, active)
+        return self(None, None, created_by, course, year, term, period, active)
 
     def __eq__(self, other):
         """

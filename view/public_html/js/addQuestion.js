@@ -65,7 +65,8 @@ function doOnSuccess() {
     alert("Your question has been added to the database.");
 }
 
-function doOnError() {
+function doOnError(error) {
+    console.log(error);
     alert("There was an error. Your question was not added");
 }
 

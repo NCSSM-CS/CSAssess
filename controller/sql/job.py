@@ -45,7 +45,7 @@ class Job(object):
         self.active        = active
 
     @classmethod
-    def noID(self, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active):
+    def noID(self, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active):
         """
         the parameters correspond with the parameters in the constructor above
 
@@ -55,7 +55,7 @@ class Job(object):
         this function acts as a second constructor where you have created a
         job that has not yet been assigned an id from the database
         """
-        return self(None, created, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active)
+        return self(None, None, created_by, section, atype, assessment, assigned_to, content, taken_by_user, active)
 
     def __eq__(self, other):
         """
