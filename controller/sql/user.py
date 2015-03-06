@@ -240,17 +240,18 @@ class User(object):
             cnx.close()
 
     def toJson(self):
+        print(self.created_by)
         data = {
-                "id"                :     self.id,
-                "created"           : str(self.created),
+                "id"               :     self.id,
+                "created"          : str(self.created),
                 "createdBy"        :     self.created_by,
                 "lastLogin"        : str(self.last_login),
-                "active"            :     self.active,
-                "username"          :     self.username,
-                "password"          :     self.password,
+                "active"           :     self.active,
+                "username"         :     self.username,
+                "password"         :     self.password,
                 "firstName"        :     self.first_name,
                 "lastName"         :     self.last_name,
-                "role"              :     self.role,
+                "role"             :     self.role,
                 "addAssessment"    :     self.add_assessment,
                 "editUser"         :     self.edit_user,
                 "editQuestion"     :     self.edit_question,
@@ -260,8 +261,8 @@ class User(object):
                 "viewStudent info" :     self.view_student_info,
                 "viewTeacher info" :     self.view_teacher_info,
                 "viewAnswer"       :     self.view_answer,
-                "viewTestCase"    :     self.view_test_case,
+                "viewTestCase"     :     self.view_test_case,
                 "viewQuestion"     :     self.view_question,
-                "viewAllQuestion" :     self.view_all_question
+                "viewAllQuestion"  :     self.view_all_question
                 }
         return json.dumps(data)
