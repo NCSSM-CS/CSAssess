@@ -28,7 +28,7 @@ def iChooseU(form):
 
 #    course = form.getlist("course")[0]
     name = form.getlist("name")[0]
-#    question = form.getlist("question")[0]
+    question = form.getlist("question")[0]
 #    section = form.getlist("section")[0]
 #    session = form.getlist("session")[0]
 #    user = form.getlist("user")[0]
@@ -42,9 +42,9 @@ def iChooseU(form):
     if not name == "":
         complete += Assessment.get(0, name)
         count += 1
-#    if not question == "":
-#        complete += Assessment.get(0, Question.get(0, question))
-#        count += 1
+    if not question == "":
+        complete += Assessment.get(0, Question.get(0, question))
+        count += 1
 #    if not section == "":
 #        complete += Assessment.get(0, Section.get(0, section))
 #        count += 1
