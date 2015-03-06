@@ -18,7 +18,7 @@ from sql.session import Session
 
 # Format of questions - EC
 # requestType: addQuestion
-# questionContent: "string"
+# content: "string"
 # language: "string"
 # difficulty: integer
 # qType: "string"
@@ -27,12 +27,12 @@ from sql.session import Session
 def iChooseU(form):
     thisUser = utils.findUser(form)
 
-    content = form["questionContent"]
+    content = form["content"]
     language = form["language"]
     difficulty = form["difficulty"]
     qType = form["qType"]
     topics = []
-    for topic in form["topics"]:
+    for topic in form.getlist("topics"):
         theTopics.append(Topic.get(0, topic)[0])
 
     newQuestion = Question.noID(None, thisUser, language, qType, difficulty, 1, 1, None, content, topics, ACTIVE)
