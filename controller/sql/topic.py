@@ -9,6 +9,7 @@ last_modified date: 3/5/2015
 
 # imports
 import constants
+import json
 import mysql.connector
 from sql.user import User
 from sql.mysql_connect_config import getConfig
@@ -170,11 +171,11 @@ class Topic(object):
         return string
     def toJson(self):
         data = {
-        "id"        : self.id,
-        "created"   : self.created,
-        "createdBy": self.created_by,
-        "name"      : self.name,
-        "active"    : self.active
+        "id"        :     self.id,
+        "created"   : str(self.created),
+        "createdBy" :     self.created_by.toJson(),
+        "name"      :     self.name,
+        "active"    :     self.active
         }
         return json.dumps(data)
 
