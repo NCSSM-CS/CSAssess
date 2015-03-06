@@ -150,7 +150,7 @@ function initialPython(){
                  };
   
   //Gets assessment
-  $.post(urlDef, dataDef, makeTheTestPage(data));
+  $.post(urlDef, dataDef, makeTheTestPage);
   console.log("Please work. CEW needs this to work");
   
   for (var i = 0; i<answers.length;i++){
