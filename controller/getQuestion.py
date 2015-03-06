@@ -36,6 +36,8 @@ def iChooseU(form):
         complete += Question.get(0, difficulty[0])
         count += 1
 
+    print(complete)
+
     collect = []
     intersect = []
 
