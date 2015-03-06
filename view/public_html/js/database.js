@@ -54,17 +54,10 @@ function submitQuery()
 {
 	var difficulty = document.getElementById("difficulty").value;
 	var topic = document.getElementById("topicSelect").value;
-	//var keyword = document.getElementById("practiceKeyword").value;
 	var toSend = {};
 	topic = [topic];
-	if (difficulty != "")
-	{
-		toSend.difficulty = difficulty;
-	}
-	if (topic != "")
-	{
-		toSend.topic = topic;
-	}
+	toSend.difficulty = difficulty;
+	toSend.topic = topic;
 	//todo in later versions: add actual validation w/ tokens
     var token = getCookie("token");
 	toSend.session = token;
