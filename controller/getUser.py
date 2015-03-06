@@ -9,6 +9,7 @@ last_modified date: 3/6/2015
 
 # imports
 import json
+import utils
 from sql.user import User
 from sql.session import Session
 
@@ -39,7 +40,7 @@ def iChooseU(form):
     if not section == "":
         complete += User.get(0, section)
         count += 1
-    if not Assessment == "":
+    if not assessment == "":
         complete += User.get(0, assessment)
         count += 1
 
