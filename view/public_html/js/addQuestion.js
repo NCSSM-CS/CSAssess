@@ -50,6 +50,7 @@ function submitQuestion() {
   //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
   //$.post(urlDef, dataDef, success);
     //Gives the question information to the database. 
+    console.log(dataDef);
     $.ajax({
        // type: "POST",
         type: "GET",
