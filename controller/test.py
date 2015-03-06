@@ -12,9 +12,8 @@ from sql.test_case import Test_Case
 from sql.topic import Topic
 from sql.user import User
 
-x = User.get(3)[0]
+user = User.get(6)[0]
 
-y = Course.get()
+section = Section.get(None, None, None, user)
 
-for i in y:
-    print(i)
+print(section)

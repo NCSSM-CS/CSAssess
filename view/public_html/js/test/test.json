@@ -1,5 +1,23 @@
-{[
-    {"language":"Bash", "difficulty":"5", "last_given":"", "topic":"Loops", "content":"Find the word count of the servers system dictionary."}
-    {"language":"Bash", "difficulty":"2", "last_given":"", "topic":"Recursion", "content":"Write a bash command to concatenate any two strings."}
-    {"language":"C++", "difficulty":"4", "last_given":"", "topic":"Search", "content":"Write a bash command to add any two numbers and display the result."}
-]}
+[
+    {
+        "language": "Bash",
+        "difficulty": "5",
+        "last_given": "",
+        "topic": "Loops",
+        "content": "Find the word count of the servers system dictionary."
+    },
+    {
+        "language": "Bash",
+        "difficulty": "2",
+        "last_given": "",
+        "topic": "Recursion",
+        "content": "Write a bash command to concatenate any two strings."
+    },
+    {
+        "language": "C++",
+        "difficulty": "4",
+        "last_given": "",
+        "topic": "Search",
+        "content": "Write a bash command to add any two numbers and display the result."
+    }
+]

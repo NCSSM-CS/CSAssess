@@ -12,16 +12,17 @@ function submitQuestion() {
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
-    var types = "";
-    if($('#test').prop('checked')) types += "test" + " ";
-    if($('#quiz').prop('checked')) types += "quiz" + " ";
-    if($('#practice').prop('checked')) types += "quiz" + " ";
-    var topics = getTopics();
-    
+    //var types = "";
+    //if($('#test').prop('checked')) types += "test" + " ";
+    //if($('#quiz').prop('checked')) types += "quiz" + " ";
+    //if($('#practice').prop('checked')) types += "quiz" + " ";
+    types="quiz";
+    //var topics = getTopics();
+    var topics= ["search"];
     //Gets the token cookie, where the session data is stored. 
     var token = getCookie("token");
     //Defines the JSON to be returned
-    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent };
+    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent, "qType": types};
     //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
@@ -51,18 +52,19 @@ function submitQuestion() {
   //$.post(urlDef, dataDef, success);
     //Gives the question information to the database. 
     $.ajax({
-        type: "POST",
+       // type: "POST",
+        type: "GET",
         url: urlDef,
         data: dataDef,
-        success: success,
-        error: error
+        success: doOnSuccess,
+        error: doOnError
     }); 
 }
-function success() {
+function doOnSuccess() {
     alert("Your question has been added to the database.");
 }
 
-function error() {
+function doOnError() {
     alert("There was an error. Your question was not added");
 }
 

@@ -4,7 +4,7 @@
 created_by:         Ebube Chuba
 created_date:       3/3/2015
 last_modified_by:   Aninda Manocha
-last_modified date: 3/5/2015
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -17,39 +17,25 @@ from sql.topic import Topic
 from sql.session import Session
 
 # Format of questions - EC
-# requestType: question
-# language: "language"
-# type: "test"
-# difficulty: Integer(1-10)
-# content: "string"
-# topic: list of topics
+# requestType: addQuestion
+# questionContent: "string"
+# language: "string"
+# difficulty: integer
+# qType: "string"
+# topics: []
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    language = ""
+    content = form["questionContent"]
+    language = form["language"]
+    difficulty = form["difficulty"]
+    qType = form["qType"]
     topics = []
-    difficulty = 0
-    content = ""
-    qType = ""
+    for topic in form["topics"]:
+        theTopics.append(Topic.get(0, topic)[0])
 
-    for field in list(json.keys()):
-        if field == "language":
-            language = json[field]
-        if field == "type":
-            qType = json[field]
-        if field == "difficulty":
-            difficulty = json[field]
-        if field == "content":
-            content = json[field]
-        if field == "topics":
-            for topic in json[field]:
-                if not topic in Topic.get():
-                    newTopic = Topic.noID(TIME_STAMP, thisUser, topic, ACTIVE)
-                    newTopic.add()
-            topics = json[field]
-
-    newQuestion = Question.noID(None, thisUser, language, qType, difficulty, 1, 1, None, content, topics)
+    newQuestion = Question.noID(None, thisUser, language, qType, difficulty, 1, 1, None, content, topics, ACTIVE)
     newQuestion.add()
     
-    return utils.successJson(json)
+    return utils.successJson(form)
