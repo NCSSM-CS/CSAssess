@@ -20,7 +20,7 @@ def processRequest(unprocessedForm):
         return '{"success":"failure","mode":"noRequestType"}'
 
 
-    objectList = [ "User", "Assignment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
+    objectList = [ "User", "Assessment", "Section", "Course", "Topic", "Question"] #TODO add in all objects
     verbList   = [ "add", "get", "update", "activate", "login" ]
     currVerb = ""
     currObject = ""
