@@ -24,17 +24,16 @@ from sql.assessment import Assessment
 #question_list: list of questions
 #topic_list: list of topics
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    atype = json["type"]
-    section = json["section"]
-    thisSection = Section.get(0, section)[0]
-    name = json["name"]
-    question_list = json["questions"]
-    topic_list = json["topics"]
+    atype = form["type"]
+    section = Section.get(0, form["section"])[0]
+    name = form["name"]
+    question_list = form["questions"]
+    topic_list = form["topics"]
 
-    newAssessment = Assessment.noID(None, thisUser, atype, thisSection, name, question_list, topic_list, 1)
+    newAssessment = Assessment.noID(None, thisUser, atype, section, name, question_list, topic_list, 1)
     newAssessment.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
