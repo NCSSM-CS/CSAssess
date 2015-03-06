@@ -12,20 +12,23 @@ function submitQuestion() {
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
-    //var types = "";
-    //if($('#test').prop('checked')) types += "test" + " ";
-    //if($('#quiz').prop('checked')) types += "quiz" + " ";
-    //if($('#practice').prop('checked')) types += "quiz" + " ";
-    types="quiz";
+    var types = "";
+    if($('#test').is(':checked')) types += "test" + " ";
+    else if($('#quiz').is(':checked')) types += "quiz" + " ";
+    else if($('#practice').is(':checked')) types += "quiz" + " ";
     //var topics = getTopics();
     var topics= ["search"];
     //Gets the token cookie, where the session data is stored. 
     var token = getCookie("token");
     //Defines the JSON to be returned
-    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent, "qType": types};
+    var dataDef = {"requestType":"addQuestion","content": questionContent ,"session": token, "language": language, "topics": topics, "difficulty": difficulty, "answer": answerContent, "qType": type};
     //Checks to see if they typed a question, language, difficulty, topic
     if(questionContent == "") {
         alert("Please enter a question");
+        return false;
+    }
+    if(type == "") {
+        alert("Please select a type");
         return false;
     }
      if(language == "") {
