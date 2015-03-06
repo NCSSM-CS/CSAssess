@@ -50,12 +50,13 @@ def processRequest(unprocessedForm):
             #TODO malformed tags go here?
             processedForm = '{"success":"failure","mode":"malformed"}'
 
+    return processedForm
+
 #=== Return JSON ===#
 cgitb.enable()
 unprocessedForm = cgi.FieldStorage()
 
 
-print("Content-Type: text/html; charset=utf-8")
+print("Content-Type: application/json; charset=utf-8")
 print()
-print("Herro")
 print(processRequest(unprocessedForm))
