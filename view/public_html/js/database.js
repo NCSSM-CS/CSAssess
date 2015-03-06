@@ -11,22 +11,10 @@ function getExternal(filepath, callback) { //ajax request function
 function searchDatabase(text)
 {
 	//todo: find out how topic will be gotten and figure out how to parse it
-	var questions = JSON.parse(text);
 	//var topic = document.getElementById("topic").value;
-	var difficulty = document.getElementById("difficulty").value;
-	var keyword = document.getElementById("practiceKeyword").value;
 	var i = 0;
 	var j = 0;
-	//for (var i = 0; i < questions; i++)
-	//{
-	//	var topic_id = questions[i].topic;
-	//	if (topic != topic_id)
-	//	{
-	//		questions.splice(i, 1);
-	//	}
-	//}
-	var length = Object.keys(questions).length; //gets length of associative array "questions"
-	document.getElementById("error").textContent = ""; //clears error div if success
+	var length = Object.keys(questions.questionlist).length; //gets length of associative array "questions"
 	var container = document.getElementById("database_container"); //gets container to put table in
 	while (container.firstChild) //removes old table if it exists
 	{
@@ -48,13 +36,13 @@ function searchDatabase(text)
     thead.appendChild(tr);
     database.appendChild(thead);
     var tbody = document.createElement("TBODY"); //gets all questions and puts them in table 
-	for (var i = 0; i < length; i++) 
+	for (i = 0; i < length; i++) 
 	{	
 		var tr = document.createElement("TR");
-		for (var j = 0; j < 5; j++) 
+		for (j = 0; j < 5; j++) 
 		{
     		var td = document.createElement("TD");
-    		td.textContent = questions[i][data[j]];
+    		td.textContent = questions.questionlist[i][data[j]];
     		tr.appendChild(td);
         }
         tbody.appendChild(tr);
@@ -80,6 +68,6 @@ function submitQuery()
 	//todo in later versions: add actual validation w/ tokens
     var token = getCookie("token");
 	toSend.session = token;
-	toSend.requestType = "filter";
+	toSend.requestType = "getQuestion";
     $.post("/cgi-bin/CSAssess/controller/request.py", toSend, searchDatabase, "json");
 }
