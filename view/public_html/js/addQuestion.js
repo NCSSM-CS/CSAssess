@@ -55,15 +55,15 @@ function submitQuestion() {
         type: "GET",
         url: urlDef,
         data: dataDef,
-        success: onSuccess,
-        error: error
+        success: doOnSuccess,
+        error: doOnError
     }); 
 }
-function onSuccess() {
+function doOnSuccess() {
     alert("Your question has been added to the database.");
 }
 
-function onError() {
+function doOnError() {
     alert("There was an error. Your question was not added");
 }
 
