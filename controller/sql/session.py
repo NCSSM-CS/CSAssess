@@ -145,7 +145,7 @@ class Session(object):
     def toJson(self):
         data = {
                 "id"        : self.id,
-                "timestamp" : self.timestamp,
+                "timestamp" : str(self.timestamp),
                 "token"     : self.token,
                 "ip"        : self.ip,
                 "user"      : self.user,
