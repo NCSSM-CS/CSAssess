@@ -240,11 +240,10 @@ class User(object):
             cnx.close()
 
     def toJson(self):
-        print(self.created_by)
         data = {
                 "id"               :     self.id,
                 "created"          : str(self.created),
-                "createdBy"        :     self.created_by,
+                "createdBy"        :     self.created_by.toJson() if type(self.created_by) is User else self.created_by,
                 "lastLogin"        : str(self.last_login),
                 "active"           :     self.active,
                 "username"         :     self.username,
