@@ -21,14 +21,14 @@ import json
 #course: course name        (string)
 #question: question id      (int)
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    name = json["name"]
-    user = json["user"]
-    section = json["section"]
-    course = json["course"]
-    question = json["question"]
+    name = form["name"]
+    user = form["user"]
+    section = form["section"]
+    course = form["course"]
+    question = form["question"]
 
     complete = []
     count = 0
@@ -60,6 +60,6 @@ def iChooseU(json):
 
     out = {}
     out["assessmentList"] = intersect
-    out["sessionID"] = json["session"]
+    out["sessionID"] = form["session"]
 
     return json.dumps(out)
