@@ -3,8 +3,8 @@
 """
 created_by:         John Fang
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
-last_modified_date: 3/5/2015
+last_modified_by:   Keshav Patel
+last_modified_date: 3/6/2015
 """
 
 # imports
@@ -19,12 +19,12 @@ from sql.session import Session
 #requestType: addTopic
 #name: "string" 
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    name = json["name"]
+    name = form["name"]
 
     newTopic = Topic.noID(None, thisUser, name, ACTIVE)
     newTopic.add()
 
-    return utils.successJson(json)
+    return utils.successJson(form)
