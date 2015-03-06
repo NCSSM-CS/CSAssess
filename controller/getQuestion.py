@@ -19,12 +19,8 @@ from sql.session import Session
 # topic: someTopic
 # difficulty: Integer
 
-def iChooseU(json):
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
     
     qByType = []
     for i in range(len(json["topics"])):
@@ -33,13 +29,13 @@ def iChooseU(json):
             thisQuestion = theseQuestions[j]
             if not thisQuestion in qByType:
                 qByType.append(thisQuestion)
-    qByDiff = Question.get(0, json["difficulty"])
+    qByDiff = Question.get(0, form["difficulty"])
     intersect = [];
     for q in qByType:
         if q in qByDiff:
             intersect.append(q.toJson())
     out = {}
     out["questionList"] = intersect
-    out["sessionID"] = json["session"]
+    out["sessionID"] = form["session"]
     
     return json.dumps(out)
