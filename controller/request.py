@@ -44,7 +44,8 @@ def processRequest(unprocessedForm):
             # this is supposed to be emulating "eval('import ' + verbObject)"
             module = __import__(verbObject)
             #TODO
-            processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
+            #processedForm = exec("module." + verbObject + ".iChooseU(unprocessedForm)")
+            processedForm = module.iChooseU(unprocessedForm)
         else:
             #TODO malformed tags go here?
             processedForm = '{"success":"failure","mode":"malformed"}'
