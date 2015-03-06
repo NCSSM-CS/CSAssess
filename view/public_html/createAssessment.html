@@ -67,8 +67,8 @@
                         <input placeholder="Assignment Name" id="assignmentName"> </input>
                         <select class="practiceElement" id="assesmentType" name="assessmentTypeSelect">
                             <option value="default" selected="selected"> Assessment Type </option>
-                            <option value="test">Test</option>
-                            <option value="quiz">Quiz</option>
+                            <option value="test">test</option>
+                            <option value="quiz">quiz</option>
                         </select>
                     </div>
                     <div class="col-md-3" id="sectionSelect">
@@ -92,14 +92,14 @@
                     </div>
                     <div class="col-md-2">
                         <h4 align="center"> # of Questions </h4>
-                        <input type="number" min="1" max="100"></input>
+                        <input id = "qNum" type="number" min="1" max="100"></input>
                     </div>
                 </div>
                 <div class="container-fluid row">
                     <div class="col-md-5">
                     </div>
                     <div class="col-md-2">
-                        <button type="button btn-default" name="submitAssignment" onclick="submitAssignment()" style="width:90px;height:40px;"> Submit </button>
+                        <button type="button btn-default" name="submitAssignment" onclick="getSectionIds()" style="width:90px;height:40px;"> Submit </button>
                     </div>
                     <div class="col-md-5">
                     </div>    
