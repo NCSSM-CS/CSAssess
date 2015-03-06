@@ -3,15 +3,14 @@
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Aninda Manocha
-last_modified date: 3/5/2015
+last_modified_by:   Ebube Chuba
+last_modified date: 3/6/2015
 """
 
 # imports
 import constants
 import utils
 import json
-from sql.session import Session
 from sql.user import User
 
 #Format of assessment -AM
@@ -25,11 +24,11 @@ from sql.user import User
 def iChooseU(json):
     thisUser = utils.findUser(json)
 
-    username = json["username"]
-    password = json["password"]
-    firstName = json["firstName"]
-    lastName = json["lastName"]
-    role = json["role"]
+    username = json.getlist("username")
+    password = json.getlist("password")
+    firstName = json.getlist("firstName")
+    lastName = json.getlist("lastName")
+    role = json.getlist("role")
 
     addAssessment = 0
     editUser = 0
@@ -69,7 +68,7 @@ def iChooseU(json):
         viewAnswer = 1
         viewQuestion = 1
 
-    newUser = User.noID(None, thisUser, None, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, ACTIVE)
+    newUser = User.noID(None, thisUser, None, username, password, firstName, lastName, role, addAssessment, editUser, editQuestion, editAnswer, editTestCase, editPermission, viewStudentInfo, viewTeacherInfo, viewAnswer, viewTestCase, viewQuestion, viewAllQuestion, constants.ACTIVE)
     newUser.add()
 
     return utils.successJson(json)
