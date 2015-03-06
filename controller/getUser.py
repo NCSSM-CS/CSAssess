@@ -4,11 +4,11 @@
 created_by:         Keshav Patel
 created_date:       3/4/2015
 last_modified_by:   Ebube Chuba
-last_modified date: 3/5/2015
+last_modified date: 3/6/2015
 """
 
 # imports
-import utils
+import json
 from sql.user import User
 from sql.session import Session
 
@@ -39,7 +39,7 @@ def iChooseU(form):
     if not section == "":
         complete += User.get(0, section)
         count += 1
-    if not assessment == "":
+    if not Assessment == "":
         complete += User.get(0, assessment)
         count += 1
 
