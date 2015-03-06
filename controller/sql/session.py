@@ -9,6 +9,7 @@ last_modified date: 3/5/2015
 
 # imports
 import constants
+import json
 import mysql.connector
 from sql.user import User
 from sql.mysql_connect_config import getConfig
@@ -144,10 +145,10 @@ class Session(object):
     def toJson(self):
         data = {
                 "id"        : self.id,
-                "timestamp" : self.timestamp,
+                "timestamp" : str(self.timestamp),
                 "token"     : self.token,
                 "ip"        : self.ip,
-                "user"      : self.user,
+                "user"      : self.user.toJson(),
                 "active"    : self.active
                 }
         return json.dumps(data)
