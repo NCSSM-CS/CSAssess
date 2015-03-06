@@ -172,6 +172,7 @@ function initialPython(){
   //Gets assessment
   $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
   
+  console.log("We made it");
   numQuests = 5;
   answers = new Array(numQuests);
   
