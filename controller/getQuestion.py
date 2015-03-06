@@ -25,6 +25,8 @@ def iChooseU(form):
     
     topic = form.getlist("topic")
     difficulty = form.getlist("difficulty")
+    print(topic)
+    print(difficulty)
 
     complete = []
     count = 0
