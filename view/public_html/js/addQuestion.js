@@ -12,10 +12,11 @@ function submitQuestion() {
     var difficulty = $("#difficulty").val();
     var answerContent = $("#answerSubmit").val();
     //Adds types if they are selected.
-    var types = "";
-    if($('#test').prop('checked')) types += "test" + " ";
-    if($('#quiz').prop('checked')) types += "quiz" + " ";
-    if($('#practice').prop('checked')) types += "quiz" + " ";
+    //var types = "";
+    //if($('#test').prop('checked')) types += "test" + " ";
+    //if($('#quiz').prop('checked')) types += "quiz" + " ";
+    //if($('#practice').prop('checked')) types += "quiz" + " ";
+    types="quiz";
     //var topics = getTopics();
     var topics= ["search"];
     //Gets the token cookie, where the session data is stored. 
