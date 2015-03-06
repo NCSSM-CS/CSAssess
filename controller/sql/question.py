@@ -9,6 +9,7 @@ last_modifieid date: 3/5/2015
 
 # imports
 import constants
+import json
 import mysql.connector
 from sql.user import User
 from sql.topic import Topic
