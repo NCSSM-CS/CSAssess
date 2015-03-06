@@ -35,7 +35,7 @@ def iChooseU(form):
     for topic in form.getlist("topics"):
         topics.append(Topic.get(0, topic)[0])
 
-    newQuestion = Question.noID(None, thisUser, language, qType, difficulty, constants.NULL_OBJ, 1, constants.NULL_OBJ, content, topics, constants.ACTIVE)
+    newQuestion = Question.noID(thisUser, language, qType, difficulty, constants.NULL_OBJ, 1, constants.NULL_OBJ, content, topics, constants.ACTIVE)
     newQuestion.add()
     
     return utils.successJson(form)
