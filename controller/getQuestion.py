@@ -23,12 +23,28 @@ from sql.topic import Topic
 def iChooseU(form):
     thisUser = utils.findUser(form)
     
-    qByTopic = Question.get(0, Topic.get(0, form.getlist("topics")[0]))
-    qByDiff = Question.get(0, form.getlist("difficulty")[0])
-    intersect = [];
-    for q in qByTopic:
-        if q in qByDiff:
-            intersect.append(q.toJson())
+    topic = form.getlist("firstName")[0]
+    difficulty = form.getlist("lastName")[0]
+
+    complete = []
+    count = 0
+
+    if not topic == "":
+        complete += Question.get(0, Topic.get(topic)[0])
+        count += 1
+    if not difficulty == 0:
+        complete += Question.get(0, difficulty)
+        count += 1
+
+    collect = []
+    intersect = []
+
+    for response in complete:
+        if collect.count(response) < count:
+            collect.append(response)
+        else:
+            intersect.add(response)
+
     out = {}
     out["questionList"] = intersect
     out["sessionID"] = form.getlist("session")[0]
