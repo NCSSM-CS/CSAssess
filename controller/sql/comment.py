@@ -95,9 +95,9 @@ class Comment(object):
             query = "SELECT * FROM comment"
         elif type(search) is int:
             query = ("SELECT * FROM comment WHERE id=%s" % (search))
-        elif str(type(search)) is "<class 'user.User'>":
+        elif str(type(search)) is "<class 'sql.user.User'>":
             query = ("SELECT * FROM comment WHERE created_by=%s" % (search.id))
-        elif str(type(search)) is "<class 'answer.Answer'>":
+        elif str(type(search)) is "<class 'sql.answer.Answer'>":
             query = ("SELECT * FROM comment WHERE answer_id=%s" % (search.id))
 
         query += (" WHERE active=%s;" if search == "all" else " AND active =%s;") % (testActive)

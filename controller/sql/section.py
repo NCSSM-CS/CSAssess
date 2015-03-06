@@ -154,9 +154,8 @@ class Section(object):
         cnx = mysql.connector.connect(**getConfig())
         cursor = cnx.cursor()
 
-        returnList = []
         query = ""
-        if search == "all" and searchYear is None and searchTerm is None and searchUser is None:
+        if search == "all":
             query = "SELECT * FROM section"
         elif searchYear is not None:
             query = ("SELECT * FROM section WHERE year = %s" % (searchYear))
@@ -165,18 +164,20 @@ class Section(object):
         elif searchUser is not None:
             query = ("SELECT s.* FROM section_user AS su "
                      "INNER JOIN section AS s ON su.section_id=s.id "
-                     "WHERE su.user_id=%s" % (search.id))
+                     "WHERE su.user_id=%s" % (searchUser.id))
         elif type(search) is int:
             query = ("SELECT * FROM section WHERE id = %s" % (search))
-        elif str(type(search)) == "<class 'user.User'>":
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = ("SELECT * FROM section WHERE created_by = %s" % (search.id))
-        elif str(type(search)) == "<class 'course.Course'>":
+        elif str(type(search)) == "<class 'sql.course.Course'>":
             query = ("SELECT * FROM section WHERE course_id = %s" % (search.id))
         elif type(search) is str:
             query = ("SELECT * FROM section WHERE period = '%s'" % (search))
         query += (" WHERE active = %s;" if search == "all" else " AND active = %s;") % (testActive)
+        print(query)
         cursor.execute(query)
 
+        returnList = []
         for(id, created, created_by, course_id, year, term, period, active) in cursor:
 
             user = User.get(created_by)[0]

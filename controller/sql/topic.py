@@ -60,14 +60,14 @@ class Topic(object):
             query = ("SELECT * FROM topic WHERE id=%s" % (search))
         elif type(search) is str:
             query = ("SELECT * FROM topic WHERE (name LIKE '%%s%%')" % (search))
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = ("SELECT * FROM topic WHERE created_by=%s" % (search.id))
-        elif str(type(search)) == "<class 'question.Question'>":
+        elif str(type(search)) == "<class 'sql.question.Question'>":
             query = ("SELECT t.* FROM question_topic AS qt "
                      "INNER JOIN topic AS t ON qt.topic_id=t.id "
                      "WHERE qt.question_id=%s"
                      % (search.id))
-        elif str(type(search)) == "<class 'assessment.Assessment'>":
+        elif str(type(search)) == "<class 'sql.assessment.Assessment'>":
             query = ("SELECT t.* FROM assessment_topic AS at "
                      "INNER JOIN topic AS t ON at.topic_id=t.id "
                      "WHERE at.assessment_id=%s"

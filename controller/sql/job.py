@@ -170,9 +170,9 @@ class Job(object):
             query = ("SELECT * FROM job WHERE taken_by_user_id = %s" % (searchTakenBy.id))
         elif type(search) is int:
             query = ("SELECT * FROM job WHERE id = %s" % (search))
-        elif type(search) is User:
+        elif str(type(search)) == "<class 'sql.user.User'>":
             query = ("SELECT * FROM job WHERE created_by = %s" % (search.id))
-        elif type(search) is Section:
+        elif str(type(search)) == "<class 'sql.section.Section'>":
             query = ("SELECT * FROM job WHERE section_id = %s" % (search.id))
         elif type(search) is str:
             query = ("SELECT * FROM job WHERE type = '%s'" % (search))
