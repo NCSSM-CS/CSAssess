@@ -201,7 +201,7 @@ class User(object):
 
         cursor.execute(query)
         for (id, created, created_by, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active) in cursor:
-            user = username if created_by == id else User.get(created_by)
+            user = username if created_by == id else User.get(created_by)[0]
             returnList.append(User(id, created, user, last_login, username, password, first_name, last_name, role, add_assessment, edit_user, edit_question, edit_answer, edit_test_case, edit_permission, view_student_info, view_teacher_info, view_answer, view_test_case, view_question, view_all_question, active))
 
         """

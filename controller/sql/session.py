@@ -54,7 +54,6 @@ class Session(object):
 
         returnList = []
         query = "SELECT * FROM session WHERE token='%s' AND ip='%s' AND active=%s;" % (searchToken, searchIP, testActive)
-        print(query)
         cursor.execute(query)
 
         for (id, timestamp, token, ip, user_id, active) in cursor:
