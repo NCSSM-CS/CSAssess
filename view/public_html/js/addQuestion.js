@@ -39,10 +39,6 @@ function submitQuestion() {
         alert("Please enter a difficulty");
         return false;
     }
-    if(types == "") {
-        alert("Please enter a type");
-        return false;
-    }
     //Since deleting a question can't be done, it makes sure they want to add the question. 
     var keepGoing = prompt("Is this the question you want to add? \n\Type yes to submit it.");
     if(keepGoing.toUpperCase() !== "YES") 
