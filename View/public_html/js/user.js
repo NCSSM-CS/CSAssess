@@ -3,8 +3,10 @@
  */
 
 function generateUserInfo() {
+    var firstName = $("#firstName").val();
+    var lastName = $("lastName").val();
     var token = getCookie("token");
-    var dataDef = {"requestType":"getUser", "session": token, "firstName": "Morgan", "lastName": "Freeman"};
+    var dataDef = {"requestType":"getUser", "session": token, "firstName": firstName, "lastName": lastName};
     var urlDef = "/cgi-bin/CSAssess/request.py";
     var dataTypeDef = "json";
     $.post(urlDef, dataDef, showUser, dataTypeDef);
@@ -26,5 +28,5 @@ function showUser(users) {
         tbody.appendChild(tr);
     }
     database.appendChild(tbody);
-    document.getElementById("database_container").appendChild(database);
+    document.getElementById("userContainer").appendChild(database);
 }
