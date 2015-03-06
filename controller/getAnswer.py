@@ -41,6 +41,6 @@ def iChooseU(form):
     
     out = {}
     out["answerList"] = intersect
-    out["sessionID"] = form.getlist["session"]
+    out["sessionID"] = form.getlist("session")[0]
 
     return json.dumps(out)
