@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Aninda Manocha
 created_date:       3/4/2015
 last_modified_by:   Aninda Manocha
-last_modified date: 3/4/2015
+last_modified date: 3/6/2015
 """
 
 # imports
@@ -15,28 +15,23 @@ from sql.session import Session
 
 #Format of JSON -AM
 #requestType: getAnswer
-#question: question.id (Integer)
-#created_by: user.id (Integer)
+#question: Question
+#created_by: User
 
 def iChooseU(json):
-    #from Ebube pt. 2
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
+    thisUser = utils.findUser(json)
 
     question = json["question"]
-    created_by = json["user"]
+    createdBy = json["user"]
 
     aByQuestion = []
     aByUser = []
 
     if not question == None:
-        aByQuestion.append(Answer.get(0, question))
+        aByQuestion.append(Answer.get(question["id"]))
 
     if not created_by == None:
-        aByUser.append(Answer.get(0, created_by))
+        aByUser.append(Answer.get(createdBy["id"]))
 
     intersect = []
 
