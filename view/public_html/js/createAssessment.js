@@ -137,6 +137,7 @@ function sendAssignment(sectionJson)
     assessJson["session"] = token;
     assessJson["type"] = strType;
     assessJson["isAuto"] = "1";
+    assessJson["difficulty"] = "1";
     assessJson["sectionIds"] = idsList
     assessJson["name"] = document.getElementById(assignmentName).value;
     assessJson["topicList"] = topicsList;
