@@ -98,6 +98,7 @@ function reload() {
 
 function submitAssignment(foo)
 {
+    var token = getCookie("token");
     var dataDef = foo
     var urlDef = "/cgi-bin/request.py";
     var dataTypeDef = "json";
@@ -105,14 +106,50 @@ function submitAssignment(foo)
     $.post(urlDef, dataDef, setSections, dataTypeDef);
 }
 
-function sendAssignment()
+function sendAssignment(sectionJson)
 {
-    var assessJson = { "requestType":"addAssessment" }
-    assessJson["type"] = Test/quiz;`
+    var idsList = new Array();
+    for(var i=0; i<Object.keys(sectionJson).length; i++)
+    {
+        var sectionName = sectionJson[i].name;   
+        var check = document.getElementById(sectionName);
+        if check.checked{
+            idsList[idsList.length] = sectionName.Id;
+        }
+    }
+    var topicsList = new Array();
+    for(var k=0; k<numTopics.length, k++)
+    {       
+        var check2 = document.getElementById(numTopics[k]);
+        if checked2.checked{
+            topicsList[topicsList.length]=numTopics[k];
+        }   
+    }
+    var typeBox = document.getElementById("assessmentType");
+    var strType = typeBox.options[typeBox.selectedIndex].text;
+    var token = getCookie("token");
+    if (idsList.length == 0 || typeBox.equals("Assessment Type") || topicsList.length == 0)
+    {
+        error();
+        return;
+    }
+    var assessJson = { "requestType":"addAssessment" };
+    assessJson["session"] = token;
+    assessJson["type"] = strType;
     assessJson["isAuto"] = "1";
-    assessJson["sectionIds"] = list of section Ids
-    assessJson["name"] = name From input;
-    assessJson["topicList"] = list of topics;
-    assessJson["numQuestions"] = integer 
-    submitAssignment(assessJson);
+    assessJson["sectionIds"] = idsList
+    assessJson["name"] = document.getElementById(assignmentName).value;
+    assessJson["topicList"] = topicsList;
+    assessJson["numQuestions"] = document.getElementById(qNum).value;
+    submitAssessment(assessJson);
+}
+
+function getSectionIds()
+{
+    var dataDef = {"requestType":"getSections","session":getCookie("token"),"username":getCookie("username")};
+    var urlDef = "/cgi-bin/request.py";
+    var dataTypeDef = "json";
+  //$.post(urlToSubmitTo, dataToSubmit, successFunctionToRunOnReturn, expectedReturnType)
+    $.post(urlDef, dataDef, sendAssessment, dataTypeDef);
+    
 }
