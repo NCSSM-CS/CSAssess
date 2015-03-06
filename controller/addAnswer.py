@@ -3,7 +3,7 @@
 """
 created_by:         Aninda Manocha
 created_date:       3/4/2015
-last_modified_by:   Ebube Chuba
+last_modified_by:   Aninda Manocha
 last_modified date: 3/6/2015
 """
 
@@ -25,8 +25,8 @@ from sql.session import Session
 def iChooseU(form):
     thisUser = utils.findUser(form)
     
-    question = Question.get(form["question"])[0]
-    content = form["content"]
+    question = Question.get(form.getlist("question")[0])[0]
+    content = form.getlist("content")[0]
     isSolution = True 
 
     newAnswer = Answer.noID(None, thisUser, thisQuestion, None, content, isSolution, constants.ACTIVE)
