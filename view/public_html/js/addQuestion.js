@@ -66,7 +66,7 @@ function doOnSuccess() {
 }
 
 function doOnError(error) {
-    alert(error);
+    console.log(error);
     alert("There was an error. Your question was not added");
 }
 
