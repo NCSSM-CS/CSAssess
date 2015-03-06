@@ -63,7 +63,12 @@
         <div class="row practiceContent">
             <textarea rows="10" cols="150" id="questionSubmit" placeholder="Text of the question you want to add. "></textarea><br>
             <textarea rows="10" cols="150" id="answerSubmit" placeholder="Text of the answer to the question you want to add. "></textarea><br>
-            <input type="text" placeholder="Language" id="language">
+            <select class="practiceElement" id="language" name="languageSelect">
+                             <option value="" selected="selected">Language</option>
+                             <option value="java">Java</option>
+                             <option value="python">Python</option>
+                             <option value="none">None</option>
+                    	 </select>
             <!--TODO: better way to handle multiple topics !-->
             <select class="practiceElement" id="difficulty" name="difficultySelect">
                 <option value="default" selected="selected">Difficulty</option>
