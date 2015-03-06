@@ -238,17 +238,17 @@ class Question:
 
     def toJson(self):
         data = {
-                "id"            : self.id,
-                "created"       : self.created,
-                "createdBy"        : self.created_by,
-                "language"      : self.language,
-                "type"          : self.atype,
-                "difficulty"        : self.difficulty,
-                "previousQuestion"  : self.prev_question,
-                "versionNumber"    : self.version_number,
-                "lastGiven"        : self.last_given,
-                "content"       : self.content,
-                "topics"        : self.topic_list,
-                "active"        : self.active
+                "id"               :     self.id,
+                "created"          : str(self.created),
+                "createdBy"        :     self.created_by,
+                "language"         :     self.language,
+                "type"             :     self.atype,
+                "difficulty"       :     self.difficulty,
+                "previousQuestion" :     self.prev_question,
+                "versionNumber"    :     self.version_number,
+                "lastGiven"        :     self.last_given,
+                "content"          :     self.content,
+                "topics"           :     self.topic_list,
+                "active"           :     self.active
                 }
         return json.dumps(data)
