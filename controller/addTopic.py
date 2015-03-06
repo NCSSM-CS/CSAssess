@@ -3,7 +3,7 @@
 """
 created_by:         John Fang
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
+last_modified_by:   Aninda Manocha
 last_modified_date: 3/6/2015
 """
 
@@ -22,9 +22,9 @@ from sql.session import Session
 def iChooseU(form):
     thisUser = utils.findUser(form)
 
-    name = form["name"]
+    name = form.getlist("name")[0]
 
-    newTopic = Topic.noID(None, thisUser, name, ACTIVE)
+    newTopic = Topic.noID(None, thisUser, name, constants.ACTIVE)
     newTopic.add()
 
     return utils.successJson(form)
