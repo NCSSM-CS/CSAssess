@@ -55,6 +55,7 @@ cgitb.enable()
 unprocessedForm = cgi.FieldStorage()
 
 
-print("Content-Type: application/json; charset=utf-8")
+print("Content-Type: text/html; charset=utf-8")
 print()
+print("Herro")
 print(processRequest(unprocessedForm))
