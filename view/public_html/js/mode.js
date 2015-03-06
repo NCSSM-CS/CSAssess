@@ -148,9 +148,9 @@ function initialPython(){
                   "course": "",
                   "question": 1
                  };
-  
+  var dataTypeDef = "json";
   //Gets assessment
-  $.post(urlDef, dataDef, makeTheTestPage);
+  $.post(urlDef, dataDef, makeTheTestPage, dataTypeDef);
   console.log("Please work. CEW needs this to work");
   
   for (var i = 0; i<answers.length;i++){
