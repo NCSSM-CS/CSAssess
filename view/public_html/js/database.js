@@ -14,7 +14,7 @@ function searchDatabase(text)
 	//var topic = document.getElementById("topic").value;
 	var i = 0;
 	var j = 0;
-	var length = Object.keys(questions.questionlist).length; //gets length of associative array "questions"
+	var length = Object.keys(questions.questionList).length; //gets length of associative array "questions"
 	var container = document.getElementById("database_container"); //gets container to put table in
 	while (container.firstChild) //removes old table if it exists
 	{
@@ -42,7 +42,7 @@ function searchDatabase(text)
 		for (j = 0; j < 5; j++) 
 		{
     		var td = document.createElement("TD");
-    		td.textContent = questions.questionlist[i][data[j]];
+    		td.textContent = questions.questionList[i][data[j]];
     		tr.appendChild(td);
         }
         tbody.appendChild(tr);
