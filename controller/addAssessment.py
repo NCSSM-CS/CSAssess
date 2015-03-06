@@ -21,8 +21,8 @@ from sql.assessment import Assessment
 #atype: "string" 
 #section: "string"
 #name: "string"
-#question_list: list of questions
-#topic_list: list of topics
+#questionList: []
+#topicList: []
 
 def iChooseU(form):
     thisUser = utils.findUser(form)
@@ -30,10 +30,17 @@ def iChooseU(form):
     atype = form["type"]
     section = Section.get(0, form["section"])[0]
     name = form["name"]
-    question_list = form["questions"]
-    topic_list = form["topics"]
+    questionList = form["questions"]
+    topicList = form["topics"]
+    
+    listOfQuestions = []
+    listOfTopics = []
+    for q in questionList:
+        listOfQuestions.append(Question.get(q)[0])
+    for t in topicList:
+        listOfTopics.append(Topic.get(t)[0])
 
-    newAssessment = Assessment.noID(None, thisUser, atype, section, name, question_list, topic_list, 1)
+    newAssessment = Assessment.noID(None, thisUser, atype, section, name, listOfQuestions, listOfTopics, 1)
     newAssessment.add()
 
     return utils.successJson(form)
