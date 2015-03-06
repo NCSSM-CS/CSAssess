@@ -25,6 +25,8 @@ def iChooseU(form):
     
     topic = form.getlist("topic")
     difficulty = form.getlist("difficulty")
+    print(topic)
+    print(difficulty)
 
     complete = []
     count = 0
@@ -35,6 +37,8 @@ def iChooseU(form):
     if len(difficulty) != 0:
         complete += Question.get(0, difficulty[0])
         count += 1
+
+    print(complete)
 
     collect = []
     intersect = []
