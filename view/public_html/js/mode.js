@@ -212,6 +212,5 @@ function createProgress(){
  function makeTheTestPage(data){
   console.log(data["assessmentList"]);
   console.log(data["session"]);  
-  console.log("WE MADE IT");
   console.log(data);
  }
