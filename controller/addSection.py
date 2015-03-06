@@ -17,7 +17,7 @@ from sql.session import Session
 
 #Format of answer -AM
 #requestType: addSection
-#course: Course
+#course: "string"
 #year: "string"
 #term: "string"
 #period: "string"
@@ -25,13 +25,12 @@ from sql.session import Session
 def iChooseU(form):
     thisUser = utils.findUser(form)
 
-    course = form["course"]
-    theCourse = Course.get(course["id"])[0]
+    course = Course.get(0, form["course"])[0]
     year = form["year"]
     term = form["term"]
     period = form["period"]
 
-    newSection = Section.noID(None, thisUser, theCourse, year, term, period, ACTIVE)
+    newSection = Section.noID(None, thisUser, course, year, term, period, ACTIVE)
     newSection.add()
 
     return utils.successJson(form)
