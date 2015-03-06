@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Keshav Patel
@@ -11,7 +11,6 @@ last_modified date: 3/6/2015
 import json
 import utils
 from sql.user import User
-from sql.session import Session
 
 #Format of JSON -KP
 #requestType: getUser
@@ -23,10 +22,10 @@ from sql.session import Session
 def iChooseU(form):
     thisUser = utils.findUser(form)
 
-    firstName = form["firstName"]
-    lastName = form["lastName"]
-    section = form["section"]
-    assessment = form["assessment"]
+    firstName = form.getlist("firstName")[0]
+    lastName = form.getlist("lastName")[0]
+    section = form.getlist("section")[0]
+    assessment = form.getlist("assessment")[0]
 
     complete = []
     count = 0
