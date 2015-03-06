@@ -25,8 +25,6 @@ def iChooseU(form):
     
     topic = form.getlist("topic")
     difficulty = form.getlist("difficulty")
-    print(topic)
-    print(difficulty)
 
     complete = []
     count = 0
@@ -38,16 +36,14 @@ def iChooseU(form):
         complete += Question.get(0, int(difficulty[0]))
         count += 1
 
-    print(complete)
-
     collect = []
     intersect = []
 
     for response in complete:
-        if collect.count(response) < count:
+        if collect.count(response) < count and count > 1:
             collect.append(response)
         else:
-            intersect.add(response)
+            intersect.add(response.toJson())
 
     out = {}
     out["questionList"] = intersect
