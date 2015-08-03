@@ -1,38 +1,28 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 """
 created_by:         Keshav Patel
 created_date:       3/4/2015
-last_modified_by:   Keshav Patel
-last_modified date: 3/4/2015
+last_modified_by:   Ebube Chuba
+last_modified date: 3/6/2015
 """
 
 # imports
-ifrom sql.user import User
+import utils
+import json
 from sql.topic import Topic
 from sql.session import Session
 
-#Format of JSON -KP
-#requestType: getAnswer
-#name: "string"
+# Format of JSON -KP
+# requestType: getTopic
 
-def iChooseU(json):
-    #from Ebube pt. 2
-    ipAddress = self.client_address[0]
-    session = Session.get(json["session"], ipAddress)[0]
-    thisUser = User.get(session[0])[0]
-    if DEBUG > 1:
-        print(thisUser)
 
-    name = json["name"]
+def iChooseU(form):
+    
+    topics = Topic.get()
+    out = []
 
-    tByName = []
+    for topic in topics:
+        out.append(topic.toJson())
 
-    if not name == None:
-        tByName.append(Topic.get(0, name))
-
-    out = {}
-    out["topicList"] = intersect
-    out["sessionID"] = json["session"]
-
-    return json.dumps(out)
+    return json.dumps({"topicList":out})

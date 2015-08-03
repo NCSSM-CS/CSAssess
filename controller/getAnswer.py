@@ -15,23 +15,23 @@ from sql.session import Session
 
 #Format of JSON -AM
 #requestType: getAnswer
-#question: Question
-#created_by: User
+#question: integer
+#created_by: "string"
 
-def iChooseU(json):
-    thisUser = utils.findUser(json)
+def iChooseU(form):
+    thisUser = utils.findUser(form)
 
-    question = json["question"]
-    createdBy = json["user"]
+    question = Question.get(form.getlist("question")[0])[0]
+    createdBy = User.get(form.getlist("createdBy")[0])[0]
 
     aByQuestion = []
     aByUser = []
 
     if not question == None:
-        aByQuestion.append(Answer.get(question["id"]))
+        aByQuestion.append(Answer.get(question))
 
     if not created_by == None:
-        aByUser.append(Answer.get(createdBy["id"]))
+        aByUser.append(Answer.get(createdBy))
 
     intersect = []
 
@@ -41,6 +41,6 @@ def iChooseU(json):
     
     out = {}
     out["answerList"] = intersect
-    out["sessionID"] = json["session"]
+    out["sessionID"] = form.getlist("session")[0]
 
     return json.dumps(out)
