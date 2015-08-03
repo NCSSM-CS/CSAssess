@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Problem</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="css/sidebar.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+
+        <script src="js/vendor/jquery-1.11.1.js"></script>
+        <script src="codemirror/lib/codemirror.js"></script>
+        <script src="codemirror/mode/python/python.js"></script>
+        <script src="codemirror/mode/clike/clike.js"></script>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/mode.js"></script>
+
+
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+
+    </head>
+    <body onload="initialPython()">
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a
+                href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">CS Assess</a>
+                </div>
+                <form class="navbar-text navbar-right" style="float: right">
+                    <a href="user_profile.html"
+                       style=";font-size: 20px; color:#ffffff; padding-right: 20px; text-decoration: none"> Testy
+                        Jones</a>
+                    <a href="login.html" style="font-size: 14px"> Logout </a>
+                </form>
+            </div>
+            <!--/.navbar-collapse -->
+        </nav>
+
+        <div id="wrapper">
+            <!-- The navbar on the right side -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand"><a href="#">Navigation</a></li>
+                    <li><a href="student_section.html">Class 1</a></li>
+                    <li>
+                        <ul>
+                            <li><a href="#">Grades</a></li>
+                            <li><a href="#">Assignments</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="student_section.html">Class 2</a></li>
+                    <li>
+                        <ul>
+                            <li><a href="#">Grades</a></li>
+                            <li><a href="#">Assignments</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="student_section.html">Class 3</a></li>
+                    <li>
+                        <ul>
+                            <li><a href="#">Grades</a></li>
+                            <li><a href="#">Assignments</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="practice.html">Practice</a></li>
+                </ul>
+            </div>
+
+            <!-- Home Page -->
+            <div id="page-content-wrapper">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h1>Problem 1.1</h1>
+                        <ul>
+                            <li><h3>This is the question of this problem. You should answer it.</h3></li>
+                            <li><h3>Preconditions:</h3></li>
+                            <li>
+                                <ul>
+                                    <li>Param1: A variable</li>
+                                    <li>Param2: Another variable</li>
+                                </ul>
+                            </li>
+                            <li><h3>Postconditions:</h3></li>
+                            <li>
+                                <ul>
+                                    <li>Returns a solution</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <textarea id="codingArea" cols="125" rows="20"></textarea>
+
+                        <div>
+                            <button type="button" onclick="submitSubmission()">Submit</button>
+                            <button type="button">View Test Cases</button>
+                            <button type="button">Run Test Cases</button>
+                            <select id="languageSelect" onchange="returnValues(this.value)">
+                                <option value="Python">Python 3</option>
+                                <option value="Java">Java</option>
+                                <option value="C">C</option>
+                                <option value="C++">C++</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--CEW: this will be changed on load, ten buttons is only an example JM did design-->
+                    <div class="col-md-2">
+                        <h4> Progress </h4>
+                        <ul id="progress" class="btn-group-vertical btn-group-center pagination-centered">
+                            <!--Buttons to questions loaded dynamically here. Booyah-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </body>
+
+    <footer>
+        <p>&copy; Company 2014</p>
+    </footer>
+    <!-- /container -->
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+
+</html>

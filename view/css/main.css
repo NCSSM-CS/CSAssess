@@ -1,0 +1,146 @@
+.navbar-brand {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.navbar-text {
+    font-size: 14px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 1;
+}
+
+.navbar-wrapper, .navbar-right, .navbar-left, .navbar, .navbar-inner, .container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.pageContentHeader {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 20px;
+    font-size: 50px;
+}
+
+.centeredText {
+    text-align: center;
+}
+
+.practiceContent {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dropdown {
+    text-decoration: none;
+    color: black;
+    list-style-type: none;
+}
+
+.practiceElement {
+    margin-left: 5px;
+}
+
+.dropdown-toggle {
+    color: black;
+}
+
+#codingArea {
+    margin-left: auto;
+    margin-right: auto;
+    resize: none;
+}
+
+#page-content-wrapper button {
+    margin-right: 15px;
+
+}
+
+#praciteLabel {
+    font-size: 30px;
+}
+
+#titleCent {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#titleCent2 {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+textarea {
+    resize: none;
+}
+
+.addTopic {
+    padding-right: 10px;
+    font-weight: normal !important;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+/
+/
+the original link with no underline
+a:visited {
+    text-decoration: none;
+}
+
+/
+/
+the visited link with no underline
+a:hover {
+    text-decoration: none;
+    font-weight: 800;
+}
+
+/
+/
+mouseover link and an underline appears
+#error {
+    color: red;
+    text-align: center;
+    width: 100%;
+}
+
+#newTopic {
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+tr#userTable > td {
+    padding-bottom: 1em;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
