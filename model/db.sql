@@ -11,7 +11,7 @@ USE csassess;
 
 -- ---
 -- Table 'answer'
--- a specific answer to a specific question. Also includes ''solutions'' which are teacher submitted answers to the question.
+-- a specific answer to a specific question. Also includes These are submitted by students while taking an assessment.
 -- ---
 
 DROP TABLE IF EXISTS `answer`;
